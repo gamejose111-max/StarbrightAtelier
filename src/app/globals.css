@@ -26,6 +26,28 @@
     --ring: 45 79% 55%;
     --radius: 0rem; /* Sharp edges for luxury feel */
   }
+
+  .dark {
+    --background: 20 10% 4%; /* Deep luxury black */
+    --foreground: 45 12% 95%;
+    --card: 20 10% 6%;
+    --card-foreground: 45 12% 95%;
+    --popover: 20 10% 6%;
+    --popover-foreground: 45 12% 95%;
+    --primary: 45 79% 55%; /* Gold stays constant but pops more */
+    --primary-foreground: 45 10% 10%;
+    --secondary: 15 40% 20%;
+    --secondary-foreground: 45 12% 95%;
+    --muted: 20 10% 12%;
+    --muted-foreground: 20 10% 60%;
+    --accent: 20 10% 15%;
+    --accent-foreground: 45 79% 55%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 45 12% 95%;
+    --border: 20 10% 15%;
+    --input: 20 10% 15%;
+    --ring: 45 79% 55%;
+  }
 }
 
 @layer base {
@@ -33,7 +55,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
   h1, h2, h3, h4, h5, h6 {

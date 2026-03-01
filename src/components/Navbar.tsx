@@ -2,7 +2,7 @@
 "use client"
 
 import Link from 'next/link';
-import { ShoppingBag, Search, User, Sparkles, Menu, Package, ClipboardList } from 'lucide-react';
+import { ShoppingBag, Search, User, Sparkles, Menu, Package, ClipboardList, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -10,14 +10,35 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      setIsDarkMode(true);
+      document.documentElement.classList.add('dark');
+    }
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const toggleDarkMode = () => {
+    if (isDarkMode) {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+      setIsDarkMode(false);
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+      setIsDarkMode(true);
+    }
+  };
 
   return (
     <header className={cn(
@@ -41,7 +62,18 @@ export function Navbar() {
             STARBRIGHT
           </Link>
 
-          <div className="flex items-center space-x-2 md:space-x-5">
+          <div className="flex items-center space-x-2 md:space-x-4">
+            {/* Theme Toggle Button */}
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={toggleDarkMode}
+              className="rounded-full w-9 h-9"
+              title={isDarkMode ? "Ativar Modo Claro" : "Ativar Modo Escuro"}
+            >
+              {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </Button>
+
             <Button variant="ghost" size="icon" className="hidden md:flex">
               <Search className="h-5 w-5" />
             </Button>
@@ -52,7 +84,7 @@ export function Navbar() {
                   <User className="h-5 w-5" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="rounded-none w-48 border-primary/20">
+              <DropdownMenuContent align="end" className="rounded-none w-48 border-primary/20 bg-background">
                 <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
                   <Link href="/admin/orders">
                     <ClipboardList className="mr-2 h-4 w-4" /> Gestão de Pedidos
