@@ -1,9 +1,9 @@
 
 "use client"
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { recommendHandbags, RecommendHandbagsOutput } from '@/ai/flows/ai-powered-style-recommender';
-import { useCollection, useFirestore } from '@/firebase';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { collection, query } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -20,7 +20,7 @@ export default function AIStylistPage() {
   const firestore = useFirestore();
 
   // Buscar produtos reais da loja
-  const productsQuery = useMemo(() => {
+  const productsQuery = useMemoFirebase(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'products'));
   }, [firestore]);

@@ -1,11 +1,10 @@
 
 "use client"
 
-import { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { useDoc, useFirestore } from '@/firebase';
+import { useDoc, useFirestore, useMemoFirebase } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -16,7 +15,7 @@ export default function ProductDetailPage() {
   const { id } = useParams();
   const firestore = useFirestore();
   
-  const productDoc = useMemo(() => {
+  const productDoc = useMemoFirebase(() => {
     if (!firestore || !id) return null;
     return doc(firestore, 'products', id as string);
   }, [firestore, id]);

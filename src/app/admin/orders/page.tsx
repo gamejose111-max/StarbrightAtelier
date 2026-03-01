@@ -1,9 +1,9 @@
 
 "use client"
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useCollection, useFirestore, useUser } from '@/firebase';
+import { useCollection, useFirestore, useUser, useMemoFirebase } from '@/firebase';
 import { collection, doc, updateDoc, query, orderBy } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -23,7 +23,7 @@ export default function AdminOrdersPage() {
     }
   }, [user, authLoading, router]);
 
-  const ordersQuery = useMemo(() => {
+  const ordersQuery = useMemoFirebase(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'orders'), orderBy('createdAt', 'desc'));
   }, [firestore]);
