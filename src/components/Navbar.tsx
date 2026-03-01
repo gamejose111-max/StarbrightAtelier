@@ -2,11 +2,12 @@
 "use client"
 
 import Link from 'next/link';
-import { ShoppingBag, Search, User, Sparkles, Menu, Package, ClipboardList, Moon, Sun, Phone } from 'lucide-react';
+import { ShoppingBag, Search, User, Sparkles, Menu, Package, ClipboardList, Moon, Sun, Phone, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,7 +18,6 @@ export function Navbar() {
       setIsScrolled(window.scrollY > 20);
     };
 
-    // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
       setIsDarkMode(true);
@@ -39,6 +39,13 @@ export function Navbar() {
       setIsDarkMode(true);
     }
   };
+
+  const navLinks = [
+    { name: "Bolsa de Mão", href: "/catalog" },
+    { name: "Carteira de Mão", href: "/catalog" },
+    { name: "Acessórios", href: "/catalog" },
+    { name: "Novidades", href: "/catalog" },
+  ];
 
   return (
     <header className={cn(
@@ -66,7 +73,6 @@ export function Navbar() {
           </Link>
 
           <div className="flex items-center space-x-2 md:space-x-4">
-            {/* Theme Toggle Button */}
             <Button 
               variant="ghost" 
               size="icon" 
@@ -106,9 +112,61 @@ export function Navbar() {
                 <ShoppingBag className="h-5 w-5" />
               </Button>
             </Link>
-            <Button variant="ghost" size="icon" className="lg:hidden">
-              <Menu className="h-5 w-5" />
-            </Button>
+
+            {/* Mobile Menu Button (Sheet) */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="lg:hidden">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[300px] bg-background border-r-primary/20 p-0 rounded-none">
+                <SheetHeader className="p-8 border-b border-muted">
+                  <SheetTitle className="font-headline tracking-widest text-left font-bold">MENU</SheetTitle>
+                </SheetHeader>
+                <div className="flex flex-col py-8 px-8 space-y-8">
+                  <div className="space-y-4">
+                    <p className="text-[10px] tracking-[0.3em] font-bold text-primary uppercase">Categorias</p>
+                    <nav className="flex flex-col space-y-5 text-sm font-bold tracking-[0.1em] uppercase">
+                      {navLinks.map((link) => (
+                        <SheetClose asChild key={link.name}>
+                          <Link href={link.href} className="hover:text-primary transition-colors">
+                            {link.name}
+                          </Link>
+                        </SheetClose>
+                      ))}
+                    </nav>
+                  </div>
+                  
+                  <div className="space-y-4 pt-8 border-t border-muted">
+                    <p className="text-[10px] tracking-[0.3em] font-bold text-primary uppercase">O Ateliê</p>
+                    <nav className="flex flex-col space-y-5 text-sm font-bold tracking-[0.1em] uppercase">
+                      <SheetClose asChild>
+                        <Link href="/sobre" className="hover:text-primary transition-colors">O Manifesto</Link>
+                      </SheetClose>
+                      <SheetClose asChild>
+                        <Link href="/contato" className="hover:text-primary transition-colors">Contato</Link>
+                      </SheetClose>
+                      <SheetClose asChild>
+                        <Link href="/ai-stylist" className="flex items-center gap-2 hover:text-primary transition-colors text-primary italic">
+                          <Sparkles className="h-4 w-4" /> Estilista IA
+                        </Link>
+                      </SheetClose>
+                    </nav>
+                  </div>
+
+                  <div className="pt-8 border-t border-muted">
+                    <div className="flex flex-col space-y-4">
+                       <SheetClose asChild>
+                         <Link href="/admin/orders" className="text-[10px] font-bold tracking-widest uppercase flex items-center gap-2 text-muted-foreground">
+                           <ClipboardList className="h-3 w-3" /> Painel Admin
+                         </Link>
+                       </SheetClose>
+                    </div>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </div>
