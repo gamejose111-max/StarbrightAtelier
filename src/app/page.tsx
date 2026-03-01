@@ -55,24 +55,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Manifesto Snapshot */}
-      <section className="py-24 border-y">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <Gem className="h-10 w-10 text-primary mx-auto" />
-            <h2 className="text-3xl md:text-4xl font-headline font-bold tracking-tight">O Cristal de Vidro de Alta Pureza</h2>
-            <p className="text-xl text-muted-foreground font-body leading-relaxed italic">
-              "Utilizamos o cristal de vidro de alta pureza, lapidado para capturar a luz e devolvê-la em um espectro de brilho inigualável. O que você segura em suas mãos é um exercício de paciência e precisão."
-            </p>
-            <div className="pt-4">
-               <Link href="/sobre" className="text-primary font-bold tracking-[0.2em] uppercase text-xs border-b border-primary pb-1 hover:text-primary/80 transition-colors">
-                Leia o Manifesto Completo
-               </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Featured Products - Organized Grids */}
       <section className="py-24">
         <div className="container mx-auto px-4 md:px-8">
