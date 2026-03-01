@@ -105,7 +105,8 @@ export function Navbar() {
                 {user ? (
                   <>
                     <div className="px-2 py-3 border-b mb-2">
-                      <p className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">Olá, {user.displayName?.split(' ')[0]}</p>
+                      <p className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">Administrador</p>
+                      <p className="text-[9px] text-muted-foreground truncate">{user.email}</p>
                     </div>
                     <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
                       <Link href="/admin/orders">
@@ -140,7 +141,6 @@ export function Navbar() {
               </Button>
             </Link>
 
-            {/* Mobile Menu Button (Sheet) */}
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="lg:hidden">

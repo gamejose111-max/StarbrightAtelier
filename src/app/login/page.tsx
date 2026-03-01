@@ -13,7 +13,7 @@ import { LogIn, Loader2, Sparkles, AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function LoginPage() {
-  const { user, loading } = useUser();
+  const { user, isUserLoading } = useUser();
   const auth = useAuth();
   const router = useRouter();
   
@@ -23,10 +23,10 @@ export default function LoginPage() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   useEffect(() => {
-    if (!loading && user) {
+    if (!isUserLoading && user) {
       router.push('/admin/products');
     }
-  }, [user, loading, router]);
+  }, [user, isUserLoading, router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,6 +41,8 @@ export default function LoginPage() {
       console.error("Erro ao fazer login:", err);
       if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
         setError("Credenciais inválidas. Verifique seu e-mail e senha.");
+      } else if (err.code === 'auth/api-key-not-valid') {
+        setError("Erro de configuração: Ative o método 'E-mail/Senha' no Console do Firebase.");
       } else {
         setError("Ocorreu um erro ao tentar acessar. Tente novamente.");
       }
@@ -49,7 +51,7 @@ export default function LoginPage() {
     }
   };
 
-  if (loading) {
+  if (isUserLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Loader2 className="animate-spin h-8 w-8 text-primary" />
