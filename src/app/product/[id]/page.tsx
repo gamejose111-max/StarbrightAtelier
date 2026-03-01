@@ -12,8 +12,8 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   // Mock data for detail based on ID
   const product = {
     id: id,
-    name: id === '1' ? "Celestial Tote" : id === '2' ? "Midnight Clutch" : id === '3' ? "Aura Crossbody" : "Solar Satchel",
-    price: id === '1' ? "$2,450" : id === '2' ? "$1,890" : id === '3' ? "$1,200" : "$3,100",
+    name: id === '1' ? "Celestial Tote" : id === '2' ? "Midnight Clutch" : id === '3' ? "Aura Crossbody" : id === '4' ? "Solar Satchel" : "Bolsa Ateliê",
+    price: id === '1' ? "€2.450" : id === '2' ? "€1.890" : id === '3' ? "€1.200" : "€3.100",
     description: "Um ícone da alta costura moderna. Esta peça exclusiva combina elegância atemporal com acabamento impecável em couro premium. Perfeita para quem busca distinção e sofisticação em cada detalhe.",
     features: [
       "Feito à mão por artesãos especializados",
@@ -42,7 +42,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             <div className="grid grid-cols-3 gap-4">
               {product.thumbnails.map((thumb, idx) => (
                 <div key={idx} className="aspect-square relative overflow-hidden bg-white border cursor-pointer hover:opacity-80 transition-opacity">
-                  <Image src={thumb} alt={`${product.name} detail ${idx}`} fill className="object-cover" />
+                  <Image src={thumb} alt={`${product.name} detalhe ${idx}`} fill className="object-cover" />
                 </div>
               ))}
             </div>
@@ -117,7 +117,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               <AccordionItem value="shipping" className="border-b">
                 <AccordionTrigger className="font-headline font-bold text-sm tracking-widest uppercase hover:no-underline py-4">Entrega e Prazos</AccordionTrigger>
                 <AccordionContent className="font-body text-muted-foreground">
-                  Nossas peças são enviadas com seguro total e embalagem especial para presente. 
+                  Nossas peças são enviadas com seguro total e embalagem especial para presente em toda a Europa. 
                   O prazo de aprovação do pedido é de até 24h úteis.
                 </AccordionContent>
               </AccordionItem>

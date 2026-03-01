@@ -6,10 +6,10 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ArrowRight, Sparkles, Star } from 'lucide-react';
 
 const featuredProducts = [
-  { id: 1, name: "Celestial Tote", price: "$2,450", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl },
-  { id: 2, name: "Midnight Clutch", price: "$1,890", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl },
-  { id: 3, name: "Aura Crossbody", price: "$1,200", image: PlaceHolderImages.find(p => p.id === 'bag-3')?.imageUrl },
-  { id: 4, name: "Solar Satchel", price: "$3,100", image: PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl },
+  { id: 1, name: "Celestial Tote", price: "€2.450", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl },
+  { id: 2, name: "Midnight Clutch", price: "€1.890", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl },
+  { id: 3, name: "Aura Crossbody", price: "€1.200", image: PlaceHolderImages.find(p => p.id === 'bag-3')?.imageUrl },
+  { id: 4, name: "Solar Satchel", price: "€3.100", image: PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl },
 ];
 
 export default function Home() {
@@ -20,7 +20,7 @@ export default function Home() {
         <div className="absolute inset-0 z-0">
           <Image 
             src={PlaceHolderImages.find(p => p.id === 'hero-bag')?.imageUrl || ""} 
-            alt="Luxury Handbag Hero" 
+            alt="Bolsa de Luxo Hero" 
             fill 
             className="object-cover"
             priority
@@ -31,22 +31,22 @@ export default function Home() {
         
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="max-w-2xl bg-white/10 backdrop-blur-md border border-white/20 p-8 md:p-12 animate-fadeUp">
-            <span className="text-xs tracking-[0.3em] font-bold text-primary uppercase mb-4 block">New Season Arrival</span>
+            <span className="text-xs tracking-[0.3em] font-bold text-primary uppercase mb-4 block">Chegada da Nova Temporada</span>
             <h1 className="text-4xl md:text-6xl font-headline font-bold text-white mb-6 leading-tight drop-shadow-sm">
-              Timeless Radiance <br /> For Every Moment
+              Radiância Atemporal <br /> Para Cada Momento
             </h1>
             <p className="text-lg text-white/90 mb-10 font-body leading-relaxed">
-              Discover our signature collection of luxury handbags, designed with celestial inspiration and artisanal craftsmanship.
+              Descubra nossa coleção exclusiva de bolsas de luxo, desenhadas com inspiração celestial e artesanato magistral.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/catalog">
                 <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-10 tracking-widest uppercase text-xs">
-                  Shop Collection
+                  Comprar Coleção
                 </Button>
               </Link>
               <Link href="/ai-stylist">
                 <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/20 rounded-none px-10 tracking-widest uppercase text-xs backdrop-blur-sm">
-                  Find Your Style
+                  Encontre Seu Estilo
                 </Button>
               </Link>
             </div>
@@ -59,12 +59,12 @@ export default function Home() {
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 space-y-4">
             <div className="space-y-4">
-              <h2 className="text-3xl font-headline font-bold">The Starbright Edit</h2>
-              <p className="text-muted-foreground max-w-md">Explore our most coveted pieces, curated for their exceptional craftsmanship and enduring style.</p>
+              <h2 className="text-3xl font-headline font-bold">O Edit Starbright</h2>
+              <p className="text-muted-foreground max-w-md">Explore nossas peças mais cobiçadas, selecionadas por seu artesanato excepcional e estilo duradouro.</p>
             </div>
             <Link href="/catalog">
               <Button variant="link" className="text-primary p-0 tracking-[0.2em] uppercase text-xs font-bold group">
-                View All Collection <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                Ver Coleção Completa <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
           </div>
@@ -99,7 +99,7 @@ export default function Home() {
       <section className="relative h-[600px] overflow-hidden flex items-center">
         <Image 
           src={PlaceHolderImages.find(p => p.id === 'stylist-bg')?.imageUrl || ""} 
-          alt="AI Stylist Background" 
+          alt="Fundo Estilista IA" 
           fill 
           className="object-cover"
           data-ai-hint="luxury atelier"
@@ -110,14 +110,14 @@ export default function Home() {
             <div className="inline-flex items-center justify-center p-3 rounded-full bg-primary/10 mb-2">
               <Sparkles className="h-8 w-8 text-primary" />
             </div>
-            <h2 className="text-4xl md:text-5xl font-headline font-bold tracking-tight">Personalized Luxury</h2>
+            <h2 className="text-4xl md:text-5xl font-headline font-bold tracking-tight">Luxo Personalizado</h2>
             <p className="text-xl text-muted-foreground font-body leading-relaxed">
-              Not sure which bag matches your upcoming gala or daily professional look? 
-              Our AI-powered stylist uses your preferences to find the perfect Starbright masterpiece.
+              Não tem certeza de qual bolsa combina com seu próximo evento ou look profissional? 
+              Nossa estilista baseada em IA usa suas preferências para encontrar a obra-prima Starbright perfeita.
             </p>
             <Link href="/ai-stylist">
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-12 h-14 tracking-[0.2em] uppercase text-xs font-bold">
-                Experience AI Stylist
+                Experimentar Estilista IA
               </Button>
             </Link>
           </div>
@@ -129,16 +129,16 @@ export default function Home() {
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
             <div className="space-y-4">
-              <h4 className="text-sm tracking-[0.3em] font-bold text-primary">CRAFTSMANSHIP</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">Each piece is handcrafted by master artisans using the finest materials sourced globally.</p>
+              <h4 className="text-sm tracking-[0.3em] font-bold text-primary">ARTESANATO</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">Cada peça é feita à mão por mestres artesãos usando os melhores materiais de origem global.</p>
             </div>
             <div className="space-y-4">
               <h4 className="text-sm tracking-[0.3em] font-bold text-primary">CONCIERGE</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">Dedicated personal shopping assistance for a tailored luxury experience.</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">Assistência pessoal dedicada para uma experiência de compra de luxo sob medida.</p>
             </div>
             <div className="space-y-4">
-              <h4 className="text-sm tracking-[0.3em] font-bold text-primary">DELIVERY</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">Complimentary white-glove delivery on all orders over $1,500.</p>
+              <h4 className="text-sm tracking-[0.3em] font-bold text-primary">ENTREGA</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">Entrega gratuita com luvas brancas em todos os pedidos acima de €1.500.</p>
             </div>
           </div>
         </div>

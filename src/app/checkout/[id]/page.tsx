@@ -38,8 +38,8 @@ export default function CheckoutPage() {
   // Mock product lookup (In a real app, this would be from Firestore)
   const product = {
     id: id,
-    name: id === '1' ? "Celestial Tote" : id === '2' ? "Midnight Clutch" : id === '3' ? "Aura Crossbody" : "Solar Satchel",
-    price: id === '1' ? "$2,450" : id === '2' ? "$1,890" : id === '3' ? "$1,200" : "$3,100",
+    name: id === '1' ? "Celestial Tote" : id === '2' ? "Midnight Clutch" : id === '3' ? "Aura Crossbody" : id === '4' ? "Solar Satchel" : "Bolsa Starbright",
+    price: id === '1' ? "€2.450" : id === '2' ? "€1.890" : id === '3' ? "€1.200" : "€3.100",
     image: PlaceHolderImages.find(p => p.id === `bag-${id}`)?.imageUrl || PlaceHolderImages[1].imageUrl
   };
 
@@ -144,7 +144,7 @@ export default function CheckoutPage() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone">Telefone / WhatsApp</Label>
-                    <Input id="phone" required placeholder="(00) 00000-0000" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="rounded-none" />
+                    <Input id="phone" required placeholder="+351 000 000 000" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="rounded-none" />
                   </div>
                 </CardContent>
               </Card>
@@ -158,12 +158,12 @@ export default function CheckoutPage() {
                 <CardContent className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="cep">CEP</Label>
+                      <Label htmlFor="cep">Código Postal / CEP</Label>
                       <div className="relative">
                         <Input 
                           id="cep" 
                           required 
-                          placeholder="00000-000" 
+                          placeholder="0000-000" 
                           value={formData.cep} 
                           onChange={e => setFormData({...formData, cep: e.target.value})}
                           onBlur={handleCepBlur}
@@ -193,14 +193,14 @@ export default function CheckoutPage() {
                       <Input id="address" required value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} className="rounded-none" />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="number">Número</Label>
+                      <Label htmlFor="number">Número / Porta</Label>
                       <Input id="number" required value={formData.number} onChange={e => setFormData({...formData, number: e.target.value})} className="rounded-none" />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="neighborhood">Bairro</Label>
+                      <Label htmlFor="neighborhood">Bairro / Freguesia</Label>
                       <Input id="neighborhood" required value={formData.neighborhood} onChange={e => setFormData({...formData, neighborhood: e.target.value})} className="rounded-none" />
                     </div>
                     <div className="space-y-2">
@@ -208,7 +208,7 @@ export default function CheckoutPage() {
                       <Input id="city" required value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} className="rounded-none" />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="state">Estado</Label>
+                      <Label htmlFor="state">Estado / Distrito</Label>
                       <Input id="state" required value={formData.state} onChange={e => setFormData({...formData, state: e.target.value})} className="rounded-none" />
                     </div>
                   </div>
@@ -247,7 +247,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Envio</span>
-                      <span className="text-primary font-bold">Cortesia</span>
+                      <span className="text-primary font-bold">Gratuito</span>
                     </div>
                     <div className="flex justify-between border-t pt-4 font-bold text-lg">
                       <span>Total</span>

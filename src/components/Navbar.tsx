@@ -27,10 +27,10 @@ export function Navbar() {
         <div className="flex items-center justify-between">
           <div className="hidden lg:flex items-center space-x-8">
             <nav className="flex items-center space-x-6 text-sm font-medium tracking-widest uppercase">
-              <Link href="/catalog" className="hover:text-primary transition-colors">Collection</Link>
+              <Link href="/catalog" className="hover:text-primary transition-colors">Coleção</Link>
               <Link href="/ai-stylist" className="flex items-center gap-1.5 hover:text-primary transition-colors">
                 <Sparkles className="h-3.5 w-3.5" />
-                AI Stylist
+                Estilista IA
               </Link>
             </nav>
           </div>

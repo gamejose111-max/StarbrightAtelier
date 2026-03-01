@@ -10,9 +10,9 @@ export function Footer() {
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
-            <h3 className="font-headline text-xl tracking-widest font-bold">STARBRIGHT ATELIER</h3>
+            <h3 className="font-headline text-xl tracking-widest font-bold">ATELIÊ STARBRIGHT</h3>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
-              Exquisite luxury handbags crafted for the modern individual. Elegance in every stitch, brilliance in every detail.
+              Bolsas de luxo requintadas criadas para o indivíduo moderno. Elegância em cada ponto, brilho em cada detalhe.
             </p>
             <div className="flex space-x-4">
               <Instagram className="h-5 w-5 text-muted-foreground hover:text-primary cursor-pointer" />
@@ -22,30 +22,30 @@ export function Footer() {
           </div>
 
           <div className="space-y-6">
-            <h4 className="font-headline text-sm tracking-[0.2em] font-bold">COLLECTION</h4>
+            <h4 className="font-headline text-sm tracking-[0.2em] font-bold">COLEÇÃO</h4>
             <ul className="space-y-4 text-sm uppercase tracking-wider font-medium">
-              <li><Link href="/catalog?cat=handbags" className="hover:text-primary transition-colors">Handbags</Link></li>
-              <li><Link href="/catalog?cat=clutches" className="hover:text-primary transition-colors">Evening Clutches</Link></li>
-              <li><Link href="/catalog?cat=totes" className="hover:text-primary transition-colors">Luxury Totes</Link></li>
-              <li><Link href="/catalog?cat=new" className="hover:text-primary transition-colors">New Arrivals</Link></li>
+              <li><Link href="/catalog?cat=handbags" className="hover:text-primary transition-colors">Bolsas de Mão</Link></li>
+              <li><Link href="/catalog?cat=clutches" className="hover:text-primary transition-colors">Clutches de Festa</Link></li>
+              <li><Link href="/catalog?cat=totes" className="hover:text-primary transition-colors">Totes de Luxo</Link></li>
+              <li><Link href="/catalog?cat=new" className="hover:text-primary transition-colors">Novidades</Link></li>
             </ul>
           </div>
 
           <div className="space-y-6">
-            <h4 className="font-headline text-sm tracking-[0.2em] font-bold">CLIENT CARE</h4>
+            <h4 className="font-headline text-sm tracking-[0.2em] font-bold">ATENDIMENTO</h4>
             <ul className="space-y-4 text-sm uppercase tracking-wider font-medium">
-              <li><Link href="/contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
-              <li><Link href="/shipping" className="hover:text-primary transition-colors">Shipping & Returns</Link></li>
+              <li><Link href="/contact" className="hover:text-primary transition-colors">Contato</Link></li>
+              <li><Link href="/shipping" className="hover:text-primary transition-colors">Envios e Devoluções</Link></li>
               <li><Link href="/faq" className="hover:text-primary transition-colors">FAQ</Link></li>
-              <li><Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/privacy" className="hover:text-primary transition-colors">Política de Privacidade</Link></li>
             </ul>
           </div>
 
           <div className="space-y-6">
             <h4 className="font-headline text-sm tracking-[0.2em] font-bold">NEWSLETTER</h4>
-            <p className="text-sm text-muted-foreground">Subscribe to receive updates, access to exclusive deals, and more.</p>
+            <p className="text-sm text-muted-foreground">Assine para receber atualizações, acesso a ofertas exclusivas e muito mais.</p>
             <div className="flex gap-2">
-              <Input placeholder="E-mail address" className="bg-background border-muted rounded-none" />
+              <Input placeholder="Endereço de e-mail" className="bg-background border-muted rounded-none" />
               <Button className="rounded-none bg-primary text-primary-foreground hover:bg-primary/90">
                 <Mail className="h-4 w-4" />
               </Button>
@@ -54,10 +54,10 @@ export function Footer() {
         </div>
         
         <div className="pt-8 border-t flex flex-col md:flex-row justify-between items-center text-[10px] tracking-[0.15em] uppercase text-muted-foreground">
-          <p>© {new Date().getFullYear()} STARBRIGHT ATELIER. ALL RIGHTS RESERVED.</p>
+          <p>© {new Date().getFullYear()} ATELIÊ STARBRIGHT. TODOS OS DIREITOS RESERVADOS.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <span>TERMS OF SERVICE</span>
-            <span>COOKIE SETTINGS</span>
+            <span>TERMOS DE SERVIÇO</span>
+            <span>COOKIES</span>
           </div>
         </div>
       </div>

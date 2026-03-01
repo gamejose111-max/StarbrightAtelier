@@ -5,8 +5,8 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Starbright Atelier | Luxury Handbags',
-  description: 'Curated collection of high-end luxury handbags at Ateliê Starbright.',
+  title: 'Ateliê Starbright | Bolsas de Luxo',
+  description: 'Coleção exclusiva de bolsas de luxo de alta costura no Ateliê Starbright.',
 };
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

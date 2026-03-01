@@ -1,10 +1,11 @@
+
 'use server';
 /**
- * @fileOverview An AI agent that recommends luxury handbags based on user preferences.
+ * @fileOverview Um agente de IA que recomenda bolsas de luxo com base nas preferências do usuário.
  *
- * - recommendHandbags - A function that handles the handbag recommendation process.
- * - RecommendHandbagsInput - The input type for the recommendHandbags function.
- * - RecommendHandbagsOutput - The return type for the recommendHandbags function.
+ * - recommendHandbags - Uma função que gerencia o processo de recomendação de bolsas.
+ * - RecommendHandbagsInput - O tipo de entrada para a função recommendHandbags.
+ * - RecommendHandbagsOutput - O tipo de retorno para a função recommendHandbags.
  */
 
 import {ai} from '@/ai/genkit';
@@ -13,27 +14,27 @@ import {z} from 'genkit';
 const RecommendHandbagsInputSchema = z.object({
   occasion: z
     .string()
-    .describe('The occasion for which the user needs a handbag (e.g., "evening event", "daily work", "travel").'),
+    .describe('A ocasião para a qual o usuário precisa de uma bolsa (ex: "evento noturno", "trabalho diário", "viagem").'),
   stylePreference: z
     .string()
-    .describe('The user\u0027s preferred style (e.g., "minimalist", "bohemian", "classic", "trendy").'),
+    .describe('O estilo preferido do usuário (ex: "minimalista", "boêmio", "clássico", "tendência").'),
   wardrobeItems: z
     .string()
-    .describe('A description of existing wardrobe items to match the handbag with (e.g., "black dress, silver jewelry", "jeans and t-shirts", "business suits").'),
+    .describe('Uma descrição dos itens de guarda-roupa existentes para combinar com a bolsa (ex: "vestido preto, joias de prata", "jeans e camisetas", "ternos de negócios").'),
 });
 export type RecommendHandbagsInput = z.infer<typeof RecommendHandbagsInputSchema>;
 
 const RecommendedHandbagSchema = z.object({
-  name: z.string().describe('The name of the recommended handbag.'),
-  brand: z.string().describe('The brand of the recommended handbag.'),
-  description: z.string().describe('A brief description of the handbag, highlighting why it fits the user\u0027s preferences.'),
-  features: z.array(z.string()).describe('Key features of the handbag (e.g., "detachable strap", "internal pockets", "calfskin leather").'),
-  imageUrl: z.string().url().describe('A URL to an image of the recommended handbag.'),
+  name: z.string().describe('O nome da bolsa recomendada.'),
+  brand: z.string().describe('A marca da bolsa recomendada.'),
+  description: z.string().describe('Uma breve descrição da bolsa, destacando por que ela se encaixa nas preferências do usuário.'),
+  features: z.array(z.string()).describe('Recursos principais da bolsa (ex: "alça removível", "bolsos internos", "couro de bezerro").'),
+  imageUrl: z.string().url().describe('Uma URL para uma imagem da bolsa recomendada.'),
 });
 
 const RecommendHandbagsOutputSchema = z.object({
-  recommendations: z.array(RecommendedHandbagSchema).describe('An array of recommended luxury handbags.'),
-  summary: z.string().describe('A summary explaining the recommendations based on the user\u0027s input.'),
+  recommendations: z.array(RecommendedHandbagSchema).describe('Um array de bolsas de luxo recomendadas.'),
+  summary: z.string().describe('Um resumo explicando as recomendações com base na entrada do usuário.'),
 });
 export type RecommendHandbagsOutput = z.infer<typeof RecommendHandbagsOutputSchema>;
 
@@ -47,16 +48,16 @@ const prompt = ai.definePrompt({
   name: 'recommendHandbagsPrompt',
   input: {schema: RecommendHandbagsInputSchema},
   output: {schema: RecommendHandbagsOutputSchema},
-  prompt: `You are a luxury fashion stylist specializing in high-end handbags for Ateliê Starbright. Your task is to recommend 3 exquisite luxury handbags based on the user's preferences, occasion, and existing wardrobe. Focus on sophisticated, timeless, and elegant pieces.
+  prompt: `Você é uma consultora de moda de luxo especializada em bolsas de alta costura para o Ateliê Starbright. Sua tarefa é recomendar 3 bolsas de luxo requintadas com base nas preferências do usuário, ocasião e guarda-roupa existente. Foque em peças sofisticadas, atemporais e elegantes. Toda a sua resposta deve ser em Português (PT-BR).
 
-User Preferences:
-- Occasion: {{{occasion}}}
-- Style Preference: {{{stylePreference}}}
-- Existing Wardrobe Items: {{{wardrobeItems}}}
+Preferências do Usuário:
+- Ocasião: {{{occasion}}}
+- Estilo Preferido: {{{stylePreference}}}
+- Itens do Guarda-Roupa: {{{wardrobeItems}}}
 
-Based on these details, provide 3 distinct handbag recommendations, including their brand, a detailed description, key features, and a hypothetical image URL. Also, include a brief summary explaining your choices.
+Com base nestes detalhes, forneça 3 recomendações de bolsas distintas, incluindo a marca, uma descrição detalhada, recursos principais e uma URL de imagem hipotética (use picsum.photos). Além disso, inclua um breve resumo explicando suas escolhas.
 
-Ensure the output is a JSON object matching the following structure and prioritize brands known for luxury handbags.`,
+Certifique-se de que a saída seja um objeto JSON correspondente à estrutura solicitada e priorize marcas conhecidas por bolsas de luxo.`,
 });
 
 const recommendHandbagsFlow = ai.defineFlow(
@@ -68,7 +69,7 @@ const recommendHandbagsFlow = ai.defineFlow(
   async input => {
     const {output} = await prompt(input);
     if (!output) {
-      throw new Error('Failed to get handbag recommendations.');
+      throw new Error('Falha ao obter recomendações de bolsas.');
     }
     return output;
   }

@@ -7,17 +7,17 @@ import { Filter, ChevronDown, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
 const products = [
-  { id: 1, name: "Celestial Tote", price: "$2,450", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl, color: "Cream", category: "Totes" },
-  { id: 2, name: "Midnight Clutch", price: "$1,890", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl, color: "Gold/Black", category: "Clutches" },
-  { id: 3, name: "Aura Crossbody", price: "$1,200", image: PlaceHolderImages.find(p => p.id === 'bag-3')?.imageUrl, color: "Tan", category: "Crossbody" },
-  { id: 4, name: "Solar Satchel", price: "$3,100", image: PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl, color: "Burgundy", category: "Satchels" },
-  { id: 1, name: "Stellar Evening Bag", price: "$2,200", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl, color: "Silver", category: "Evening" },
-  { id: 2, name: "Orbit Handbag", price: "$1,550", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl, color: "Pearl", category: "Handbags" },
-  { id: 3, name: "Nebula Pouch", price: "$950", image: PlaceHolderImages.find(p => p.id === 'bag-3')?.imageUrl, color: "Onyx", category: "Pouches" },
-  { id: 4, name: "Nova Bucket Bag", price: "$1,800", image: PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl, color: "Champagne", category: "Bucket" },
+  { id: 1, name: "Celestial Tote", price: "€2.450", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl, color: "Creme", category: "Totes" },
+  { id: 2, name: "Midnight Clutch", price: "€1.890", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl, color: "Dourado/Preto", category: "Clutches" },
+  { id: 3, name: "Aura Crossbody", price: "€1.200", image: PlaceHolderImages.find(p => p.id === 'bag-3')?.imageUrl, color: "Caramelo", category: "Crossbody" },
+  { id: 4, name: "Solar Satchel", price: "€3.100", image: PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl, color: "Borgonha", category: "Satchels" },
+  { id: 5, name: "Stellar Evening Bag", price: "€2.200", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl, color: "Prata", category: "Noite" },
+  { id: 6, name: "Orbit Handbag", price: "€1.550", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl, color: "Pérola", category: "Bolsas de Mão" },
+  { id: 7, name: "Nebula Pouch", price: "€950", image: PlaceHolderImages.find(p => p.id === 'bag-3')?.imageUrl, color: "Ônix", category: "Pouches" },
+  { id: 8, name: "Nova Bucket Bag", price: "€1.800", image: PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl, color: "Champagne", category: "Bucket" },
 ];
 
-const categories = ["All", "Totes", "Clutches", "Crossbody", "Satchels", "Evening"];
+const categories = ["Todos", "Totes", "Clutches", "Crossbody", "Satchels", "Noite"];
 
 export default function CatalogPage() {
   return (
@@ -25,10 +25,10 @@ export default function CatalogPage() {
       <div className="container mx-auto px-4 md:px-8">
         {/* Header section */}
         <div className="max-w-4xl mx-auto text-center mb-20 space-y-4">
-          <h1 className="text-5xl font-headline font-bold tracking-tight">The Collection</h1>
+          <h1 className="text-5xl font-headline font-bold tracking-tight">A Coleção</h1>
           <div className="h-1 w-20 bg-primary mx-auto"></div>
           <p className="text-muted-foreground text-sm uppercase tracking-[0.3em] font-medium pt-2">
-            Artisanal Mastery & Timeless Design
+            Domínio Artesanal & Design Atemporal
           </p>
         </div>
 
@@ -49,12 +49,12 @@ export default function CatalogPage() {
             <div className="relative flex-1 lg:w-64">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input 
-                placeholder="Search collection..." 
+                placeholder="Buscar coleção..." 
                 className="pl-10 rounded-none border-muted focus:border-primary bg-transparent text-xs"
               />
             </div>
             <Button variant="outline" className="rounded-none border-muted px-6 uppercase tracking-widest text-[10px] font-bold h-10">
-              Filters <Filter className="ml-2 h-3 w-3" />
+              Filtros <Filter className="ml-2 h-3 w-3" />
             </Button>
           </div>
         </div>
@@ -75,7 +75,7 @@ export default function CatalogPage() {
                 {/* Overlay on hover */}
                 <div className="absolute inset-0 flex items-end justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                   <Button className="w-full bg-white text-black hover:bg-primary hover:text-white rounded-none tracking-widest uppercase text-[10px] font-bold h-12">
-                    Quick View
+                    Ver Detalhes
                   </Button>
                 </div>
               </div>
@@ -95,11 +95,11 @@ export default function CatalogPage() {
 
         {/* Load More */}
         <div className="mt-32 text-center space-y-8">
-          <p className="text-xs text-muted-foreground uppercase tracking-widest">Showing 8 of 24 pieces</p>
+          <p className="text-xs text-muted-foreground uppercase tracking-widest">Exibindo 8 de 24 peças</p>
           <div className="flex justify-center items-center gap-4">
             <div className="h-[1px] w-20 bg-muted"></div>
             <Button variant="ghost" className="rounded-none border-b-2 border-primary text-primary font-bold tracking-[0.2em] uppercase text-xs hover:bg-transparent">
-              Load More
+              Carregar Mais
             </Button>
             <div className="h-[1px] w-20 bg-muted"></div>
           </div>
