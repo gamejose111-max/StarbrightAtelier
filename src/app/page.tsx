@@ -10,6 +10,7 @@ const featuredProducts = [
   { id: 2, name: "Midnight Clutch", price: "€1.890", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl },
   { id: 3, name: "Aura Crossbody", price: "€1.200", image: PlaceHolderImages.find(p => p.id === 'bag-3')?.imageUrl },
   { id: 4, name: "Solar Satchel", price: "€3.100", image: PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl },
+  { id: 5, name: "Stellar Bag", price: "€2.200", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl },
 ];
 
 export default function Home() {
@@ -72,7 +73,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Products */}
+      {/* Featured Products - Organized Grids */}
       <section className="py-24 bg-muted/20">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 space-y-4">
@@ -87,25 +88,25 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {featuredProducts.map((product) => (
-              <Link key={product.id} href={`/product/${product.id}`} className="group space-y-4 hover-lift">
-                <div className="aspect-square relative overflow-hidden bg-white border">
+              <Link key={product.id} href={`/product/${product.id}`} className="group space-y-3 hover-lift">
+                <div className="aspect-square relative overflow-hidden bg-white border border-muted/50">
                   <Image 
                     src={product.image || ""} 
                     alt={product.name} 
                     fill 
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Button size="icon" variant="secondary" className="rounded-full shadow-lg">
-                      <Star className="h-4 w-4 text-primary" />
-                    </Button>
+                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="bg-white/90 backdrop-blur-sm p-1.5 rounded-full shadow-md">
+                      <Star className="h-3.5 w-3.5 text-primary fill-primary" />
+                    </div>
                   </div>
                 </div>
-                <div className="text-center space-y-1">
-                  <h3 className="text-sm font-headline tracking-widest font-bold pt-2">{product.name}</h3>
-                  <p className="text-sm text-primary font-bold tracking-wider">{product.price}</p>
+                <div className="text-center space-y-0.5">
+                  <h3 className="text-[13px] font-headline tracking-wide font-bold truncate px-2">{product.name}</h3>
+                  <p className="text-xs text-primary font-bold tracking-widest">{product.price}</p>
                 </div>
               </Link>
             ))}
@@ -113,7 +114,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Brand Values with Manifesto Tone */}
+      {/* Brand Values */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
@@ -134,7 +135,7 @@ export default function Home() {
       </section>
 
       {/* AI Stylist Promo */}
-      <section className="relative h-[600px] overflow-hidden flex items-center">
+      <section className="relative h-[500px] overflow-hidden flex items-center">
         <Image 
           src={PlaceHolderImages.find(p => p.id === 'stylist-bg')?.imageUrl || ""} 
           alt="Fundo Estilista IA" 
