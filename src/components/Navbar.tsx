@@ -2,16 +2,20 @@
 "use client"
 
 import Link from 'next/link';
-import { ShoppingBag, Search, User, Sparkles, Menu, Package, ClipboardList, Moon, Sun, Phone, X } from 'lucide-react';
+import { ShoppingBag, Search, User, Sparkles, Menu, Package, ClipboardList, Moon, Sun, Phone, LogOut, LogIn } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet';
+import { useUser, useAuth } from '@/firebase';
+import { signOut } from 'firebase/auth';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const { user } = useUser();
+  const auth = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,6 +42,10 @@ export function Navbar() {
       localStorage.setItem('theme', 'dark');
       setIsDarkMode(true);
     }
+  };
+
+  const handleLogout = async () => {
+    if (auth) await signOut(auth);
   };
 
   const navLinks = [
@@ -89,21 +97,40 @@ export function Navbar() {
             
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" title="Área do Administrador">
-                  <User className="h-5 w-5" />
+                <Button variant="ghost" size="icon" title={user ? "Minha Conta" : "Fazer Login"}>
+                  <User className={cn("h-5 w-5", user && "text-primary")} />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="rounded-none w-48 border-primary/20 bg-background">
-                <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
-                  <Link href="/admin/orders">
-                    <ClipboardList className="mr-2 h-4 w-4" /> Gestão de Pedidos
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
-                  <Link href="/admin/products">
-                    <Package className="mr-2 h-4 w-4" /> Gestão de Produtos
-                  </Link>
-                </DropdownMenuItem>
+              <DropdownMenuContent align="end" className="rounded-none w-56 border-primary/20 bg-background p-2">
+                {user ? (
+                  <>
+                    <div className="px-2 py-3 border-b mb-2">
+                      <p className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">Olá, {user.displayName?.split(' ')[0]}</p>
+                    </div>
+                    <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
+                      <Link href="/admin/orders">
+                        <ClipboardList className="mr-2 h-4 w-4" /> Gestão de Pedidos
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
+                      <Link href="/admin/products">
+                        <Package className="mr-2 h-4 w-4" /> Gestão de Produtos
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3 text-destructive"
+                      onClick={handleLogout}
+                    >
+                      <LogOut className="mr-2 h-4 w-4" /> Sair
+                    </DropdownMenuItem>
+                  </>
+                ) : (
+                  <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
+                    <Link href="/login">
+                      <LogIn className="mr-2 h-4 w-4" /> Acesso Restrito
+                    </Link>
+                  </DropdownMenuItem>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
 

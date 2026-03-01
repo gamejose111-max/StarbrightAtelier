@@ -1,8 +1,9 @@
 
 "use client"
 
-import { useState, useMemo } from 'react';
-import { useCollection, initializeFirebase } from '@/firebase';
+import { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useCollection, useFirestore, useUser } from '@/firebase';
 import { collection, doc, updateDoc, query, orderBy } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,13 +13,22 @@ import { Loader2, Check, X, Eye, Package, User, MapPin } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 export default function AdminOrdersPage() {
-  const { firestore } = initializeFirebase();
+  const { user, loading: authLoading } = useUser();
+  const router = useRouter();
+  const firestore = useFirestore();
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/login');
+    }
+  }, [user, authLoading, router]);
+
   const ordersQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'orders'), orderBy('createdAt', 'desc'));
   }, [firestore]);
 
-  const { data: orders, loading } = useCollection(ordersQuery);
+  const { data: orders, loading: dataLoading } = useCollection(ordersQuery);
   const [updating, setUpdating] = useState<string | null>(null);
 
   const handleUpdateStatus = async (orderId: string, status: 'accepted' | 'cancelled') => {
@@ -26,7 +36,6 @@ export default function AdminOrdersPage() {
     setUpdating(orderId);
     try {
       await updateDoc(doc(firestore, 'orders', orderId), { status });
-      // In a production app, a Cloud Function would trigger the email here based on this status update
     } catch (error) {
       console.error("Erro ao atualizar pedido:", error);
     } finally {
@@ -34,13 +43,15 @@ export default function AdminOrdersPage() {
     }
   };
 
-  if (loading) {
+  if (authLoading || dataLoading) {
     return (
       <div className="min-h-screen pt-32 flex items-center justify-center">
         <Loader2 className="animate-spin h-8 w-8 text-primary" />
       </div>
     );
   }
+
+  if (!user) return null;
 
   return (
     <div className="min-h-screen pt-32 pb-32 bg-muted/20">

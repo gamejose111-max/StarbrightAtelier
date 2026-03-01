@@ -1,8 +1,9 @@
 
 "use client"
 
-import { useState, useMemo } from 'react';
-import { useCollection, useFirestore } from '@/firebase';
+import { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useCollection, useFirestore, useUser } from '@/firebase';
 import { collection, doc, addDoc, updateDoc, deleteDoc, query, orderBy, serverTimestamp } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -20,13 +21,22 @@ import Image from 'next/image';
 const CATEGORIES = ["Bolsa de Mão", "Carteira de Mão", "Acessórios"];
 
 export default function AdminProductsPage() {
+  const { user, loading: authLoading } = useUser();
+  const router = useRouter();
   const firestore = useFirestore();
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/login');
+    }
+  }, [user, authLoading, router]);
+
   const productsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'products'), orderBy('createdAt', 'desc'));
   }, [firestore]);
 
-  const { data: products, loading } = useCollection(productsQuery);
+  const { data: products, loading: dataLoading } = useCollection(productsQuery);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<any>(null);
 
@@ -85,13 +95,15 @@ export default function AdminProductsPage() {
     deleteDoc(doc(firestore, 'products', id));
   };
 
-  if (loading) {
+  if (authLoading || dataLoading) {
     return (
       <div className="min-h-screen pt-32 flex items-center justify-center">
         <Loader2 className="animate-spin h-8 w-8 text-primary" />
       </div>
     );
   }
+
+  if (!user) return null;
 
   return (
     <div className="min-h-screen pt-32 pb-32 bg-muted/20">
