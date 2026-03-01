@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ArrowRight, Sparkles, Star } from 'lucide-react';
+import { ArrowRight, Sparkles, Star, Gem } from 'lucide-react';
 
 const featuredProducts = [
   { id: 1, name: "Celestial Tote", price: "€2.450", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl },
@@ -26,17 +26,17 @@ export default function Home() {
             priority
             data-ai-hint="luxury handbag"
           />
-          <div className="absolute inset-0 bg-black/10" />
+          <div className="absolute inset-0 bg-black/20" />
         </div>
         
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="max-w-2xl bg-white/10 backdrop-blur-md border border-white/20 p-8 md:p-12 animate-fadeUp">
-            <span className="text-xs tracking-[0.3em] font-bold text-primary uppercase mb-4 block">Chegada da Nova Temporada</span>
+          <div className="max-w-2xl bg-white/5 backdrop-blur-md border border-white/20 p-8 md:p-12 animate-fadeUp">
+            <span className="text-xs tracking-[0.3em] font-bold text-primary uppercase mb-4 block">A Arte de Brilhar em Cada Detalhe</span>
             <h1 className="text-4xl md:text-6xl font-headline font-bold text-white mb-6 leading-tight drop-shadow-sm">
-              Radiância Atemporal <br /> Para Cada Momento
+              Esculpimos Luz <br /> Em Peças Eternas
             </h1>
-            <p className="text-lg text-white/90 mb-10 font-body leading-relaxed">
-              Descubra nossa coleção exclusiva de bolsas de luxo, desenhadas com inspiração celestial e artesanato magistral.
+            <p className="text-lg text-white/90 mb-10 font-body leading-relaxed italic">
+              "No Ateliê StarBright, não criamos apenas bolsas; esculpimos luz."
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/catalog">
@@ -44,9 +44,9 @@ export default function Home() {
                   Comprar Coleção
                 </Button>
               </Link>
-              <Link href="/ai-stylist">
+              <Link href="/sobre">
                 <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/20 rounded-none px-10 tracking-widest uppercase text-xs backdrop-blur-sm">
-                  Encontre Seu Estilo
+                  O Manifesto
                 </Button>
               </Link>
             </div>
@@ -54,13 +54,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Manifesto Snapshot */}
+      <section className="py-24 bg-white border-y">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="max-w-4xl mx-auto text-center space-y-8">
+            <Gem className="h-10 w-10 text-primary mx-auto" />
+            <h2 className="text-3xl md:text-4xl font-headline font-bold tracking-tight">O Cristal de Vidro de Alta Pureza</h2>
+            <p className="text-xl text-muted-foreground font-body leading-relaxed italic">
+              "Utilizamos o cristal de vidro de alta pureza, lapidado para capturar a luz e devolvê-la em um espectro de brilho inigualável. O que você segura em suas mãos é um exercício de paciência e precisão."
+            </p>
+            <div className="pt-4">
+               <Link href="/sobre" className="text-primary font-bold tracking-[0.2em] uppercase text-xs border-b border-primary pb-1 hover:text-primary/80 transition-colors">
+                Leia o Manifesto Completo
+               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Products */}
-      <section className="py-24 bg-background">
+      <section className="py-24 bg-muted/20">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 space-y-4">
             <div className="space-y-4">
-              <h2 className="text-3xl font-headline font-bold">O Edit Starbright</h2>
-              <p className="text-muted-foreground max-w-md">Explore nossas peças mais cobiçadas, selecionadas por seu artesanato excepcional e estilo duradouro.</p>
+              <h2 className="text-3xl font-headline font-bold">Peças de Curadoria</h2>
+              <p className="text-muted-foreground max-w-md">Descubra texturas fluídas, quase líquidas, que deslizam sobre o corpo com a elegância de uma segunda pele.</p>
             </div>
             <Link href="/catalog">
               <Button variant="link" className="text-primary p-0 tracking-[0.2em] uppercase text-xs font-bold group">
@@ -81,7 +99,7 @@ export default function Home() {
                   />
                   <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                     <Button size="icon" variant="secondary" className="rounded-full shadow-lg">
-                      <Star className="h-4 w-4" />
+                      <Star className="h-4 w-4 text-primary" />
                     </Button>
                   </div>
                 </div>
@@ -91,6 +109,26 @@ export default function Home() {
                 </div>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Brand Values with Manifesto Tone */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
+            <div className="space-y-4">
+              <h4 className="text-sm tracking-[0.3em] font-bold text-primary">ATEMPORALIDADE</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">Enquanto a moda é passageira, o brilho do cristal é eterno. Nossas peças definem eras.</p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-sm tracking-[0.3em] font-bold text-primary">EXCLUSIVIDADE</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">Cada bolsa StarBright é numerada e feita sob encomenda, garantindo que sua peça seja única.</p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-sm tracking-[0.3em] font-bold text-primary">VERSATILIDADE CHIC</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">Da Marina de Cascais a eventos de gala em Lisboa, a protagonista silenciosa de qualquer silhueta.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -110,36 +148,15 @@ export default function Home() {
             <div className="inline-flex items-center justify-center p-3 rounded-full bg-primary/10 mb-2">
               <Sparkles className="h-8 w-8 text-primary" />
             </div>
-            <h2 className="text-4xl md:text-5xl font-headline font-bold tracking-tight">Luxo Personalizado</h2>
+            <h2 className="text-4xl md:text-5xl font-headline font-bold tracking-tight">Consultoria de Luz</h2>
             <p className="text-xl text-muted-foreground font-body leading-relaxed">
-              Não tem certeza de qual bolsa combina com seu próximo evento ou look profissional? 
-              Nossa estilista baseada em IA usa suas preferências para encontrar a obra-prima Starbright perfeita.
+              Encontre o brilho que melhor reflete sua presença. Nossa estilista baseada em IA ajuda você a escolher a obra-prima Starbright ideal.
             </p>
             <Link href="/ai-stylist">
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-12 h-14 tracking-[0.2em] uppercase text-xs font-bold">
                 Experimentar Estilista IA
               </Button>
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Brand Values */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
-            <div className="space-y-4">
-              <h4 className="text-sm tracking-[0.3em] font-bold text-primary">ARTESANATO</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">Cada peça é feita à mão por mestres artesãos usando os melhores materiais de origem global.</p>
-            </div>
-            <div className="space-y-4">
-              <h4 className="text-sm tracking-[0.3em] font-bold text-primary">CONCIERGE</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">Assistência pessoal dedicada para uma experiência de compra de luxo sob medida.</p>
-            </div>
-            <div className="space-y-4">
-              <h4 className="text-sm tracking-[0.3em] font-bold text-primary">ENTREGA</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">Entrega gratuita com luvas brancas em todos os pedidos acima de €1.500.</p>
-            </div>
           </div>
         </div>
       </section>

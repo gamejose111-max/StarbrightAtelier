@@ -5,8 +5,8 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Ateliê Starbright | Bolsas de Luxo',
-  description: 'Coleção exclusiva de bolsas de luxo de alta costura no Ateliê Starbright.',
+  title: 'Ateliê StarBright | A Arte de Brilhar em Cada Detalhe',
+  description: 'Coleção exclusiva de bolsas de luxo esculpidas em cristal de vidro. Onde a luz encontra o design.',
 };
 
 export default function RootLayout({
