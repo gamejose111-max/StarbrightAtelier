@@ -6,109 +6,42 @@ service cloud.firestore {
      * STARBRIGHT ATELIER SECURITY RULES
      * 
      * Core Philosophy: 
-     * This ruleset enforces a strict user-ownership model for all customer-related data. 
-     * Access is primarily governed by the user's authenticated UID matching the path 
-     * and internal document fields.
-     *
-     * Data Structure: 
-     * The database is organized into two primary segments:
-     * 1. Public Catalog & Orders: The `/products` collection is globally readable. 
-     *    The `/orders` collection allows public creation (checkout) but restricted management.
-     * 2. Private Customer Data: All sensitive entities (Profiles, Addresses, Carts, 
-     *    and Preferences) are nested under `/customers/{customerId}`.
-     *
-     * Key Security Decisions:
-     * - Admin Access: Usuários autenticados têm permissão para gerenciar produtos e pedidos.
-     * - Checkout: Permite a criação de pedidos por usuários não autenticados (visitantes).
+     * Enforces strict user-ownership for private data and administrative access for catalog management.
      */
 
-    // --- GLOBAL HELPER FUNCTIONS ---
-
-    /** Checks if the request is from an authenticated user. */
     function isSignedIn() {
       return request.auth != null;
     }
 
-    /** Checks if the user's UID matches the provided userId. */
-    function isOwner(userId) {
-      return isSignedIn() && request.auth.uid == userId;
-    }
-
-    /** Verifies ownership and ensures the document exists for state-changing operations. */
-    function isExistingOwner(userId) {
-      return isOwner(userId) && resource != null;
-    }
-
-    // --- COLLECTION RULES ---
+    // --- TOP-LEVEL COLLECTIONS ---
 
     /**
-     * @description Public product catalog with admin management.
-     * @path /products/{productId}
+     * @description Public product catalog. Admin management.
      */
     match /products/{productId} {
-      allow get, list: if true;
-      allow create, update, delete: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
 
     /**
      * @description Orders management. Allows public creation (checkout) and admin management.
-     * @path /orders/{orderId}
      */
     match /orders/{orderId} {
-      allow create: if true; // Permite que clientes façam pedidos (checkout)
-      allow get, list, update, delete: if isSignedIn(); // Permite que o admin gerencie
+      allow create: if true;
+      allow read, update, delete: if isSignedIn();
     }
 
-    /**
-     * @description Rules for the root Customer Profile. Enforces self-creation and ownership.
-     * @path /customers/{customerId}
-     */
+    // --- NESTED CUSTOMER DATA (As defined in backend.json) ---
+
     match /customers/{customerId} {
-      allow get, list: if isOwner(customerId);
-      allow create: if isOwner(customerId) && request.resource.data.id == customerId;
-      allow update: if isExistingOwner(customerId) && request.resource.data.id == resource.data.id;
-      allow delete: if isExistingOwner(customerId);
-
-      match /addresses/{addressId} {
-        allow get, list: if isOwner(customerId);
-        allow create: if isOwner(customerId) && request.resource.data.customerId == customerId;
-        allow update: if isExistingOwner(customerId) && request.resource.data.customerId == resource.data.customerId;
-        allow delete: if isExistingOwner(customerId);
+      function isOwner(userId) {
+        return isSignedIn() && request.auth.uid == userId;
       }
 
-      match /shoppingCarts/{shoppingCartId} {
-        allow get, list: if isOwner(customerId);
-        allow create: if isOwner(customerId) && request.resource.data.customerId == customerId;
-        allow update: if isExistingOwner(customerId) && request.resource.data.customerId == resource.data.customerId;
-        allow delete: if isExistingOwner(customerId);
+      allow read, write: if isOwner(customerId);
 
-        match /cartItems/{cartItemId} {
-          allow get, list: if isOwner(customerId);
-          allow create: if isOwner(customerId) && request.resource.data.cartId == shoppingCartId;
-          allow update: if isExistingOwner(customerId) && request.resource.data.cartId == resource.data.cartId;
-          allow delete: if isExistingOwner(customerId);
-        }
-      }
-
-      match /orders/{orderId} {
-        allow get, list: if isOwner(customerId);
-        allow create: if isOwner(customerId) && request.resource.data.customerId == customerId;
-        allow update: if isExistingOwner(customerId) && request.resource.data.customerId == resource.data.customerId;
-        allow delete: if isExistingOwner(customerId);
-
-        match /orderItems/{orderItemId} {
-          allow get, list: if isOwner(customerId);
-          allow create: if isOwner(customerId) && request.resource.data.orderId == orderId;
-          allow update: if isExistingOwner(customerId) && request.resource.data.orderId == resource.data.orderId;
-          allow delete: if isExistingOwner(customerId);
-        }
-      }
-
-      match /preferences/{preferenceId} {
-        allow get, list: if isOwner(customerId);
-        allow create: if isOwner(customerId) && request.resource.data.customerId == customerId;
-        allow update: if isExistingOwner(customerId) && request.resource.data.customerId == resource.data.customerId;
-        allow delete: if isExistingOwner(customerId);
+      match /{allSubcollections=**} {
+        allow read, write: if isOwner(customerId);
       }
     }
   }

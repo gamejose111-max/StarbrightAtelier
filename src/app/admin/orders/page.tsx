@@ -1,10 +1,10 @@
-
 "use client"
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCollection, useFirestore, useUser, useMemoFirebase } from '@/firebase';
-import { collection, doc, updateDoc, query, orderBy } from 'firebase/firestore';
+import { collection, doc, query, orderBy } from 'firebase/firestore';
+import { updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -29,18 +29,11 @@ export default function AdminOrdersPage() {
   }, [firestore]);
 
   const { data: orders, loading: dataLoading } = useCollection(ordersQuery);
-  const [updating, setUpdating] = useState<string | null>(null);
 
-  const handleUpdateStatus = async (orderId: string, status: 'accepted' | 'cancelled') => {
+  const handleUpdateStatus = (orderId: string, status: 'accepted' | 'cancelled') => {
     if (!firestore) return;
-    setUpdating(orderId);
-    try {
-      await updateDoc(doc(firestore, 'orders', orderId), { status });
-    } catch (error) {
-      console.error("Erro ao atualizar pedido:", error);
-    } finally {
-      setUpdating(null);
-    }
+    const orderRef = doc(firestore, 'orders', orderId);
+    updateDocumentNonBlocking(orderRef, { status });
   };
 
   if (authLoading || dataLoading) {
@@ -112,7 +105,6 @@ export default function AdminOrdersPage() {
                             size="icon" 
                             variant="outline" 
                             className="rounded-none h-8 w-8 text-green-600 border-green-200 hover:bg-green-50"
-                            disabled={updating === order.id}
                             onClick={() => handleUpdateStatus(order.id, 'accepted')}
                           >
                             <Check className="h-4 w-4" />
@@ -121,7 +113,6 @@ export default function AdminOrdersPage() {
                             size="icon" 
                             variant="outline" 
                             className="rounded-none h-8 w-8 text-red-600 border-red-200 hover:bg-red-50"
-                            disabled={updating === order.id}
                             onClick={() => handleUpdateStatus(order.id, 'cancelled')}
                           >
                             <X className="h-4 w-4" />

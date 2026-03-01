@@ -1,7 +1,6 @@
-
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -11,13 +10,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ShoppingBag, MapPin, Loader2, CheckCircle2 } from 'lucide-react';
-import { getFirestore, collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { initializeFirebase } from '@/firebase';
+import { collection, serverTimestamp } from 'firebase/firestore';
+import { useFirestore } from '@/firebase';
+import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
 export default function CheckoutPage() {
   const { id } = useParams();
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const firestore = useFirestore();
   const [fetchingCep, setFetchingCep] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   
@@ -68,35 +68,30 @@ export default function CheckoutPage() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    if (!firestore) return;
 
-    try {
-      const { firestore } = initializeFirebase();
-      await addDoc(collection(firestore, 'orders'), {
-        customerName: formData.name,
-        customerEmail: formData.email,
-        customerPhone: formData.phone,
-        zipCode: formData.cep,
-        address: formData.address,
-        neighborhood: formData.neighborhood,
-        city: formData.city,
-        state: formData.state,
-        number: formData.number,
-        residenceType: formData.residenceType,
-        productId: product.id,
-        productName: product.name,
-        productPrice: product.price,
-        status: 'pending',
-        createdAt: serverTimestamp()
-      });
-      setSubmitted(true);
-    } catch (error) {
-      console.error("Erro ao salvar pedido:", error);
-    } finally {
-      setLoading(false);
-    }
+    const ordersCol = collection(firestore, 'orders');
+    addDocumentNonBlocking(ordersCol, {
+      customerName: formData.name,
+      customerEmail: formData.email,
+      customerPhone: formData.phone,
+      zipCode: formData.cep,
+      address: formData.address,
+      neighborhood: formData.neighborhood,
+      city: formData.city,
+      state: formData.state,
+      number: formData.number,
+      residenceType: formData.residenceType,
+      productId: product.id,
+      productName: product.name,
+      productPrice: product.price,
+      status: 'pending',
+      createdAt: serverTimestamp()
+    });
+    
+    setSubmitted(true);
   };
 
   if (submitted) {
@@ -215,8 +210,8 @@ export default function CheckoutPage() {
                 </CardContent>
               </Card>
 
-              <Button type="submit" disabled={loading} className="w-full h-16 rounded-none bg-primary text-primary-foreground text-lg tracking-[0.2em] uppercase font-bold hover:bg-primary/90">
-                {loading ? <Loader2 className="animate-spin h-6 w-6" /> : "Confirmar Pedido"}
+              <Button type="submit" className="w-full h-16 rounded-none bg-primary text-primary-foreground text-lg tracking-[0.2em] uppercase font-bold hover:bg-primary/90">
+                Confirmar Pedido
               </Button>
             </form>
           </div>

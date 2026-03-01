@@ -1,10 +1,10 @@
-
 "use client"
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCollection, useFirestore, useUser, useMemoFirebase } from '@/firebase';
-import { collection, doc, addDoc, updateDoc, deleteDoc, query, orderBy, serverTimestamp } from 'firebase/firestore';
+import { collection, doc, query, orderBy, serverTimestamp } from 'firebase/firestore';
+import { addDocumentNonBlocking, updateDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -80,9 +80,11 @@ export default function AdminProductsPage() {
     };
 
     if (editingProduct) {
-      updateDoc(doc(firestore, 'products', editingProduct.id), data);
+      const productRef = doc(firestore, 'products', editingProduct.id);
+      updateDocumentNonBlocking(productRef, data);
     } else {
-      addDoc(collection(firestore, 'products'), {
+      const productsCol = collection(firestore, 'products');
+      addDocumentNonBlocking(productsCol, {
         ...data,
         createdAt: serverTimestamp()
       });
@@ -92,7 +94,8 @@ export default function AdminProductsPage() {
 
   const handleDelete = (id: string) => {
     if (!firestore || !confirm('Tem certeza que deseja excluir esta peça?')) return;
-    deleteDoc(doc(firestore, 'products', id));
+    const productRef = doc(firestore, 'products', id);
+    deleteDocumentNonBlocking(productRef);
   };
 
   if (authLoading || dataLoading) {
