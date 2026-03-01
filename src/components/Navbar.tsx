@@ -154,16 +154,6 @@ export function Navbar() {
                       </SheetClose>
                     </nav>
                   </div>
-
-                  <div className="pt-8 border-t border-muted">
-                    <div className="flex flex-col space-y-4">
-                       <SheetClose asChild>
-                         <Link href="/admin/orders" className="text-[10px] font-bold tracking-widest uppercase flex items-center gap-2 text-muted-foreground">
-                           <ClipboardList className="h-3 w-3" /> Painel Admin
-                         </Link>
-                       </SheetClose>
-                    </div>
-                  </div>
                 </div>
               </SheetContent>
             </Sheet>
