@@ -1,25 +1,42 @@
 
 "use client"
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCollection, useFirestore } from '@/firebase';
 import { collection, query, orderBy } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
-import { Filter, Search, Loader2, Sparkles, Tag } from 'lucide-react';
+import { Filter, Search, Loader2, Sparkles } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 export default function CatalogPage() {
   const firestore = useFirestore();
+  const [activeCategory, setActiveCategory] = useState("Todos");
+  const [searchTerm, setSearchTerm] = useState("");
+
   const productsQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'products'), orderBy('createdAt', 'desc'));
   }, [firestore]);
 
-  const { data: products, loading } = useCollection(productsQuery);
-  const categories = ["Todos", "Totes", "Clutches", "Crossbody", "Satchels", "Noite"];
+  const { data: allProducts, loading } = useCollection(productsQuery);
+  const categories = ["Todos", "Bolsa de Mão", "Carteira de Mão", "Acessórios", "Novidades"];
+
+  const filteredProducts = useMemo(() => {
+    if (!allProducts) return [];
+    
+    return allProducts.filter((p: any) => {
+      const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      if (activeCategory === "Todos") return matchesSearch;
+      if (activeCategory === "Novidades") return p.isNew && matchesSearch;
+      
+      return p.category === activeCategory && matchesSearch;
+    });
+  }, [allProducts, activeCategory, searchTerm]);
 
   if (loading) {
     return (
@@ -45,7 +62,11 @@ export default function CatalogPage() {
             {categories.map((cat) => (
               <button 
                 key={cat} 
-                className="text-[9px] uppercase tracking-[0.2em] font-bold hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-1"
+                onClick={() => setActiveCategory(cat)}
+                className={cn(
+                  "text-[9px] uppercase tracking-[0.2em] font-bold transition-colors border-b pb-1",
+                  activeCategory === cat ? "text-primary border-primary" : "text-muted-foreground border-transparent hover:text-primary"
+                )}
               >
                 {cat}
               </button>
@@ -57,6 +78,8 @@ export default function CatalogPage() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
               <Input 
                 placeholder="Buscar coleção..." 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-9 rounded-none border-muted focus:border-primary bg-transparent text-[10px] h-9"
               />
             </div>
@@ -67,7 +90,7 @@ export default function CatalogPage() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-6 gap-y-10">
-          {products?.map((product: any) => (
+          {filteredProducts.map((product: any) => (
             <Link key={product.id} href={`/product/${product.id}`} className="group block">
               <div className="relative aspect-square overflow-hidden bg-card mb-4 border border-muted/30">
                 <Image 
@@ -77,7 +100,6 @@ export default function CatalogPage() {
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
                 
-                {/* Badges */}
                 <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
                   {product.isNew && (
                     <Badge className="rounded-none text-[8px] tracking-widest uppercase bg-primary text-primary-foreground border-none">
@@ -121,15 +143,15 @@ export default function CatalogPage() {
           ))}
         </div>
 
-        {!products?.length && !loading && (
+        {filteredProducts.length === 0 && (
           <div className="h-64 flex flex-col items-center justify-center text-center space-y-4">
             <Sparkles className="h-8 w-8 text-muted" />
-            <p className="text-muted-foreground font-body italic">Nossa nova coleção está sendo preparada...</p>
+            <p className="text-muted-foreground font-body italic">Nenhuma peça encontrada nestas especificações...</p>
           </div>
         )}
 
         <div className="mt-24 text-center space-y-6">
-          <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-bold">Exibindo {products?.length || 0} peças exclusivas</p>
+          <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-bold">Exibindo {filteredProducts.length} peças exclusivas</p>
         </div>
       </div>
     </div>

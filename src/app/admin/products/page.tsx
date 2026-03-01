@@ -13,8 +13,11 @@ import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
 import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, Plus, Edit, Trash2, Package, Star, Tag } from 'lucide-react';
 import Image from 'next/image';
+
+const CATEGORIES = ["Bolsa de Mão", "Carteira de Mão", "Acessórios"];
 
 export default function AdminProductsPage() {
   const firestore = useFirestore();
@@ -31,7 +34,7 @@ export default function AdminProductsPage() {
     name: '',
     price: 0,
     description: '',
-    category: 'Totes',
+    category: 'Bolsa de Mão',
     imageUrl: '',
     isNew: true,
     isOnPromotion: false,
@@ -121,7 +124,16 @@ export default function AdminProductsPage() {
                     </div>
                     <div className="space-y-2">
                       <Label>Categoria</Label>
-                      <Input value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="rounded-none" />
+                      <Select value={formData.category} onValueChange={val => setFormData({...formData, category: val})}>
+                        <SelectTrigger className="rounded-none">
+                          <SelectValue placeholder="Selecione..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {CATEGORIES.map(cat => (
+                            <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                   </div>
                   <div className="space-y-2">
