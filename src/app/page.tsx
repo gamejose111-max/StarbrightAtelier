@@ -6,7 +6,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ArrowRight, Sparkles, Star, Gem } from 'lucide-react';
 
 const featuredProducts = [
-  { id: 1, name: "Celestial Tote", price: "€2.450", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl },
+  { id: 1, name: "Bolsa Pérola Luminosidade", price: "€2.450", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl },
   { id: 2, name: "Midnight Clique", price: "€1.890", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl },
   { id: 3, name: "Aura Crossbody", price: "€1.200", image: PlaceHolderImages.find(p => p.id === 'bag-3')?.imageUrl },
   { id: 4, name: "Solar Satchel", price: "€3.100", image: PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl },
@@ -72,7 +72,7 @@ export default function Home() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {featuredProducts.map((product) => (
-              <Link key={product.id} href={`/product/${product.id}`} className="group space-y-3 hover-lift">
+              <Link key={product.id} href={`/catalog`} className="group space-y-3 hover-lift">
                 <div className="aspect-square relative overflow-hidden bg-card/50 border border-muted/30">
                   <Image 
                     src={product.image || ""} 
@@ -92,6 +92,53 @@ export default function Home() {
                 </div>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Product Highlight Section - Bolsa Pérola */}
+      <section className="py-24 bg-primary/5">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="relative aspect-[4/5] overflow-hidden border border-primary/20 shadow-2xl">
+              <Image 
+                src={PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl || ""} 
+                alt="Bolsa Pérola Luminosidade" 
+                fill 
+                className="object-cover"
+                data-ai-hint="pearl handbag"
+              />
+            </div>
+            <div className="space-y-8">
+              <div className="space-y-2">
+                <span className="text-xs tracking-[0.4em] font-bold text-primary uppercase">Em Destaque</span>
+                <h2 className="text-4xl font-headline font-bold leading-tight">Bolsa Pérola Luminosidade</h2>
+              </div>
+              <p className="text-lg font-headline italic text-primary font-medium">"O Toque de Arte que seu Look Precisa"</p>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p>
+                  Eleve sua produção a um novo patamar de sofisticação. Esta bolsa, inteiramente confeccionada em miçangas com acabamento que remete à delicadeza das pérolas em tom creme, é a definição de elegância atemporal.
+                </p>
+                <p>
+                  Mais do que um acessório, esta é uma peça de design pensada para quem valoriza a beleza nos detalhes.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-6 pt-4 border-t">
+                <div>
+                  <h4 className="text-[10px] tracking-widest font-bold uppercase mb-2">Dimensões</h4>
+                  <p className="text-sm">32 cm x 20 cm</p>
+                </div>
+                <div>
+                  <h4 className="text-[10px] tracking-widest font-bold uppercase mb-2">Acabamento</h4>
+                  <p className="text-sm">Esferas Estilo Pérola</p>
+                </div>
+              </div>
+              <Link href="/catalog">
+                <Button className="rounded-none h-14 px-10 tracking-[0.2em] uppercase font-bold text-xs bg-primary hover:bg-primary/90">
+                  Descobrir Peça
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

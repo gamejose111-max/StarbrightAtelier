@@ -92,9 +92,9 @@ export default function ProductDetailPage() {
               </div>
             </div>
 
-            <p className="text-muted-foreground leading-relaxed font-body whitespace-pre-wrap">
+            <div className="text-muted-foreground leading-relaxed font-body whitespace-pre-wrap">
               {product.description}
-            </p>
+            </div>
 
             <div className="space-y-4 pt-4">
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
