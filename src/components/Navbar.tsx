@@ -89,7 +89,7 @@ export function Navbar() {
             
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" size="icon" title="Área do Administrador">
                   <User className="h-5 w-5" />
                 </Button>
               </DropdownMenuTrigger>
