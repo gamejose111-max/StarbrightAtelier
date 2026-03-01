@@ -1,6 +1,8 @@
 
+'use client';
+
 import Link from 'next/link';
-import { Instagram, Facebook, Twitter, Mail } from 'lucide-react';
+import { Instagram, Facebook, Twitter, Mail, Phone } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
@@ -24,21 +26,29 @@ export function Footer() {
           <div className="space-y-6">
             <h4 className="font-headline text-sm tracking-[0.2em] font-bold">COLEÇÃO</h4>
             <ul className="space-y-4 text-sm uppercase tracking-wider font-medium">
-              <li><Link href="/catalog?cat=handbags" className="hover:text-primary transition-colors">Bolsas de Mão</Link></li>
-              <li><Link href="/catalog?cat=clutches" className="hover:text-primary transition-colors">Clutches de Festa</Link></li>
-              <li><Link href="/catalog?cat=totes" className="hover:text-primary transition-colors">Totes de Luxo</Link></li>
-              <li><Link href="/catalog?cat=new" className="hover:text-primary transition-colors">Novidades</Link></li>
+              <li><Link href="/catalog" className="hover:text-primary transition-colors">Bolsas de Mão</Link></li>
+              <li><Link href="/catalog" className="hover:text-primary transition-colors">Carteiras de Mão</Link></li>
+              <li><Link href="/catalog" className="hover:text-primary transition-colors">Acessórios</Link></li>
+              <li><Link href="/catalog" className="hover:text-primary transition-colors">Novidades</Link></li>
             </ul>
           </div>
 
           <div className="space-y-6">
-            <h4 className="font-headline text-sm tracking-[0.2em] font-bold">ATENDIMENTO</h4>
-            <ul className="space-y-4 text-sm uppercase tracking-wider font-medium">
-              <li><Link href="/contact" className="hover:text-primary transition-colors">Contato</Link></li>
-              <li><Link href="/shipping" className="hover:text-primary transition-colors">Envios e Devoluções</Link></li>
-              <li><Link href="/faq" className="hover:text-primary transition-colors">FAQ</Link></li>
-              <li><Link href="/privacy" className="hover:text-primary transition-colors">Política de Privacidade</Link></li>
-            </ul>
+            <h4 className="font-headline text-sm tracking-[0.2em] font-bold">CONTATO & ATENDIMENTO</h4>
+            <div className="space-y-4 text-[10px] tracking-[0.15em] uppercase font-bold">
+              <div className="space-y-1">
+                <p className="text-primary">Jhessy Monteiro</p>
+                <a href="tel:+351920321175" className="text-muted-foreground hover:text-primary transition-colors">+351 920 321 175</a>
+              </div>
+              <div className="space-y-1">
+                <p className="text-primary">Nicoly Maria</p>
+                <a href="tel:+351967938524" className="text-muted-foreground hover:text-primary transition-colors">+351 967 938 524</a>
+              </div>
+              <ul className="pt-4 space-y-3 border-t border-muted">
+                <li><Link href="/contato" className="hover:text-primary transition-colors">Página de Contato</Link></li>
+                <li><Link href="/sobre" className="hover:text-primary transition-colors">O Manifesto</Link></li>
+              </ul>
+            </div>
           </div>
 
           <div className="space-y-6">

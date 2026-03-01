@@ -2,7 +2,7 @@
 "use client"
 
 import Link from 'next/link';
-import { ShoppingBag, Search, User, Sparkles, Menu, Package, ClipboardList, Moon, Sun } from 'lucide-react';
+import { ShoppingBag, Search, User, Sparkles, Menu, Package, ClipboardList, Moon, Sun, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -51,6 +51,9 @@ export function Navbar() {
             <nav className="flex items-center space-x-6 text-sm font-medium tracking-widest uppercase">
               <Link href="/catalog" className="hover:text-primary transition-colors">Coleção</Link>
               <Link href="/sobre" className="hover:text-primary transition-colors">O Manifesto</Link>
+              <Link href="/contato" className="hover:text-primary transition-colors flex items-center gap-1.5">
+                <Phone className="h-3 w-3" /> Contato
+              </Link>
               <Link href="/ai-stylist" className="flex items-center gap-1.5 hover:text-primary transition-colors">
                 <Sparkles className="h-3.5 w-3.5" />
                 Estilista IA
