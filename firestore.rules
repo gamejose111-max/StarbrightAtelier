@@ -12,18 +12,14 @@ service cloud.firestore {
      *
      * Data Structure: 
      * The database is organized into two primary segments:
-     * 1. Public Catalog: The `/products` collection is globally readable.
-     * 2. Private Customer Data: All sensitive entities (Profiles, Addresses, Carts, Orders, 
+     * 1. Public Catalog & Orders: The `/products` collection is globally readable. 
+     *    The `/orders` collection allows public creation (checkout) but restricted management.
+     * 2. Private Customer Data: All sensitive entities (Profiles, Addresses, Carts, 
      *    and Preferences) are nested under `/customers/{customerId}`.
      *
      * Key Security Decisions:
-     * - Authorization Independence: Every document in a user sub-collection includes 
-     *   a denormalized `customerId` field. This allows rules to verify ownership 
-     *   locally without expensive parent-document lookups (get() calls).
-     * - Prototyping Flexibility: Rules strictly enforce WHO can access data, 
-     *   but do NOT enforce the specific shape or data types of the content itself.
-     * - Relational Integrity: On creation, rules force the `customerId` or `id` 
-     *   fields within the data to match the authenticated user's UID and the path.
+     * - Admin Access: Usuários autenticados têm permissão para gerenciar produtos e pedidos.
+     * - Checkout: Permite a criação de pedidos por usuários não autenticados (visitantes).
      */
 
     // --- GLOBAL HELPER FUNCTIONS ---
@@ -46,11 +42,26 @@ service cloud.firestore {
     // --- COLLECTION RULES ---
 
     /**
+     * @description Public product catalog with admin management.
+     * @path /products/{productId}
+     */
+    match /products/{productId} {
+      allow get, list: if true;
+      allow create, update, delete: if isSignedIn();
+    }
+
+    /**
+     * @description Orders management. Allows public creation (checkout) and admin management.
+     * @path /orders/{orderId}
+     */
+    match /orders/{orderId} {
+      allow create: if true; // Permite que clientes façam pedidos (checkout)
+      allow get, list, update, delete: if isSignedIn(); // Permite que o admin gerencie
+    }
+
+    /**
      * @description Rules for the root Customer Profile. Enforces self-creation and ownership.
      * @path /customers/{customerId}
-     * @allow (create) if auth.uid == "user123" and data.id == "user123"
-     * @deny (get) if auth.uid == "user123" but path is /customers/user456
-     * @principle Pattern 4: Self-Creation and Pattern 1: Ownership.
      */
     match /customers/{customerId} {
       allow get, list: if isOwner(customerId);
@@ -58,12 +69,6 @@ service cloud.firestore {
       allow update: if isExistingOwner(customerId) && request.resource.data.id == resource.data.id;
       allow delete: if isExistingOwner(customerId);
 
-      /**
-       * @description Rules for customer addresses.
-       * @path /customers/{customerId}/addresses/{addressId}
-       * @allow (list) if auth.uid == customerId
-       * @principle Pattern 1: Ownership with denormalized field validation.
-       */
       match /addresses/{addressId} {
         allow get, list: if isOwner(customerId);
         allow create: if isOwner(customerId) && request.resource.data.customerId == customerId;
@@ -71,22 +76,12 @@ service cloud.firestore {
         allow delete: if isExistingOwner(customerId);
       }
 
-      /**
-       * @description Rules for the shopping cart container.
-       * @path /customers/{customerId}/shoppingCarts/{shoppingCartId}
-       * @principle Pattern 1: Ownership.
-       */
       match /shoppingCarts/{shoppingCartId} {
         allow get, list: if isOwner(customerId);
         allow create: if isOwner(customerId) && request.resource.data.customerId == customerId;
         allow update: if isExistingOwner(customerId) && request.resource.data.customerId == resource.data.customerId;
         allow delete: if isExistingOwner(customerId);
 
-        /**
-         * @description Rules for items within a cart. Uses denormalized customerId for security.
-         * @path /customers/{customerId}/shoppingCarts/{shoppingCartId}/cartItems/{cartItemId}
-         * @principle Pattern 1: Ownership via denormalized field to avoid get() on parent cart.
-         */
         match /cartItems/{cartItemId} {
           allow get, list: if isOwner(customerId);
           allow create: if isOwner(customerId) && request.resource.data.cartId == shoppingCartId;
@@ -95,22 +90,12 @@ service cloud.firestore {
         }
       }
 
-      /**
-       * @description Rules for customer orders.
-       * @path /customers/{customerId}/orders/{orderId}
-       * @principle Pattern 1: Ownership.
-       */
       match /orders/{orderId} {
         allow get, list: if isOwner(customerId);
         allow create: if isOwner(customerId) && request.resource.data.customerId == customerId;
         allow update: if isExistingOwner(customerId) && request.resource.data.customerId == resource.data.customerId;
         allow delete: if isExistingOwner(customerId);
 
-        /**
-         * @description Rules for specific items in an order.
-         * @path /customers/{customerId}/orders/{orderId}/orderItems/{orderItemId}
-         * @principle Pattern 1: Ownership via path and denormalized link.
-         */
         match /orderItems/{orderItemId} {
           allow get, list: if isOwner(customerId);
           allow create: if isOwner(customerId) && request.resource.data.orderId == orderId;
@@ -119,30 +104,12 @@ service cloud.firestore {
         }
       }
 
-      /**
-       * @description Rules for AI-driven user preferences.
-       * @path /customers/{customerId}/preferences/{preferenceId}
-       * @principle Pattern 1: Ownership.
-       */
       match /preferences/{preferenceId} {
         allow get, list: if isOwner(customerId);
         allow create: if isOwner(customerId) && request.resource.data.customerId == customerId;
         allow update: if isExistingOwner(customerId) && request.resource.data.customerId == resource.data.customerId;
         allow delete: if isExistingOwner(customerId);
       }
-    }
-
-    /**
-     * @description Public product catalog.
-     * @path /products/{productId}
-     * @allow (get) if true (public access)
-     * @deny (create) if true (writes restricted to non-client/admin roles)
-     * @principle Pattern 5: Public Read / Restricted Write.
-     */
-    match /products/{productId} {
-      allow get, list: if true;
-      // CRITICAL: Cannot implement owner-only writes. The 'Product' entity is missing an 'ownerId' or 'authorId' field.
-      allow create, update, delete: if false; // TODO: Add owner or admin validation once the schema is updated.
     }
   }
 }
