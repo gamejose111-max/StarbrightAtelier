@@ -3,66 +3,105 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
-import { Filter, ChevronDown } from 'lucide-react';
+import { Filter, ChevronDown, Search } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 const products = [
-  { id: 1, name: "Celestial Tote", price: "$2,450", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl, color: "Cream" },
-  { id: 2, name: "Midnight Clutch", price: "$1,890", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl, color: "Gold/Black" },
-  { id: 3, name: "Aura Crossbody", price: "$1,200", image: PlaceHolderImages.find(p => p.id === 'bag-3')?.imageUrl, color: "Tan" },
-  { id: 4, name: "Solar Satchel", price: "$3,100", image: PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl, color: "Burgundy" },
-  { id: 5, name: "Stellar Evening Bag", price: "$2,200", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl, color: "Silver" },
-  { id: 6, name: "Orbit Handbag", price: "$1,550", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl, color: "Pearl" },
-  { id: 7, name: "Nebula Pouch", price: "$950", image: PlaceHolderImages.find(p => p.id === 'bag-3')?.imageUrl, color: "Onyx" },
-  { id: 8, name: "Nova Bucket Bag", price: "$1,800", image: PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl, color: "Champagne" },
+  { id: 1, name: "Celestial Tote", price: "$2,450", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl, color: "Cream", category: "Totes" },
+  { id: 2, name: "Midnight Clutch", price: "$1,890", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl, color: "Gold/Black", category: "Clutches" },
+  { id: 3, name: "Aura Crossbody", price: "$1,200", image: PlaceHolderImages.find(p => p.id === 'bag-3')?.imageUrl, color: "Tan", category: "Crossbody" },
+  { id: 4, name: "Solar Satchel", price: "$3,100", image: PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl, color: "Burgundy", category: "Satchels" },
+  { id: 1, name: "Stellar Evening Bag", price: "$2,200", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl, color: "Silver", category: "Evening" },
+  { id: 2, name: "Orbit Handbag", price: "$1,550", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl, color: "Pearl", category: "Handbags" },
+  { id: 3, name: "Nebula Pouch", price: "$950", image: PlaceHolderImages.find(p => p.id === 'bag-3')?.imageUrl, color: "Onyx", category: "Pouches" },
+  { id: 4, name: "Nova Bucket Bag", price: "$1,800", image: PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl, color: "Champagne", category: "Bucket" },
 ];
+
+const categories = ["All", "Totes", "Clutches", "Crossbody", "Satchels", "Evening"];
 
 export default function CatalogPage() {
   return (
-    <div className="pt-24 pb-32">
+    <div className="pt-24 pb-32 bg-background">
       <div className="container mx-auto px-4 md:px-8">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-8">
-          <div className="space-y-2 text-center md:text-left">
-            <h1 className="text-4xl font-headline font-bold tracking-tight">The Collection</h1>
-            <p className="text-muted-foreground text-sm uppercase tracking-[0.2em]">Explore our complete universe of luxury</p>
+        {/* Header section */}
+        <div className="max-w-4xl mx-auto text-center mb-20 space-y-4">
+          <h1 className="text-5xl font-headline font-bold tracking-tight">The Collection</h1>
+          <div className="h-1 w-20 bg-primary mx-auto"></div>
+          <p className="text-muted-foreground text-sm uppercase tracking-[0.3em] font-medium pt-2">
+            Artisanal Mastery & Timeless Design
+          </p>
+        </div>
+
+        {/* Toolbar */}
+        <div className="flex flex-col lg:flex-row justify-between items-center mb-12 border-y py-6 gap-8">
+          <div className="flex flex-wrap justify-center gap-8">
+            {categories.map((cat) => (
+              <button 
+                key={cat} 
+                className="text-[10px] uppercase tracking-[0.2em] font-bold hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-1"
+              >
+                {cat}
+              </button>
+            ))}
           </div>
-          <div className="flex items-center gap-4">
-            <Button variant="outline" className="rounded-none border-muted px-6 uppercase tracking-widest text-xs font-bold">
-              Sort By <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-            <Button variant="outline" className="rounded-none border-muted px-6 uppercase tracking-widest text-xs font-bold">
-              Filters <Filter className="ml-2 h-4 w-4" />
+          
+          <div className="flex items-center gap-4 w-full lg:w-auto">
+            <div className="relative flex-1 lg:w-64">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input 
+                placeholder="Search collection..." 
+                className="pl-10 rounded-none border-muted focus:border-primary bg-transparent text-xs"
+              />
+            </div>
+            <Button variant="outline" className="rounded-none border-muted px-6 uppercase tracking-widest text-[10px] font-bold h-10">
+              Filters <Filter className="ml-2 h-3 w-3" />
             </Button>
           </div>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-          {products.map((product) => (
-            <Link key={product.id} href={`/product/${product.id}`} className="group hover-lift">
-              <div className="aspect-[4/5] relative overflow-hidden bg-white border border-transparent group-hover:border-muted transition-colors">
+        {/* Catalog Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+          {products.map((product, idx) => (
+            <Link key={`${product.id}-${idx}`} href={`/product/${product.id}`} className="group block">
+              <div className="relative aspect-[3/4] overflow-hidden bg-white mb-6">
                 <Image 
                   src={product.image || ""} 
                   alt={product.name} 
                   fill 
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500"></div>
+                
+                {/* Overlay on hover */}
+                <div className="absolute inset-0 flex items-end justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <Button className="w-full bg-white text-black hover:bg-primary hover:text-white rounded-none tracking-widest uppercase text-[10px] font-bold h-12">
+                    Quick View
+                  </Button>
+                </div>
               </div>
-              <div className="pt-6 space-y-1">
-                <p className="text-[10px] tracking-[0.3em] font-bold text-muted-foreground uppercase">{product.color}</p>
-                <h3 className="font-headline text-lg tracking-wider font-bold">{product.name}</h3>
-                <p className="text-primary font-bold tracking-widest pt-1">{product.price}</p>
+
+              <div className="space-y-2 text-center">
+                <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase font-bold">
+                  {product.category} — {product.color}
+                </span>
+                <h3 className="font-headline text-xl tracking-wider font-bold group-hover:text-primary transition-colors">
+                  {product.name}
+                </h3>
+                <p className="text-primary font-bold tracking-widest">{product.price}</p>
               </div>
             </Link>
           ))}
         </div>
 
-        {/* Pagination */}
-        <div className="mt-24 flex justify-center">
-          <div className="flex space-x-2">
-            <Button variant="ghost" className="rounded-none border-b-2 border-primary text-primary font-bold">1</Button>
-            <Button variant="ghost" className="rounded-none text-muted-foreground">2</Button>
-            <Button variant="ghost" className="rounded-none text-muted-foreground">3</Button>
+        {/* Load More */}
+        <div className="mt-32 text-center space-y-8">
+          <p className="text-xs text-muted-foreground uppercase tracking-widest">Showing 8 of 24 pieces</p>
+          <div className="flex justify-center items-center gap-4">
+            <div className="h-[1px] w-20 bg-muted"></div>
+            <Button variant="ghost" className="rounded-none border-b-2 border-primary text-primary font-bold tracking-[0.2em] uppercase text-xs hover:bg-transparent">
+              Load More
+            </Button>
+            <div className="h-[1px] w-20 bg-muted"></div>
           </div>
         </div>
       </div>
