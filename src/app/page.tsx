@@ -56,7 +56,7 @@ export default function Home() {
       </section>
 
       {/* Manifesto Snapshot */}
-      <section className="py-24 bg-white border-y">
+      <section className="py-24 bg-card border-y">
         <div className="container mx-auto px-4 md:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <Gem className="h-10 w-10 text-primary mx-auto" />
@@ -91,7 +91,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {featuredProducts.map((product) => (
               <Link key={product.id} href={`/product/${product.id}`} className="group space-y-3 hover-lift">
-                <div className="aspect-square relative overflow-hidden bg-white border border-muted/50">
+                <div className="aspect-square relative overflow-hidden bg-card border border-muted/50">
                   <Image 
                     src={product.image || ""} 
                     alt={product.name} 
@@ -99,7 +99,7 @@ export default function Home() {
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="bg-white/90 backdrop-blur-sm p-1.5 rounded-full shadow-md">
+                    <div className="bg-card/90 backdrop-blur-sm p-1.5 rounded-full shadow-md">
                       <Star className="h-3.5 w-3.5 text-primary fill-primary" />
                     </div>
                   </div>
@@ -115,7 +115,7 @@ export default function Home() {
       </section>
 
       {/* Brand Values */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
             <div className="space-y-4">
@@ -143,7 +143,7 @@ export default function Home() {
           className="object-cover"
           data-ai-hint="luxury atelier"
         />
-        <div className="absolute inset-0 bg-white/80" />
+        <div className="absolute inset-0 bg-background/80" />
         <div className="container mx-auto px-4 md:px-8 relative z-10 text-center max-w-3xl">
           <div className="space-y-8 animate-fadeUp">
             <div className="inline-flex items-center justify-center p-3 rounded-full bg-primary/10 mb-2">

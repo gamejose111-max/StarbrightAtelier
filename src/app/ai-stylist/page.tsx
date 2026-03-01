@@ -35,7 +35,7 @@ export default function AIStylistPage() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-32">
+    <div className="min-h-screen pt-24 pb-32 bg-background text-foreground">
       <div className="container mx-auto px-4 md:px-8">
         <div className="max-w-4xl mx-auto text-center mb-16 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-4">
@@ -49,7 +49,7 @@ export default function AIStylistPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5">
-            <Card className="rounded-none border-primary/20 shadow-xl overflow-hidden">
+            <Card className="rounded-none border-primary/20 shadow-xl overflow-hidden bg-card">
               <div className="bg-primary p-6 text-primary-foreground">
                 <h3 className="font-headline tracking-widest font-bold">Preferências</h3>
               </div>
@@ -57,15 +57,15 @@ export default function AIStylistPage() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
                     <Label htmlFor="occasion" className="text-xs tracking-widest uppercase font-bold text-muted-foreground">A Ocasião</Label>
-                    <Input id="occasion" name="occasion" placeholder="ex: Casamento de Verão, Reunião de Diretoria" required className="rounded-none border-muted focus:border-primary" />
+                    <Input id="occasion" name="occasion" placeholder="ex: Casamento de Verão, Reunião de Diretoria" required className="rounded-none border-muted focus:border-primary bg-background" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="stylePreference" className="text-xs tracking-widest uppercase font-bold text-muted-foreground">Preferência de Estilo</Label>
-                    <Input id="stylePreference" name="stylePreference" placeholder="ex: Minimalista, Moderno e Ousado" required className="rounded-none border-muted focus:border-primary" />
+                    <Input id="stylePreference" name="stylePreference" placeholder="ex: Minimalista, Moderno e Ousado" required className="rounded-none border-muted focus:border-primary bg-background" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="wardrobeItems" className="text-xs tracking-widest uppercase font-bold text-muted-foreground">Guarda-Roupa Correspondente</Label>
-                    <Textarea id="wardrobeItems" name="wardrobeItems" placeholder="O que você planeja vestir? (ex: Vestido de seda, terno sob medida)" required className="rounded-none border-muted focus:border-primary min-h-[100px]" />
+                    <Textarea id="wardrobeItems" name="wardrobeItems" placeholder="O que você planeja vestir? (ex: Vestido de seda, terno sob medida)" required className="rounded-none border-muted focus:border-primary min-h-[100px] bg-background" />
                   </div>
                   <Button type="submit" disabled={loading} className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-14 rounded-none tracking-widest uppercase font-bold">
                     {loading ? <Loader2 className="animate-spin h-5 w-5 mr-2" /> : "Obter Recomendações"}
@@ -83,14 +83,14 @@ export default function AIStylistPage() {
               </div>
             ) : result ? (
               <div className="space-y-8 animate-fadeUp">
-                <div className="bg-white border-l-4 border-primary p-8 shadow-sm">
+                <div className="bg-card border-l-4 border-primary p-8 shadow-sm">
                   <h2 className="text-2xl font-headline font-bold mb-4">Nota da Estilista</h2>
                   <p className="text-muted-foreground italic leading-relaxed">{result.summary}</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
                   {result.recommendations.map((bag, i) => (
-                    <Card key={i} className="rounded-none border-none shadow-md overflow-hidden bg-white">
+                    <Card key={i} className="rounded-none border-none shadow-md overflow-hidden bg-card">
                       <div className="flex flex-col md:flex-row">
                         <div className="md:w-1/3 relative h-64 md:h-auto">
                           <Image src={bag.imageUrl} alt={bag.name} fill className="object-cover" />

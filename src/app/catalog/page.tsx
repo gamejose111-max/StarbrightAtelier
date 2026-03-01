@@ -30,7 +30,7 @@ export default function CatalogPage() {
   }
 
   return (
-    <div className="pt-24 pb-32 bg-background">
+    <div className="pt-24 pb-32 bg-background text-foreground">
       <div className="container mx-auto px-4 md:px-8">
         <div className="max-w-4xl mx-auto text-center mb-16 space-y-4">
           <h1 className="text-4xl font-headline font-bold tracking-tight">A Coleção</h1>
@@ -40,7 +40,7 @@ export default function CatalogPage() {
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row justify-between items-center mb-12 border-y py-4 gap-6">
+        <div className="flex flex-col lg:flex-row justify-between items-center mb-12 border-y border-border py-4 gap-6">
           <div className="flex flex-wrap justify-center gap-6">
             {categories.map((cat) => (
               <button 
@@ -69,7 +69,7 @@ export default function CatalogPage() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-6 gap-y-10">
           {products?.map((product: any) => (
             <Link key={product.id} href={`/product/${product.id}`} className="group block">
-              <div className="relative aspect-square overflow-hidden bg-white mb-4 border border-muted/30">
+              <div className="relative aspect-square overflow-hidden bg-card mb-4 border border-muted/30">
                 <Image 
                   src={product.imageUrl} 
                   alt={product.name} 
@@ -93,7 +93,7 @@ export default function CatalogPage() {
 
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500"></div>
                 <div className="absolute inset-0 flex items-end justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <Button className="w-full bg-white/90 backdrop-blur-sm text-black hover:bg-primary hover:text-white rounded-none tracking-widest uppercase text-[9px] font-bold h-10 shadow-sm border-none">
+                  <Button className="w-full bg-card/90 backdrop-blur-sm text-foreground hover:bg-primary hover:text-white rounded-none tracking-widest uppercase text-[9px] font-bold h-10 shadow-sm border-none">
                     Ver Peça
                   </Button>
                 </div>

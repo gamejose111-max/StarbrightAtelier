@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 
 export function Footer() {
   return (
-    <footer className="bg-white border-t py-16">
+    <footer className="bg-background border-t border-border py-16">
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
@@ -53,7 +53,7 @@ export function Footer() {
           </div>
         </div>
         
-        <div className="pt-8 border-t flex flex-col md:flex-row justify-between items-center text-[10px] tracking-[0.15em] uppercase text-muted-foreground">
+        <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center text-[10px] tracking-[0.15em] uppercase text-muted-foreground">
           <p>© {new Date().getFullYear()} ATELIÊ STARBRIGHT. TODOS OS DIREITOS RESERVADOS.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <span>TERMOS DE SERVIÇO</span>
