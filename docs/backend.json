@@ -1,0 +1,37 @@
+
+{
+  "entities": {
+    "Order": {
+      "title": "Order",
+      "description": "A purchase order from a customer.",
+      "type": "object",
+      "properties": {
+        "customerEmail": { "type": "string", "format": "email" },
+        "customerName": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "zipCode": { "type": "string" },
+        "address": { "type": "string" },
+        "neighborhood": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" },
+        "number": { "type": "string" },
+        "residenceType": { "type": "string", "enum": ["Casa", "Apartamento"] },
+        "productId": { "type": "string" },
+        "productName": { "type": "string" },
+        "productPrice": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "accepted", "cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["customerEmail", "zipCode", "address", "number", "status"]
+    }
+  },
+  "auth": {
+    "providers": ["google.com"]
+  },
+  "firestore": {
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Collection of customer purchase orders"
+    }
+  }
+}
