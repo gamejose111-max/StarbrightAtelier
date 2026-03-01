@@ -1,34 +1,46 @@
 
+"use client"
+
+import { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useParams } from 'next/navigation';
+import { useDoc, useFirestore } from '@/firebase';
+import { doc } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { ShoppingBag, Star, Share2, Heart, ShieldCheck, Truck } from 'lucide-react';
+import { ShoppingBag, Star, Share2, Heart, ShieldCheck, Truck, Loader2 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
-export default function ProductDetailPage({ params }: { params: { id: string } }) {
-  const { id } = params;
+export default function ProductDetailPage() {
+  const { id } = useParams();
+  const firestore = useFirestore();
   
-  // Mock data for detail based on ID
-  const product = {
-    id: id,
-    name: id === '1' ? "Celestial Tote" : id === '2' ? "Midnight Clutch" : id === '3' ? "Aura Crossbody" : id === '4' ? "Solar Satchel" : "Bolsa Ateliê",
-    price: id === '1' ? "€2.450" : id === '2' ? "€1.890" : id === '3' ? "€1.200" : "€3.100",
-    description: "Um ícone da alta costura moderna. Esta peça exclusiva combina elegância atemporal com acabamento impecável em couro premium. Perfeita para quem busca distinção e sofisticação em cada detalhe.",
-    features: [
-      "Feito à mão por artesãos especializados",
-      "Ferragens com banho de ouro 18k",
-      "Interior em camurça premium",
-      "Certificado de autenticidade exclusivo",
-      "Edição limitada Ateliê Starbright"
-    ],
-    mainImage: PlaceHolderImages.find(p => p.id === `bag-${id}`)?.imageUrl || PlaceHolderImages[1].imageUrl,
-    thumbnails: [
-      PlaceHolderImages[1].imageUrl,
-      PlaceHolderImages[2].imageUrl,
-      PlaceHolderImages[3].imageUrl,
-    ]
-  };
+  const productDoc = useMemo(() => {
+    if (!firestore || !id) return null;
+    return doc(firestore, 'products', id as string);
+  }, [firestore, id]);
+
+  const { data: product, loading } = useDoc(productDoc);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen pt-32 flex items-center justify-center">
+        <Loader2 className="animate-spin h-8 w-8 text-primary" />
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="min-h-screen pt-32 flex flex-col items-center justify-center text-center">
+        <h1 className="text-2xl font-headline mb-4">Peça Não Encontrada</h1>
+        <Link href="/catalog">
+          <Button variant="outline">Voltar ao Catálogo</Button>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-24 pb-32">
@@ -37,14 +49,11 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           {/* Media Section */}
           <div className="space-y-4">
             <div className="aspect-square relative overflow-hidden bg-white border">
-              <Image src={product.mainImage} alt={product.name} fill className="object-cover" />
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-              {product.thumbnails.map((thumb, idx) => (
-                <div key={idx} className="aspect-square relative overflow-hidden bg-white border cursor-pointer hover:opacity-80 transition-opacity">
-                  <Image src={thumb} alt={`${product.name} detalhe ${idx}`} fill className="object-cover" />
-                </div>
-              ))}
+              <Image src={product.imageUrl} alt={product.name} fill className="object-cover" />
+              <div className="absolute top-4 left-4 flex flex-col gap-2">
+                {product.isNew && <Badge className="rounded-none uppercase tracking-widest text-[10px]">Novidade</Badge>}
+                {product.isOnPromotion && <Badge variant="secondary" className="rounded-none uppercase tracking-widest text-[10px]">Oferta</Badge>}
+              </div>
             </div>
           </div>
 
@@ -53,7 +62,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             <div className="space-y-4">
               <div className="flex justify-between items-start">
                 <div className="space-y-1">
-                  <span className="text-xs tracking-[0.3em] font-bold text-primary uppercase">Edição Limitada</span>
+                  <span className="text-xs tracking-[0.3em] font-bold text-primary uppercase">{product.category}</span>
                   <h1 className="text-4xl font-headline font-bold tracking-tight">{product.name}</h1>
                 </div>
                 <div className="flex gap-2">
@@ -62,7 +71,16 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <p className="text-2xl text-primary font-bold tracking-widest">{product.price}</p>
+                <div className="flex flex-col">
+                  {product.isOnPromotion ? (
+                    <>
+                      <span className="text-sm text-muted-foreground line-through">€{product.price.toLocaleString()}</span>
+                      <span className="text-2xl text-primary font-bold tracking-widest">€{product.promotionPrice.toLocaleString()}</span>
+                    </>
+                  ) : (
+                    <span className="text-2xl text-primary font-bold tracking-widest">€{product.price.toLocaleString()}</span>
+                  )}
+                </div>
                 <div className="h-4 w-[1px] bg-muted" />
                 <div className="flex items-center text-sm text-muted-foreground">
                   <Star className="h-4 w-4 fill-primary text-primary mr-1" />
@@ -70,12 +88,11 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                   <Star className="h-4 w-4 fill-primary text-primary mr-1" />
                   <Star className="h-4 w-4 fill-primary text-primary mr-1" />
                   <Star className="h-4 w-4 text-primary mr-2" />
-                  (12 Avaliações)
                 </div>
               </div>
             </div>
 
-            <p className="text-muted-foreground leading-relaxed font-body">
+            <p className="text-muted-foreground leading-relaxed font-body whitespace-pre-wrap">
               {product.description}
             </p>
 
@@ -86,9 +103,11 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                     <ShoppingBag className="mr-2 h-5 w-5" /> Adquirir Peça
                   </Button>
                 </Link>
-                <Button variant="outline" className="flex-1 rounded-none h-14 tracking-widest uppercase font-bold text-xs border-muted">
-                  Consultoria de Estilo
-                </Button>
+                <Link href="/ai-stylist" className="flex-1">
+                  <Button variant="outline" className="w-full rounded-none h-14 tracking-widest uppercase font-bold text-xs border-muted">
+                    Consultoria de Estilo
+                  </Button>
+                </Link>
               </div>
             </div>
 
@@ -108,9 +127,10 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 <AccordionTrigger className="font-headline font-bold text-sm tracking-widest uppercase hover:no-underline py-4">Especificações</AccordionTrigger>
                 <AccordionContent className="font-body text-muted-foreground leading-relaxed">
                   <ul className="list-disc pl-5 space-y-2">
-                    {product.features.map((feature, i) => (
+                    {product.features?.map((feature: string, i: number) => (
                       <li key={i}>{feature}</li>
                     ))}
+                    {!product.features?.length && <li>Design exclusivo Ateliê Starbright</li>}
                   </ul>
                 </AccordionContent>
               </AccordionItem>

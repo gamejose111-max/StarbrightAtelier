@@ -23,6 +23,24 @@
         "createdAt": { "type": "string", "format": "date-time" }
       },
       "required": ["customerEmail", "zipCode", "address", "number", "status"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "A luxury handbag product in the catalog.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "isNew": { "type": "boolean" },
+        "isOnPromotion": { "type": "boolean" },
+        "promotionPrice": { "type": "number" },
+        "features": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "price", "category", "imageUrl"]
     }
   },
   "auth": {
@@ -32,6 +50,10 @@
     "/orders/{orderId}": {
       "schema": "Order",
       "description": "Collection of customer purchase orders"
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Collection of luxury products"
     }
   }
 }

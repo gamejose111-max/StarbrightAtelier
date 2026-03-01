@@ -2,10 +2,11 @@
 "use client"
 
 import Link from 'next/link';
-import { ShoppingBag, Search, User, Sparkles, Menu } from 'lucide-react';
+import { ShoppingBag, Search, User, Sparkles, Menu, Package, ClipboardList } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,11 +45,27 @@ export function Navbar() {
             <Button variant="ghost" size="icon" className="hidden md:flex">
               <Search className="h-5 w-5" />
             </Button>
-            <Link href="/admin/orders">
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-              </Button>
-            </Link>
+            
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <User className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="rounded-none w-48 border-primary/20">
+                <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
+                  <Link href="/admin/orders">
+                    <ClipboardList className="mr-2 h-4 w-4" /> Gestão de Pedidos
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
+                  <Link href="/admin/products">
+                    <Package className="mr-2 h-4 w-4" /> Gestão de Produtos
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             <Link href="/catalog">
               <Button variant="ghost" size="icon" className="relative">
                 <ShoppingBag className="h-5 w-5" />
