@@ -7,7 +7,7 @@ import { ArrowRight, Sparkles, Star, Gem } from 'lucide-react';
 
 const featuredProducts = [
   { id: 1, name: "Celestial Tote", price: "€2.450", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl },
-  { id: 2, name: "Midnight Clutch", price: "€1.890", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl },
+  { id: 2, name: "Midnight Clique", price: "€1.890", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl },
   { id: 3, name: "Aura Crossbody", price: "€1.200", image: PlaceHolderImages.find(p => p.id === 'bag-3')?.imageUrl },
   { id: 4, name: "Solar Satchel", price: "€3.100", image: PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl },
   { id: 5, name: "Stellar Bag", price: "€2.200", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl },
@@ -27,11 +27,11 @@ export default function Home() {
             priority
             data-ai-hint="luxury handbag"
           />
-          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 bg-black/40" />
         </div>
         
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="max-w-2xl bg-white/5 backdrop-blur-md border border-white/20 p-8 md:p-12 animate-fadeUp">
+          <div className="max-w-2xl bg-black/20 backdrop-blur-md border border-white/10 p-8 md:p-12 animate-fadeUp">
             <span className="text-xs tracking-[0.3em] font-bold text-primary uppercase mb-4 block">A Arte de Brilhar em Cada Detalhe</span>
             <h1 className="text-4xl md:text-6xl font-headline font-bold text-white mb-6 leading-tight drop-shadow-sm">
               Esculpimos Luz <br /> Em Peças Eternas
@@ -56,7 +56,7 @@ export default function Home() {
       </section>
 
       {/* Manifesto Snapshot */}
-      <section className="py-24 bg-card border-y">
+      <section className="py-24 border-y">
         <div className="container mx-auto px-4 md:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <Gem className="h-10 w-10 text-primary mx-auto" />
@@ -74,7 +74,7 @@ export default function Home() {
       </section>
 
       {/* Featured Products - Organized Grids */}
-      <section className="py-24 bg-muted/20">
+      <section className="py-24">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 space-y-4">
             <div className="space-y-4">
@@ -91,7 +91,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {featuredProducts.map((product) => (
               <Link key={product.id} href={`/product/${product.id}`} className="group space-y-3 hover-lift">
-                <div className="aspect-square relative overflow-hidden bg-card border border-muted/50">
+                <div className="aspect-square relative overflow-hidden bg-card/50 border border-muted/30">
                   <Image 
                     src={product.image || ""} 
                     alt={product.name} 
@@ -99,7 +99,7 @@ export default function Home() {
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="bg-card/90 backdrop-blur-sm p-1.5 rounded-full shadow-md">
+                    <div className="bg-background/90 backdrop-blur-sm p-1.5 rounded-full shadow-md">
                       <Star className="h-3.5 w-3.5 text-primary fill-primary" />
                     </div>
                   </div>
@@ -115,7 +115,7 @@ export default function Home() {
       </section>
 
       {/* Brand Values */}
-      <section className="py-24 bg-background">
+      <section className="py-24 border-t">
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
             <div className="space-y-4">
@@ -143,7 +143,7 @@ export default function Home() {
           className="object-cover"
           data-ai-hint="luxury atelier"
         />
-        <div className="absolute inset-0 bg-background/80" />
+        <div className="absolute inset-0 bg-background/90" />
         <div className="container mx-auto px-4 md:px-8 relative z-10 text-center max-w-3xl">
           <div className="space-y-8 animate-fadeUp">
             <div className="inline-flex items-center justify-center p-3 rounded-full bg-primary/10 mb-2">
