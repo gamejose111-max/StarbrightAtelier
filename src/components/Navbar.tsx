@@ -61,112 +61,33 @@ export function Navbar() {
       isScrolled ? "bg-background/95 backdrop-blur-md py-2 shadow-sm" : "bg-background py-6"
     )}>
       <div className="container mx-auto px-4 md:px-8">
-        <div className="flex items-center justify-between">
-          <div className="hidden lg:flex items-center space-x-8">
-            <nav className="flex items-center space-x-6 text-sm font-medium tracking-widest uppercase">
-              <Link href="/catalog" className="hover:text-primary transition-colors">Coleção</Link>
-              <Link href="/sobre" className="hover:text-primary transition-colors">O Manifesto</Link>
-              <Link href="/contato" className="hover:text-primary transition-colors flex items-center gap-1.5">
-                <Phone className="h-3 w-3" /> Contato
-              </Link>
-              <Link href="/ai-stylist" className="flex items-center gap-1.5 hover:text-primary transition-colors">
-                <Sparkles className="h-3.5 w-3.5" />
-                Estilista IA
-              </Link>
-            </nav>
-          </div>
-
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2 text-2xl md:text-3xl font-headline tracking-[0.2em] font-bold text-foreground">
-            STARBRIGHT
-          </Link>
-
-          <div className="flex items-center space-x-2 md:space-x-4">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={toggleDarkMode}
-              className="rounded-full w-9 h-9"
-              title={isDarkMode ? "Ativar Modo Claro" : "Ativar Modo Escuro"}
-            >
-              {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </Button>
-
-            <Button variant="ghost" size="icon" className="hidden md:flex">
-              <Search className="h-5 w-5" />
-            </Button>
-            
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" title={user ? "Minha Conta" : "Fazer Login"}>
-                  <User className={cn("h-5 w-5", user && "text-primary")} />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="rounded-none w-56 border-primary/20 bg-background p-2">
-                {user ? (
-                  <>
-                    <div className="px-2 py-3 border-b mb-2">
-                      <p className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">Administrador</p>
-                      <p className="text-[9px] text-muted-foreground truncate">{user.email}</p>
-                    </div>
-                    <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
-                      <Link href="/admin/orders">
-                        <ClipboardList className="mr-2 h-4 w-4" /> Gestão de Pedidos
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
-                      <Link href="/admin/products">
-                        <Package className="mr-2 h-4 w-4" /> Gestão de Produtos
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem 
-                      className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3 text-destructive"
-                      onClick={handleLogout}
-                    >
-                      <LogOut className="mr-2 h-4 w-4" /> Sair
-                    </DropdownMenuItem>
-                  </>
-                ) : (
-                  <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
-                    <Link href="/login">
-                      <LogIn className="mr-2 h-4 w-4" /> Acesso Restrito
-                    </Link>
-                  </DropdownMenuItem>
-                )}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <Link href="/catalog">
-              <Button variant="ghost" size="icon" className="relative">
-                <ShoppingBag className="h-5 w-5" />
-              </Button>
-            </Link>
-
+        <div className="relative flex items-center justify-between h-10 md:h-12">
+          
+          {/* LADO ESQUERDO: Menu Mobile e Links Desktop */}
+          <div className="flex flex-1 items-center">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden">
+                <Button variant="ghost" size="icon" className="lg:hidden -ml-2" title="Menu">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] bg-background border-r-primary/20 p-0 rounded-none">
                 <SheetHeader className="p-8 border-b border-muted">
-                  <SheetTitle className="font-headline tracking-widest text-left font-bold">MENU</SheetTitle>
+                  <SheetTitle className="font-headline tracking-widest text-left font-bold uppercase">Categorias</SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col py-8 px-8 space-y-8">
-                  <div className="space-y-4">
-                    <p className="text-[10px] tracking-[0.3em] font-bold text-primary uppercase">Categorias</p>
-                    <nav className="flex flex-col space-y-5 text-sm font-bold tracking-[0.1em] uppercase">
-                      {navLinks.map((link) => (
-                        <SheetClose asChild key={link.name}>
-                          <Link href={link.href} className="hover:text-primary transition-colors">
-                            {link.name}
-                          </Link>
-                        </SheetClose>
-                      ))}
-                    </nav>
-                  </div>
+                  <nav className="flex flex-col space-y-5 text-sm font-bold tracking-[0.1em] uppercase">
+                    {navLinks.map((link) => (
+                      <SheetClose asChild key={link.name}>
+                        <Link href={link.href} className="hover:text-primary transition-colors">
+                          {link.name}
+                        </Link>
+                      </SheetClose>
+                    ))}
+                  </nav>
                   
                   <div className="space-y-4 pt-8 border-t border-muted">
-                    <p className="text-[10px] tracking-[0.3em] font-bold text-primary uppercase">O Ateliê</p>
+                    <p className="text-[10px] tracking-[0.3em] font-bold text-primary uppercase">Institucional</p>
                     <nav className="flex flex-col space-y-5 text-sm font-bold tracking-[0.1em] uppercase">
                       <SheetClose asChild>
                         <Link href="/sobre" className="hover:text-primary transition-colors">O Manifesto</Link>
@@ -184,7 +105,85 @@ export function Navbar() {
                 </div>
               </SheetContent>
             </Sheet>
+
+            <nav className="hidden lg:flex items-center space-x-6 text-[10px] font-bold tracking-widest uppercase">
+              <Link href="/catalog" className="hover:text-primary transition-colors">Coleção</Link>
+              <Link href="/sobre" className="hover:text-primary transition-colors">Manifesto</Link>
+              <Link href="/contato" className="hover:text-primary transition-colors">Contato</Link>
+              <Link href="/ai-stylist" className="flex items-center gap-1.5 hover:text-primary transition-colors text-primary italic">
+                <Sparkles className="h-3.5 w-3.5" /> Estilista IA
+              </Link>
+            </nav>
           </div>
+
+          {/* CENTRO: Logo (Sempre centralizado e com prioridade visual) */}
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2 text-xl md:text-3xl font-headline tracking-[0.3em] font-bold text-foreground z-10">
+            STARBRIGHT
+          </Link>
+
+          {/* LADO DIREITO: Ações (Dark Mode, Busca, Login, Carrinho) */}
+          <div className="flex flex-1 items-center justify-end space-x-0.5 md:space-x-3">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={toggleDarkMode}
+              className="rounded-full w-8 h-8 md:w-9 md:h-9"
+              title={isDarkMode ? "Modo Claro" : "Modo Escuro"}
+            >
+              {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </Button>
+
+            <Button variant="ghost" size="icon" className="hidden md:flex" title="Buscar">
+              <Search className="h-5 w-5" />
+            </Button>
+            
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="w-8 h-8 md:w-9 md:h-9" title={user ? "Minha Conta" : "Login"}>
+                  <User className={cn("h-5 w-5", user && "text-primary")} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="rounded-none w-56 border-primary/20 bg-background p-2">
+                {user ? (
+                  <>
+                    <div className="px-2 py-3 border-b mb-2">
+                      <p className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground italic">Bem-vinda, Curadora</p>
+                      <p className="text-[9px] text-muted-foreground truncate">{user.email}</p>
+                    </div>
+                    <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
+                      <Link href="/admin/orders">
+                        <ClipboardList className="mr-2 h-4 w-4" /> Pedidos
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
+                      <Link href="/admin/products">
+                        <Package className="mr-2 h-4 w-4" /> Catálogo
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3 text-destructive"
+                      onClick={handleLogout}
+                    >
+                      <LogOut className="mr-2 h-4 w-4" /> Encerrar Sessão
+                    </DropdownMenuItem>
+                  </>
+                ) : (
+                  <DropdownMenuItem className="cursor-pointer font-bold tracking-widest text-[10px] uppercase py-3" asChild>
+                    <Link href="/login">
+                      <LogIn className="mr-2 h-4 w-4" /> Acesso Restrito
+                    </Link>
+                  </DropdownMenuItem>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Link href="/catalog">
+              <Button variant="ghost" size="icon" className="w-8 h-8 md:w-9 md:h-9" title="Carrinho">
+                <ShoppingBag className="h-5 w-5" />
+              </Button>
+            </Link>
+          </div>
+
         </div>
       </div>
     </header>
