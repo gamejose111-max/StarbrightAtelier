@@ -2,7 +2,7 @@
 "use client"
 
 import Link from 'next/link';
-import { ShoppingBag, Search, User, Sparkles, Menu, Package, ClipboardList, Moon, Sun, LogOut, LogIn } from 'lucide-react';
+import { ShoppingBag, User, Sparkles, Menu, Package, ClipboardList, Moon, Sun, LogOut, LogIn } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -58,22 +58,22 @@ export function Navbar() {
   return (
     <header className={cn(
       "fixed top-0 z-50 w-full transition-all duration-500 border-b",
-      isScrolled ? "bg-background/95 backdrop-blur-md py-3 shadow-sm" : "bg-background py-6"
+      isScrolled ? "bg-background/95 backdrop-blur-md py-2 shadow-sm" : "bg-background py-4 md:py-6"
     )}>
       <div className="container mx-auto px-4 md:px-8">
-        <div className="flex items-center justify-between relative h-10">
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center h-10">
           
           {/* COLUNA ESQUERDA: Menu Mobile e Links Desktop */}
-          <div className="flex items-center justify-start flex-1 gap-4">
+          <div className="flex items-center justify-start">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden" title="Menu">
+                <Button variant="ghost" size="icon" className="lg:hidden h-9 w-9" title="Menu">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] bg-background border-r-primary/20 p-0 rounded-none">
-                <SheetHeader className="p-8 border-b border-muted">
-                  <SheetTitle className="font-headline tracking-widest text-left font-bold uppercase">Categorias</SheetTitle>
+                <SheetHeader className="p-8 border-b border-muted text-left">
+                  <SheetTitle className="font-headline tracking-widest font-bold uppercase">Categorias</SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col py-8 px-8 space-y-8">
                   <nav className="flex flex-col space-y-5 text-sm font-bold tracking-[0.1em] uppercase">
@@ -102,26 +102,38 @@ export function Navbar() {
                       </SheetClose>
                     </nav>
                   </div>
+
+                  {/* Mudar tema no mobile dentro do menu */}
+                  <div className="pt-8 border-t border-muted">
+                     <Button 
+                        variant="ghost" 
+                        className="w-full justify-start px-0 font-bold tracking-[0.1em] uppercase text-xs gap-3"
+                        onClick={toggleDarkMode}
+                      >
+                        {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                        {isDarkMode ? "Modo Claro" : "Modo Escuro"}
+                      </Button>
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>
 
-            <nav className="hidden lg:flex items-center space-x-8 text-[10px] font-bold tracking-[0.2em] uppercase">
+            <nav className="hidden lg:flex items-center space-x-6 text-[10px] font-bold tracking-[0.2em] uppercase">
               <Link href="/catalog" className="hover:text-primary transition-colors">Coleção</Link>
               <Link href="/sobre" className="hover:text-primary transition-colors">Manifesto</Link>
               <Link href="/contato" className="hover:text-primary transition-colors">Contato</Link>
             </nav>
           </div>
 
-          {/* COLUNA CENTRAL: Logo (Sempre centralizado e com prioridade visual) */}
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
-            <Link href="/" className="text-xl md:text-3xl font-headline tracking-[0.4em] font-bold text-foreground">
+          {/* COLUNA CENTRAL: Logo */}
+          <div className="flex items-center justify-center">
+            <Link href="/" className="text-base sm:text-lg md:text-2xl font-headline tracking-[0.3em] md:tracking-[0.4em] font-bold text-foreground transition-all">
               STARBRIGHT
             </Link>
           </div>
 
-          {/* COLUNA DIREITA: Ações (Dark Mode, Busca, Login, Carrinho) */}
-          <div className="flex items-center justify-end flex-1 gap-1 md:gap-3">
+          {/* COLUNA DIREITA: Ações */}
+          <div className="flex items-center justify-end gap-1 md:gap-2">
             <Link href="/ai-stylist" className="hidden xl:flex items-center gap-1.5 hover:text-primary transition-colors text-primary italic text-[9px] font-bold uppercase tracking-widest mr-2">
               <Sparkles className="h-3 w-3" /> Estilista IA
             </Link>
@@ -130,7 +142,7 @@ export function Navbar() {
               variant="ghost" 
               size="icon" 
               onClick={toggleDarkMode}
-              className="rounded-full w-9 h-9"
+              className="hidden sm:flex rounded-full w-9 h-9"
               title={isDarkMode ? "Modo Claro" : "Modo Escuro"}
             >
               {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
