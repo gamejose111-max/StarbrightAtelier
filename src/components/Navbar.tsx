@@ -2,7 +2,7 @@
 "use client"
 
 import Link from 'next/link';
-import { ShoppingBag, Search, User, Sparkles, Menu, Package, ClipboardList, Moon, Sun, Phone, LogOut, LogIn } from 'lucide-react';
+import { ShoppingBag, Search, User, Sparkles, Menu, Package, ClipboardList, Moon, Sun, LogOut, LogIn } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -57,17 +57,17 @@ export function Navbar() {
 
   return (
     <header className={cn(
-      "fixed top-0 z-50 w-full transition-all duration-300 border-b",
-      isScrolled ? "bg-background/95 backdrop-blur-md py-2 shadow-sm" : "bg-background py-6"
+      "fixed top-0 z-50 w-full transition-all duration-500 border-b",
+      isScrolled ? "bg-background/95 backdrop-blur-md py-3 shadow-sm" : "bg-background py-6"
     )}>
       <div className="container mx-auto px-4 md:px-8">
-        <div className="relative flex items-center justify-between h-10 md:h-12">
+        <div className="flex items-center justify-between relative h-10">
           
-          {/* LADO ESQUERDO: Menu Mobile e Links Desktop */}
-          <div className="flex flex-1 items-center">
+          {/* COLUNA ESQUERDA: Menu Mobile e Links Desktop */}
+          <div className="flex items-center justify-start flex-1 gap-4">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden -ml-2" title="Menu">
+                <Button variant="ghost" size="icon" className="lg:hidden" title="Menu">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
@@ -106,44 +106,43 @@ export function Navbar() {
               </SheetContent>
             </Sheet>
 
-            <nav className="hidden lg:flex items-center space-x-6 text-[10px] font-bold tracking-widest uppercase">
+            <nav className="hidden lg:flex items-center space-x-8 text-[10px] font-bold tracking-[0.2em] uppercase">
               <Link href="/catalog" className="hover:text-primary transition-colors">Coleção</Link>
               <Link href="/sobre" className="hover:text-primary transition-colors">Manifesto</Link>
               <Link href="/contato" className="hover:text-primary transition-colors">Contato</Link>
-              <Link href="/ai-stylist" className="flex items-center gap-1.5 hover:text-primary transition-colors text-primary italic">
-                <Sparkles className="h-3.5 w-3.5" /> Estilista IA
-              </Link>
             </nav>
           </div>
 
-          {/* CENTRO: Logo (Sempre centralizado e com prioridade visual) */}
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2 text-xl md:text-3xl font-headline tracking-[0.3em] font-bold text-foreground z-10">
-            STARBRIGHT
-          </Link>
+          {/* COLUNA CENTRAL: Logo (Sempre centralizado e com prioridade visual) */}
+          <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
+            <Link href="/" className="text-xl md:text-3xl font-headline tracking-[0.4em] font-bold text-foreground">
+              STARBRIGHT
+            </Link>
+          </div>
 
-          {/* LADO DIREITO: Ações (Dark Mode, Busca, Login, Carrinho) */}
-          <div className="flex flex-1 items-center justify-end space-x-0.5 md:space-x-3">
+          {/* COLUNA DIREITA: Ações (Dark Mode, Busca, Login, Carrinho) */}
+          <div className="flex items-center justify-end flex-1 gap-1 md:gap-3">
+            <Link href="/ai-stylist" className="hidden xl:flex items-center gap-1.5 hover:text-primary transition-colors text-primary italic text-[9px] font-bold uppercase tracking-widest mr-2">
+              <Sparkles className="h-3 w-3" /> Estilista IA
+            </Link>
+
             <Button 
               variant="ghost" 
               size="icon" 
               onClick={toggleDarkMode}
-              className="rounded-full w-8 h-8 md:w-9 md:h-9"
+              className="rounded-full w-9 h-9"
               title={isDarkMode ? "Modo Claro" : "Modo Escuro"}
             >
               {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
 
-            <Button variant="ghost" size="icon" className="hidden md:flex" title="Buscar">
-              <Search className="h-5 w-5" />
-            </Button>
-            
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="w-8 h-8 md:w-9 md:h-9" title={user ? "Minha Conta" : "Login"}>
+                <Button variant="ghost" size="icon" className="w-9 h-9" title={user ? "Minha Conta" : "Login"}>
                   <User className={cn("h-5 w-5", user && "text-primary")} />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="rounded-none w-56 border-primary/20 bg-background p-2">
+              <DropdownMenuContent align="end" className="rounded-none w-56 border-primary/20 bg-background p-2 mt-4">
                 {user ? (
                   <>
                     <div className="px-2 py-3 border-b mb-2">
@@ -178,7 +177,7 @@ export function Navbar() {
             </DropdownMenu>
 
             <Link href="/catalog">
-              <Button variant="ghost" size="icon" className="w-8 h-8 md:w-9 md:h-9" title="Carrinho">
+              <Button variant="ghost" size="icon" className="w-9 h-9" title="Carrinho">
                 <ShoppingBag className="h-5 w-5" />
               </Button>
             </Link>
