@@ -1,4 +1,3 @@
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -14,10 +13,12 @@ const featuredProducts = [
 ];
 
 export default function Home() {
+  const companyImage = PlaceHolderImages.find(p => p.id === 'company-image')?.imageUrl || "";
+
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[90vh] flex items-center overflow-hidden">
+      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image 
             src={PlaceHolderImages.find(p => p.id === 'hero-bag')?.imageUrl || ""} 
@@ -30,27 +31,15 @@ export default function Home() {
           <div className="absolute inset-0 bg-black/40" />
         </div>
         
-        <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="max-w-2xl bg-black/20 backdrop-blur-md border border-white/10 p-8 md:p-12 animate-fadeUp">
-            <span className="text-xs tracking-[0.3em] font-bold text-primary uppercase mb-4 block">A Arte de Brilhar em Cada Detalhe</span>
-            <h1 className="text-4xl md:text-6xl font-headline font-bold text-white mb-6 leading-tight drop-shadow-sm">
-              Esculpimos Luz <br /> Em Peças Eternas
-            </h1>
-            <p className="text-lg text-white/90 mb-10 font-body leading-relaxed italic">
-              "No Ateliê StarBright, não criamos apenas bolsas; esculpimos luz."
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link href="/catalog">
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-10 tracking-widest uppercase text-xs">
-                  Comprar Coleção
-                </Button>
-              </Link>
-              <Link href="/sobre">
-                <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/20 rounded-none px-10 tracking-widest uppercase text-xs backdrop-blur-sm">
-                  O Manifesto
-                </Button>
-              </Link>
-            </div>
+        <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
+          <div className="relative w-full max-w-2xl aspect-video md:aspect-[16/9] animate-fadeUp overflow-hidden">
+            <Image 
+              src={companyImage}
+              alt="Ateliê Starbright"
+              fill
+              className="object-contain"
+              priority
+            />
           </div>
         </div>
       </section>

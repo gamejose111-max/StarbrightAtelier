@@ -7,6 +7,12 @@
       "imageHint": "luxury handbag"
     },
     {
+      "id": "company-image",
+      "description": "Ateliê Starbright Official Image",
+      "imageUrl": "https://fv5-5.files.fm/thumb_show.php?i=8tzhwcustm&view&v=1&PHPSESSID=af5af501aef333578a573eacd4eebbb26881e73f",
+      "imageHint": "company image"
+    },
+    {
       "id": "bag-1",
       "description": "Classic leather tote in cream",
       "imageUrl": "https://images.unsplash.com/photo-1760624089496-01ae68a92d58?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsZWF0aGVyJTIwdG90ZXxlbnwwfHx8fDE3NzIzNzYyOTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
