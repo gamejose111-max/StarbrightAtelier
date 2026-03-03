@@ -14,9 +14,11 @@ const featuredProducts = [
 ];
 
 export default function Home() {
+  const heroTitleImg = PlaceHolderImages.find(p => p.id === 'hero-title-img')?.imageUrl;
+
   return (
     <div className="flex flex-col">
-      {/* Hero Section - Restaurada */}
+      {/* Hero Section */}
       <section className="relative h-[85vh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
@@ -31,25 +33,35 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
-          <div className="max-w-2xl bg-black/20 backdrop-blur-md border border-white/10 p-8 md:p-12 animate-fadeUp text-center space-y-8">
-            <div className="space-y-4">
+          <div className="max-w-2xl bg-black/20 backdrop-blur-md border border-white/10 p-8 md:p-12 animate-fadeUp text-center space-y-8 flex flex-col items-center">
+            <div className="space-y-6 flex flex-col items-center w-full">
               <span className="text-[10px] tracking-[0.4em] font-bold text-primary uppercase block">A Arte de Brilhar em Cada Detalhe</span>
-              <h1 className="text-4xl md:text-6xl font-headline font-bold text-white leading-tight">
-                Esculpimos Luz <br /> Em Peças Eternas
-              </h1>
+              
+              {/* Substituição do H1 pela Imagem */}
+              <div className="relative w-full max-w-lg aspect-[3/1]">
+                {heroTitleImg && (
+                  <Image 
+                    src={heroTitleImg} 
+                    alt="Esculpimos Luz em Peças Eternas" 
+                    fill 
+                    className="object-contain"
+                  />
+                )}
+              </div>
+
               <p className="text-lg md:text-xl text-white/80 font-body italic">
                 "No Ateliê StarBright, não criamos apenas bolsas; esculpimos luz."
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Link href="/catalog">
-                <Button className="w-full sm:w-auto rounded-none h-14 px-10 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 w-full sm:w-auto">
+              <Link href="/catalog" className="w-full sm:w-auto">
+                <Button className="w-full rounded-none h-14 px-10 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90">
                   Comprar Coleção
                 </Button>
               </Link>
-              <Link href="/sobre">
-                <Button variant="outline" className="w-full sm:w-auto rounded-none h-14 px-10 tracking-[0.2em] uppercase font-bold text-xs border-white text-white hover:bg-white/10 hover:text-white">
+              <Link href="/sobre" className="w-full sm:w-auto">
+                <Button variant="outline" className="w-full rounded-none h-14 px-10 tracking-[0.2em] uppercase font-bold text-xs border-white text-white hover:bg-white/10 hover:text-white">
                   O Manifesto
                 </Button>
               </Link>
@@ -58,7 +70,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Products - Organized Grids */}
+      {/* Featured Products */}
       <section className="py-24">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 space-y-4">
