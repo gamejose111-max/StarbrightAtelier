@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ArrowRight, Sparkles, Star, Gem } from 'lucide-react';
+import { ArrowRight, Sparkles, Star } from 'lucide-react';
 
 const featuredProducts = [
   { id: 1, name: "Bolsa Pérola Luminosidade", price: "€2.450", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl },
@@ -17,22 +17,10 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <Image 
-            src={PlaceHolderImages.find(p => p.id === 'hero-bag')?.imageUrl || ""} 
-            alt="Bolsa de Luxo Hero" 
-            fill 
-            className="object-cover"
-            priority
-            data-ai-hint="luxury handbag"
-          />
-          <div className="absolute inset-0 bg-black/40" />
-        </div>
-        
+      {/* Hero Section - Clean Logo Focus */}
+      <section className="relative h-[60vh] flex items-center justify-center bg-background border-b border-primary/10 overflow-hidden">
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
-          <div className="relative w-full max-w-2xl aspect-video md:aspect-[16/9] animate-fadeUp overflow-hidden">
+          <div className="relative w-full max-w-2xl aspect-video animate-fadeUp">
             <Image 
               src={companyImage}
               alt="Ateliê Starbright"
@@ -153,15 +141,7 @@ export default function Home() {
       </section>
 
       {/* AI Stylist Promo */}
-      <section className="relative h-[500px] overflow-hidden flex items-center">
-        <Image 
-          src={PlaceHolderImages.find(p => p.id === 'stylist-bg')?.imageUrl || ""} 
-          alt="Fundo Estilista IA" 
-          fill 
-          className="object-cover"
-          data-ai-hint="luxury atelier"
-        />
-        <div className="absolute inset-0 bg-background/90" />
+      <section className="relative h-[400px] overflow-hidden flex items-center bg-muted/30">
         <div className="container mx-auto px-4 md:px-8 relative z-10 text-center max-w-3xl">
           <div className="space-y-8 animate-fadeUp">
             <div className="inline-flex items-center justify-center p-3 rounded-full bg-primary/10 mb-2">

@@ -1,4 +1,3 @@
-
 "use client"
 
 import Link from 'next/link';
@@ -10,12 +9,15 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { user } = useUser();
   const auth = useAuth();
+  const companyImage = PlaceHolderImages.find(p => p.id === 'company-image')?.imageUrl || "";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,10 +62,10 @@ export function Navbar() {
       isScrolled ? "bg-background/95 backdrop-blur-md py-2 shadow-sm" : "bg-background py-4 md:py-6"
     )}>
       <div className="container mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center h-10">
+        <div className="grid grid-cols-3 items-center">
           
           {/* COLUNA ESQUERDA: Menu Mobile e Links Desktop */}
-          <div className="flex items-center justify-start gap-4">
+          <div className="flex items-center justify-start">
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="lg:hidden h-9 w-9" title="Menu">
@@ -86,19 +88,13 @@ export function Navbar() {
                         </Link>
                       </SheetClose>
                     ))}
+                    <SheetClose asChild>
+                      <Link href="/ai-stylist" className="flex items-center gap-2 text-primary italic">
+                        <Sparkles className="h-4 w-4" /> Estilista IA
+                      </Link>
+                    </SheetClose>
                   </nav>
                   
-                  <div className="space-y-4 pt-8 border-t border-muted">
-                    <p className="text-[10px] tracking-[0.3em] font-bold text-primary uppercase">Consultoria</p>
-                    <nav className="flex flex-col space-y-5 text-sm font-bold tracking-[0.1em] uppercase">
-                      <SheetClose asChild>
-                        <Link href="/ai-stylist" className="flex items-center gap-2 hover:text-primary transition-colors text-primary italic">
-                          <Sparkles className="h-4 w-4" /> Estilista IA
-                        </Link>
-                      </SheetClose>
-                    </nav>
-                  </div>
-
                   <div className="pt-8 border-t border-muted">
                      <Button 
                         variant="ghost" 
@@ -124,12 +120,18 @@ export function Navbar() {
 
           {/* COLUNA CENTRAL: Logo Absolutamente Centralizado */}
           <div className="flex items-center justify-center">
-            <Link href="/" className="text-lg sm:text-xl md:text-2xl font-headline tracking-[0.3em] md:tracking-[0.4em] font-bold text-foreground transition-all">
-              STARBRIGHT
+            <Link href="/" className="relative h-10 w-40 md:h-14 md:w-56 transition-all">
+              <Image 
+                src={companyImage} 
+                alt="STARBRIGHT" 
+                fill 
+                className="object-contain"
+                priority
+              />
             </Link>
           </div>
 
-          {/* COLUNA DIREITA: Ações com espaçamento limpo */}
+          {/* COLUNA DIREITA: Ações */}
           <div className="flex items-center justify-end gap-1 md:gap-3">
             <Link href="/ai-stylist" className="hidden xl:flex items-center gap-1.5 hover:text-primary transition-colors text-primary italic text-[9px] font-bold uppercase tracking-widest mr-2">
               <Sparkles className="h-3 w-3" /> Estilista IA
