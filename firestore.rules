@@ -3,45 +3,36 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * STARBRIGHT ATELIER SECURITY RULES
-     * 
-     * Core Philosophy: 
-     * Enforces strict user-ownership for private data and administrative access for catalog management.
+     * ATELIÊ STARBRIGHT - REGRAS DE SEGURANÇA
      */
 
     function isSignedIn() {
       return request.auth != null;
     }
 
-    // --- TOP-LEVEL COLLECTIONS ---
-
-    /**
-     * @description Public product catalog. Admin management.
-     */
+    // --- CATÁLOGO DE PRODUTOS ---
     match /products/{productId} {
+      // Público pode ver os produtos
       allow read: if true;
+      // Apenas admin logado pode criar, editar ou excluir
       allow write: if isSignedIn();
     }
 
-    /**
-     * @description Orders management. Allows public creation (checkout) and admin management.
-     */
+    // --- GESTÃO DE PEDIDOS ---
     match /orders/{orderId} {
+      // Público pode criar pedidos (checkout)
       allow create: if true;
+      // Apenas admin logado pode listar, ver detalhes e atualizar status
       allow read, update, delete: if isSignedIn();
     }
 
-    // --- NESTED CUSTOMER DATA (As defined in backend.json) ---
-
+    // --- DADOS DO CLIENTE (BACKEND.JSON) ---
     match /customers/{customerId} {
-      function isOwner(userId) {
-        return isSignedIn() && request.auth.uid == userId;
-      }
-
-      allow read, write: if isOwner(customerId);
+      // O usuário só acessa seus próprios dados
+      allow read, write: if isSignedIn() && request.auth.uid == customerId;
 
       match /{allSubcollections=**} {
-        allow read, write: if isOwner(customerId);
+        allow read, write: if isSignedIn() && request.auth.uid == customerId;
       }
     }
   }
