@@ -33,18 +33,19 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
-          <div className="max-w-2xl bg-black/20 backdrop-blur-md border border-white/10 p-8 md:p-12 animate-fadeUp text-center space-y-8 flex flex-col items-center">
+          <div className="max-w-4xl bg-black/10 backdrop-blur-sm border border-white/5 p-8 md:p-12 animate-fadeUp text-center space-y-8 flex flex-col items-center">
             <div className="space-y-6 flex flex-col items-center w-full">
               <span className="text-[10px] tracking-[0.4em] font-bold text-primary uppercase block">A Arte de Brilhar em Cada Detalhe</span>
               
-              {/* Substituição do H1 pela Imagem */}
-              <div className="relative w-full max-w-lg aspect-[3/1]">
+              {/* Logo da Empresa em Destaque - Aumentada e com transparência PNG respeitada */}
+              <div className="relative w-full max-w-3xl aspect-[3/1] transition-all hover:scale-[1.02] duration-700">
                 {heroTitleImg && (
                   <Image 
                     src={heroTitleImg} 
-                    alt="Esculpimos Luz em Peças Eternas" 
+                    alt="Ateliê Starbright" 
                     fill 
                     className="object-contain"
+                    priority
                   />
                 )}
               </div>
