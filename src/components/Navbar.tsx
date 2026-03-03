@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from 'next/link';
@@ -9,15 +10,12 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
-import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { user } = useUser();
   const auth = useAuth();
-  const companyImage = PlaceHolderImages.find(p => p.id === 'company-image')?.imageUrl || "";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,13 +60,13 @@ export function Navbar() {
       isScrolled ? "bg-background/95 backdrop-blur-md py-2 shadow-sm" : "bg-background py-4 md:py-6"
     )}>
       <div className="container mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-3 items-center">
+        <div className="flex items-center justify-between">
           
-          {/* COLUNA ESQUERDA: Menu Mobile e Links Desktop */}
-          <div className="flex items-center justify-start">
+          {/* LADO ESQUERDO: Menu */}
+          <div className="flex-1 flex items-center">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden h-9 w-9" title="Menu">
+                <Button variant="ghost" size="icon" className="h-9 w-9" title="Menu">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
@@ -109,7 +107,7 @@ export function Navbar() {
               </SheetContent>
             </Sheet>
 
-            <nav className="hidden lg:flex items-center space-x-6 text-[10px] font-bold tracking-[0.2em] uppercase">
+            <nav className="hidden lg:flex items-center space-x-6 text-[10px] font-bold tracking-[0.2em] uppercase ml-6">
               {navLinks.map((link) => (
                 <Link key={link.name} href={link.href} className="hover:text-primary transition-colors">
                   {link.name}
@@ -118,21 +116,17 @@ export function Navbar() {
             </nav>
           </div>
 
-          {/* COLUNA CENTRAL: Logo Absolutamente Centralizado */}
-          <div className="flex items-center justify-center">
-            <Link href="/" className="relative h-10 w-40 md:h-14 md:w-56 transition-all">
-              <Image 
-                src={companyImage} 
-                alt="STARBRIGHT" 
-                fill 
-                className="object-contain"
-                priority
-              />
+          {/* CENTRO: Logo */}
+          <div className="flex-shrink-0">
+            <Link href="/" className="group">
+              <h1 className="text-xl md:text-3xl font-headline font-bold tracking-[0.3em] uppercase group-hover:text-primary transition-colors">
+                Starbright
+              </h1>
             </Link>
           </div>
 
-          {/* COLUNA DIREITA: Ações */}
-          <div className="flex items-center justify-end gap-1 md:gap-3">
+          {/* DIREITA: Ações */}
+          <div className="flex-1 flex items-center justify-end gap-1 md:gap-3">
             <Link href="/ai-stylist" className="hidden xl:flex items-center gap-1.5 hover:text-primary transition-colors text-primary italic text-[9px] font-bold uppercase tracking-widest mr-2">
               <Sparkles className="h-3 w-3" /> Estilista IA
             </Link>

@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -13,21 +14,46 @@ const featuredProducts = [
 ];
 
 export default function Home() {
-  const companyImage = PlaceHolderImages.find(p => p.id === 'company-image')?.imageUrl || "";
-
   return (
     <div className="flex flex-col">
-      {/* Hero Section - Clean Logo Focus */}
-      <section className="relative h-[60vh] flex items-center justify-center bg-background border-b border-primary/10 overflow-hidden">
+      {/* Hero Section - Restaurada */}
+      <section className="relative h-[85vh] flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src={PlaceHolderImages.find(p => p.id === 'hero-bag')?.imageUrl || ""}
+            alt="Ateliê Starbright"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
+
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
-          <div className="relative w-full max-w-2xl aspect-video animate-fadeUp">
-            <Image 
-              src={companyImage}
-              alt="Ateliê Starbright"
-              fill
-              className="object-contain"
-              priority
-            />
+          <div className="max-w-2xl bg-black/20 backdrop-blur-md border border-white/10 p-8 md:p-12 animate-fadeUp text-center space-y-8">
+            <div className="space-y-4">
+              <span className="text-[10px] tracking-[0.4em] font-bold text-primary uppercase block">A Arte de Brilhar em Cada Detalhe</span>
+              <h1 className="text-4xl md:text-6xl font-headline font-bold text-white leading-tight">
+                Esculpimos Luz <br /> Em Peças Eternas
+              </h1>
+              <p className="text-lg md:text-xl text-white/80 font-body italic">
+                "No Ateliê StarBright, não criamos apenas bolsas; esculpimos luz."
+              </p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Link href="/catalog">
+                <Button className="w-full sm:w-auto rounded-none h-14 px-10 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90">
+                  Comprar Coleção
+                </Button>
+              </Link>
+              <Link href="/sobre">
+                <Button variant="outline" className="w-full sm:w-auto rounded-none h-14 px-10 tracking-[0.2em] uppercase font-bold text-xs border-white text-white hover:bg-white/10 hover:text-white">
+                  O Manifesto
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
