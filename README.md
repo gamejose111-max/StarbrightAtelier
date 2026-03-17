@@ -1,32 +1,28 @@
-# Ateliê Starbright - Guia de Lançamento
+# Ateliê Starbright - Guia de Lançamento (Domínio .pt)
 
-Este projeto está pronto para ser hospedado no **Firebase App Hosting**. Siga os passos abaixo para colocar o seu site no ar com o seu novo domínio `.pt`.
+Este projeto foi desenvolvido com Next.js e está otimizado para o **Firebase App Hosting**. Esta é a forma mais moderna e simples de colocar seu site no ar, sem precisar gerenciar servidores Node.js manualmente.
 
-## 1. Configuração no Firebase
-Como o projeto já utiliza Next.js e Firebase, o caminho mais recomendado é o **App Hosting**:
+## 1. Publicando no Firebase App Hosting
+O App Hosting cuida de toda a infraestrutura para você:
 
-1. Acesse o [Console do Firebase](https://console.firebase.google.com/).
-2. Selecione o seu projeto.
-3. No menu lateral, vá em **Build** -> **App Hosting**.
-4. Clique em **Get Started** e conecte o seu repositório do GitHub onde este código está salvo.
-5. O Firebase detectará automaticamente as configurações do Next.js e iniciará o primeiro "Build".
+1.  **Repositório**: Certifique-se de que seu código está em um repositório no GitHub.
+2.  **Console do Firebase**: Vá em [Console do Firebase](https://console.firebase.google.com/) -> **Build** -> **App Hosting**.
+3.  **Conexão**: Clique em "Get Started", conecte sua conta do GitHub e selecione o repositório deste projeto.
+4.  **Configuração**: O Firebase detectará automaticamente que é um projeto Next.js. Basta clicar em "Finish and Deploy".
 
-## 2. Conectando seu domínio .pt
-Depois que o site estiver funcionando no link temporário do Firebase:
+## 2. Configurando seu domínio .pt (Comprado no site.pt)
+Após o primeiro deploy ser concluído com sucesso:
 
-1. No painel do **App Hosting**, vá na aba **Settings** (Configurações) do seu backend.
-2. Procure pela seção **Custom Domains**.
-3. Clique em **Add Domain** e digite o seu domínio (ex: `seudominio.pt`).
-4. O Firebase fornecerá alguns **registros DNS** (valores de TXT e A).
+1.  No painel do **App Hosting**, vá na aba **Settings** (Configurações).
+2.  Clique em **Custom Domains** e depois em **Add Domain**.
+3.  Digite seu domínio (ex: `ateliestarbright.pt`).
+4.  O Firebase gerará valores de **DNS** (geralmente registros `A`, `AAAA` e `TXT`).
 
-## 3. Configuração no site.pt (Registrador)
-1. Faça login no site onde você comprou o domínio.
-2. Vá para a **Gestão de DNS** do seu domínio.
-3. Adicione os registros que o Firebase te passou.
-4. Aguarde a propagação (pode levar de algumas horas até 48h).
-
-## 4. Verificação de Segurança
-Certifique-se de que o **Authentication** e o **Firestore** estão ativos no Console do Firebase para que o catálogo e o login de admin funcionem corretamente em produção.
+## 3. No painel do site.pt (Registrador)
+1.  Faça login no site onde comprou o domínio (`site.pt`).
+2.  Acesse a **Gestão de DNS** do seu domínio.
+3.  Insira os registros fornecidos pelo Firebase.
+4.  **Aguarde**: A propagação do domínio pode levar de 1 a 24 horas. O certificado SSL (cadeado de segurança) será gerado automaticamente pelo Firebase assim que o domínio estiver validado.
 
 ---
-*Dica: O SSL (cadeado de segurança) é gerado automaticamente pelo Firebase assim que o domínio é validado.*
+*Nota: Como o site utiliza IA (Genkit) e Banco de Dados (Firestore), o App Hosting é a melhor escolha pois suporta tanto a parte visual quanto as funções inteligentes do Ateliê.*
