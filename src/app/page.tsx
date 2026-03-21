@@ -1,8 +1,8 @@
 
 import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ArrowRight, Sparkles, Star } from 'lucide-react';
 
 const featuredProducts = [
@@ -122,7 +122,6 @@ export default function Home() {
                 alt="Bolsa Pérola Luminosidade" 
                 fill 
                 className="object-cover"
-                data-ai-hint="pearl handbag"
               />
             </div>
             <div className="space-y-8">
