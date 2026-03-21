@@ -1,3 +1,4 @@
+
 # Ateliê Starbright - Guia de Lançamento (Domínio .pt)
 
 Este projeto foi desenvolvido com Next.js e está otimizado para o **Firebase App Hosting**. Esta é a forma mais moderna e simples de colocar seu site no ar, sem precisar gerenciar servidores Node.js manualmente.
@@ -25,4 +26,4 @@ Após o primeiro deploy ser concluído com sucesso:
 4.  **Aguarde**: A propagação do domínio pode levar de 1 a 24 horas. O certificado SSL (cadeado de segurança) será gerado automaticamente pelo Firebase assim que o domínio estiver validado.
 
 ---
-*Nota: Como o site utiliza IA (Genkit) e Banco de Dados (Firestore), o App Hosting é a melhor escolha pois suporta tanto a parte visual quanto as funções inteligentes do Ateliê.*
+*Nota: Embora o site use tecnologias modernas, o Firebase App Hosting abstrai a necessidade de gerenciar o Node.js. Ele funciona como uma hospedagem inteligente para o seu projeto.*
