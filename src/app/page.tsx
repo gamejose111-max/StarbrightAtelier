@@ -11,17 +11,17 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[95vh] flex items-center justify-center overflow-hidden bg-black">
-        {/* Background Image com Overlay mais Profundo */}
+      <section className="relative h-[95vh] flex items-center justify-center overflow-hidden bg-background">
+        {/* Background Image com Overlay para elegância */}
         <div className="absolute inset-0 z-0">
           <Image 
             src={PlaceHolderImages.find(p => p.id === 'hero-bag')?.imageUrl || ""}
-            alt="Ateliê Starbright"
+            alt="Ateliê Starbright Background"
             fill
-            className="object-cover opacity-50"
+            className="object-cover opacity-20"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-transparent to-background/80"></div>
         </div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
@@ -29,8 +29,8 @@ export default function Home() {
             <div className="space-y-6 flex flex-col items-center w-full">
               <span className="text-[10px] tracking-[0.5em] font-bold text-primary uppercase block mb-4">Onde a Luz se Torna Arte</span>
               
-              {/* Logo PNG com correção de transparência visual */}
-              <div className="relative w-full max-w-4xl h-48 md:h-72 transition-all hover:scale-[1.05] duration-1000 ease-in-out mix-blend-lighten">
+              {/* Logo com mix-blend-multiply para remover o fundo branco da imagem */}
+              <div className="relative w-full max-w-4xl h-56 md:h-80 transition-all hover:scale-[1.02] duration-1000 ease-in-out mix-blend-multiply">
                 {heroTitleImg && (
                   <Image 
                     src={heroTitleImg} 
@@ -42,19 +42,19 @@ export default function Home() {
                 )}
               </div>
 
-              <p className="text-xl md:text-2xl text-white/90 font-headline italic tracking-wide max-w-2xl mx-auto">
+              <p className="text-xl md:text-2xl text-foreground/80 font-headline italic tracking-wide max-w-2xl mx-auto">
                 "Peças exclusivas esculpidas para brilhar eternamente."
               </p>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8 w-full sm:w-auto">
               <Link href="/catalog" className="w-full sm:w-auto">
-                <Button className="w-full rounded-none h-16 px-12 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-2xl">
+                <Button className="w-full rounded-none h-16 px-12 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-xl">
                   Explorar Coleção
                 </Button>
               </Link>
               <Link href="/sobre" className="w-full sm:w-auto">
-                <Button variant="outline" className="w-full rounded-none h-16 px-12 tracking-[0.2em] uppercase font-bold text-xs border-white text-white hover:bg-white/10 hover:text-white backdrop-blur-sm">
+                <Button variant="outline" className="w-full rounded-none h-16 px-12 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-primary/10 hover:text-primary backdrop-blur-sm">
                   Nosso Manifesto
                 </Button>
               </Link>
