@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles, Star } from 'lucide-react';
+import { ArrowRight, Star } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -16,22 +16,22 @@ export default function Home() {
             src={PlaceHolderImages.find(p => p.id === 'hero-bag')?.imageUrl || ""}
             alt="Ateliê Starbright Background"
             fill
-            className="object-cover opacity-20"
+            className="object-cover opacity-40 md:opacity-50"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-transparent to-background/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background/60"></div>
         </div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
           <div className="max-w-5xl animate-fadeUp text-center space-y-8 flex flex-col items-center">
             <div className="space-y-6 flex flex-col items-center w-full">
-              <span className="text-[10px] tracking-[0.5em] font-bold text-primary uppercase block mb-4">Onde a Luz se Torna Arte</span>
+              <span className="text-[10px] tracking-[0.5em] font-bold text-primary uppercase block mb-4 drop-shadow-sm">Onde a Luz se Torna Arte</span>
               
-              <h1 className="text-5xl md:text-7xl font-headline font-bold text-foreground leading-tight tracking-tight">
+              <h1 className="text-5xl md:text-7xl font-headline font-bold text-foreground leading-tight tracking-tight drop-shadow-md">
                 Ateliê <span className="text-primary italic">Starbright</span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-foreground/80 font-headline italic tracking-wide max-w-2xl mx-auto pt-4">
+              <p className="text-xl md:text-2xl text-foreground/90 font-headline italic tracking-wide max-w-2xl mx-auto pt-4 drop-shadow-sm">
                 "Peças exclusivas esculpidas para brilhar eternamente."
               </p>
             </div>
