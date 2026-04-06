@@ -4,6 +4,7 @@ import './globals.css';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { FirebaseClientProvider } from '@/firebase';
+import { SplashLoader } from '@/components/SplashLoader';
 
 export const metadata: Metadata = {
   title: 'Ateliê StarBright | A Arte de Brilhar em Cada Detalhe',
@@ -23,6 +24,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased selection:bg-primary selection:text-primary-foreground min-h-screen flex flex-col">
+        <SplashLoader />
         <FirebaseClientProvider>
           <Navbar />
           <main className="flex-grow">
