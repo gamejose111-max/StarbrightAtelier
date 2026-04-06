@@ -19,26 +19,26 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[85vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-black">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image 
             src={PlaceHolderImages.find(p => p.id === 'hero-bag')?.imageUrl || ""}
             alt="Ateliê Starbright"
             fill
-            className="object-cover"
+            className="object-cover opacity-60"
             priority
           />
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60"></div>
         </div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
-          <div className="max-w-5xl bg-black/10 backdrop-blur-md border border-white/5 p-8 md:p-12 animate-fadeUp text-center space-y-8 flex flex-col items-center">
+          <div className="max-w-5xl animate-fadeUp text-center space-y-12 flex flex-col items-center">
             <div className="space-y-6 flex flex-col items-center w-full">
-              <span className="text-[10px] tracking-[0.4em] font-bold text-primary uppercase block">A Arte de Brilhar em Cada Detalhe</span>
+              <span className="text-[10px] tracking-[0.5em] font-bold text-primary uppercase block mb-4">Onde a Luz se Torna Arte</span>
               
-              {/* Logo da Empresa em Destaque - Aumentada e com transparência PNG respeitada */}
-              <div className="relative w-full max-w-4xl aspect-[3/1] transition-all hover:scale-[1.02] duration-700">
+              {/* Logo PNG Aumentada */}
+              <div className="relative w-full max-w-5xl aspect-[4/1] transition-all hover:scale-[1.03] duration-1000 ease-in-out">
                 {heroTitleImg && (
                   <Image 
                     src={heroTitleImg} 
@@ -50,20 +50,20 @@ export default function Home() {
                 )}
               </div>
 
-              <p className="text-lg md:text-xl text-white/80 font-body italic">
-                "No Ateliê StarBright, não criamos apenas bolsas; esculpimos luz."
+              <p className="text-xl md:text-2xl text-white/90 font-headline italic tracking-wide max-w-2xl mx-auto">
+                "Peças exclusivas esculpidas para brilhar eternamente."
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8 w-full sm:w-auto">
               <Link href="/catalog" className="w-full sm:w-auto">
-                <Button className="w-full rounded-none h-14 px-10 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90">
-                  Comprar Coleção
+                <Button className="w-full rounded-none h-16 px-12 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-2xl">
+                  Explorar Coleção
                 </Button>
               </Link>
               <Link href="/sobre" className="w-full sm:w-auto">
-                <Button variant="outline" className="w-full rounded-none h-14 px-10 tracking-[0.2em] uppercase font-bold text-xs border-white text-white hover:bg-white/10 hover:text-white">
-                  O Manifesto
+                <Button variant="outline" className="w-full rounded-none h-16 px-12 tracking-[0.2em] uppercase font-bold text-xs border-white text-white hover:bg-white/10 hover:text-white backdrop-blur-sm">
+                  Nosso Manifesto
                 </Button>
               </Link>
             </div>

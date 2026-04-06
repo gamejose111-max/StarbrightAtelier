@@ -116,10 +116,10 @@ export function Navbar() {
             </nav>
           </div>
 
-          {/* CENTRO: Logo */}
+          {/* CENTRO: Logo (Centralizado e Tidy) */}
           <div className="flex justify-center items-center">
             <Link href="/" className="group">
-              <h1 className="text-lg md:text-3xl font-headline font-bold tracking-[0.3em] uppercase group-hover:text-primary transition-colors whitespace-nowrap">
+              <h1 className="text-xl md:text-3xl font-headline font-bold tracking-[0.4em] uppercase group-hover:text-primary transition-colors whitespace-nowrap">
                 Starbright
               </h1>
             </Link>
