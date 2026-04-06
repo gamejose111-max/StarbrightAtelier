@@ -6,8 +6,6 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Sparkles, Star } from 'lucide-react';
 
 export default function Home() {
-  const heroTitleImg = PlaceHolderImages.find(p => p.id === 'hero-title-img')?.imageUrl;
-
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -26,21 +24,12 @@ export default function Home() {
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
           <div className="max-w-5xl animate-fadeUp text-center space-y-8 flex flex-col items-center">
-            <div className="space-y-4 flex flex-col items-center w-full">
+            <div className="space-y-6 flex flex-col items-center w-full">
               <span className="text-[10px] tracking-[0.5em] font-bold text-primary uppercase block mb-4">Onde a Luz se Torna Arte</span>
               
-              {/* Logo com mix-blend-multiply para remover o fundo branco da imagem */}
-              <div className="relative w-full max-w-[250px] md:max-w-[350px] h-[250px] md:h-[350px] transition-all hover:scale-[1.02] duration-1000 ease-in-out mix-blend-multiply">
-                {heroTitleImg && (
-                  <Image 
-                    src={heroTitleImg} 
-                    alt="Ateliê Starbright" 
-                    fill 
-                    className="object-contain"
-                    priority
-                  />
-                )}
-              </div>
+              <h1 className="text-5xl md:text-7xl font-headline font-bold text-foreground leading-tight tracking-tight">
+                Ateliê <span className="text-primary italic">Starbright</span>
+              </h1>
 
               <p className="text-xl md:text-2xl text-foreground/80 font-headline italic tracking-wide max-w-2xl mx-auto pt-4">
                 "Peças exclusivas esculpidas para brilhar eternamente."

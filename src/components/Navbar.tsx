@@ -11,7 +11,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,8 +18,6 @@ export function Navbar() {
   const { user } = useUser();
   const auth = useAuth();
   
-  const logoImg = PlaceHolderImages.find(p => p.id === 'hero-title-img')?.imageUrl;
-
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -120,15 +117,12 @@ export function Navbar() {
             </nav>
           </div>
 
-          {/* CENTRO: Logo Absoluto com Imagem (Reduzido e sem fundo) */}
+          {/* CENTRO: Nome da Marca */}
           <div className="flex justify-center items-center">
             <Link href="/" className="group flex flex-col items-center">
-              <div className="relative h-10 w-10 md:h-12 md:w-12 mix-blend-multiply">
-                {logoImg && <Image src={logoImg} alt="Ateliê Starbright" fill className="object-contain" />}
-              </div>
               <h1 className={cn(
                 "font-headline font-bold tracking-[0.4em] uppercase group-hover:text-primary transition-colors whitespace-nowrap",
-                isScrolled ? "text-[10px] mt-1" : "text-xs mt-2"
+                isScrolled ? "text-xs" : "text-sm md:text-base"
               )}>
                 Starbright
               </h1>
