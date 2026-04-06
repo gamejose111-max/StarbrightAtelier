@@ -2,6 +2,7 @@
 "use client"
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { ShoppingBag, User, Sparkles, Menu, Package, ClipboardList, Moon, Sun, LogOut, LogIn } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
@@ -10,12 +11,15 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { user } = useUser();
   const auth = useAuth();
+  
+  const logoImg = PlaceHolderImages.find(p => p.id === 'hero-title-img')?.imageUrl;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -116,10 +120,16 @@ export function Navbar() {
             </nav>
           </div>
 
-          {/* CENTRO: Logo Absoluto */}
+          {/* CENTRO: Logo Absoluto com Imagem */}
           <div className="flex justify-center items-center">
-            <Link href="/" className="group">
-              <h1 className="text-lg md:text-2xl font-headline font-bold tracking-[0.4em] uppercase group-hover:text-primary transition-colors whitespace-nowrap">
+            <Link href="/" className="group flex flex-col items-center">
+              <div className="relative h-12 w-12 md:h-16 md:w-16 mix-blend-multiply">
+                {logoImg && <Image src={logoImg} alt="Ateliê Starbright" fill className="object-contain" />}
+              </div>
+              <h1 className={cn(
+                "font-headline font-bold tracking-[0.4em] uppercase group-hover:text-primary transition-colors whitespace-nowrap",
+                isScrolled ? "text-xs mt-1" : "text-sm mt-2"
+              )}>
                 Starbright
               </h1>
             </Link>

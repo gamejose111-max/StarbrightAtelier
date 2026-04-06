@@ -29,8 +29,8 @@ export default function Home() {
             <div className="space-y-6 flex flex-col items-center w-full">
               <span className="text-[10px] tracking-[0.5em] font-bold text-primary uppercase block mb-4">Onde a Luz se Torna Arte</span>
               
-              {/* Logo com mix-blend-multiply para remover o fundo branco da imagem */}
-              <div className="relative w-full max-w-4xl h-56 md:h-80 transition-all hover:scale-[1.02] duration-1000 ease-in-out mix-blend-multiply">
+              {/* Logo com mix-blend-multiply para remover o fundo branco da imagem se houver */}
+              <div className="relative w-full max-w-[300px] md:max-w-[450px] h-[300px] md:h-[450px] transition-all hover:scale-[1.02] duration-1000 ease-in-out mix-blend-multiply">
                 {heroTitleImg && (
                   <Image 
                     src={heroTitleImg} 
@@ -42,7 +42,7 @@ export default function Home() {
                 )}
               </div>
 
-              <p className="text-xl md:text-2xl text-foreground/80 font-headline italic tracking-wide max-w-2xl mx-auto">
+              <p className="text-xl md:text-2xl text-foreground/80 font-headline italic tracking-wide max-w-2xl mx-auto pt-8">
                 "Peças exclusivas esculpidas para brilhar eternamente."
               </p>
             </div>
