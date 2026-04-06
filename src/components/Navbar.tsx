@@ -62,8 +62,8 @@ export function Navbar() {
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid grid-cols-3 items-center">
           
-          {/* LADO ESQUERDO: Menu */}
-          <div className="flex items-center justify-start">
+          {/* LADO ESQUERDO: Menu e Links */}
+          <div className="flex items-center justify-start gap-4">
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="h-9 w-9" title="Menu">
@@ -107,7 +107,7 @@ export function Navbar() {
               </SheetContent>
             </Sheet>
 
-            <nav className="hidden lg:flex items-center space-x-6 text-[10px] font-bold tracking-[0.2em] uppercase ml-6">
+            <nav className="hidden lg:flex items-center space-x-6 text-[9px] font-bold tracking-[0.2em] uppercase">
               {navLinks.map((link) => (
                 <Link key={link.name} href={link.href} className="hover:text-primary transition-colors">
                   {link.name}
@@ -116,30 +116,20 @@ export function Navbar() {
             </nav>
           </div>
 
-          {/* CENTRO: Logo (Centralizado e Tidy) */}
+          {/* CENTRO: Logo Absoluto */}
           <div className="flex justify-center items-center">
             <Link href="/" className="group">
-              <h1 className="text-xl md:text-3xl font-headline font-bold tracking-[0.4em] uppercase group-hover:text-primary transition-colors whitespace-nowrap">
+              <h1 className="text-lg md:text-2xl font-headline font-bold tracking-[0.4em] uppercase group-hover:text-primary transition-colors whitespace-nowrap">
                 Starbright
               </h1>
             </Link>
           </div>
 
-          {/* DIREITA: Ações */}
+          {/* DIREITA: Ações de Luxo */}
           <div className="flex items-center justify-end gap-1 md:gap-3">
-            <Link href="/ai-stylist" className="hidden xl:flex items-center gap-1.5 hover:text-primary transition-colors text-primary italic text-[9px] font-bold uppercase tracking-widest mr-2">
+            <Link href="/ai-stylist" className="hidden sm:flex items-center gap-1.5 hover:text-primary transition-colors text-primary italic text-[9px] font-bold uppercase tracking-widest mr-2">
               <Sparkles className="h-3 w-3" /> Estilista IA
             </Link>
-
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={toggleDarkMode}
-              className="hidden sm:flex rounded-full w-9 h-9"
-              title={isDarkMode ? "Modo Claro" : "Modo Escuro"}
-            >
-              {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </Button>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

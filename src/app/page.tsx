@@ -5,31 +5,23 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Sparkles, Star } from 'lucide-react';
 
-const featuredProducts = [
-  { id: 1, name: "Bolsa Pérola Luminosidade", price: "€2.450", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl },
-  { id: 2, name: "Midnight Clique", price: "€1.890", image: PlaceHolderImages.find(p => p.id === 'bag-2')?.imageUrl },
-  { id: 3, name: "Aura Crossbody", price: "€1.200", image: PlaceHolderImages.find(p => p.id === 'bag-3')?.imageUrl },
-  { id: 4, name: "Solar Satchel", price: "€3.100", image: PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl },
-  { id: 5, name: "Stellar Bag", price: "€2.200", image: PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl },
-];
-
 export default function Home() {
   const heroTitleImg = PlaceHolderImages.find(p => p.id === 'hero-title-img')?.imageUrl;
 
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-black">
-        {/* Background Image */}
+      <section className="relative h-[95vh] flex items-center justify-center overflow-hidden bg-black">
+        {/* Background Image com Overlay mais Profundo */}
         <div className="absolute inset-0 z-0">
           <Image 
             src={PlaceHolderImages.find(p => p.id === 'hero-bag')?.imageUrl || ""}
             alt="Ateliê Starbright"
             fill
-            className="object-cover opacity-60"
+            className="object-cover opacity-50"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/80"></div>
         </div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
@@ -37,8 +29,8 @@ export default function Home() {
             <div className="space-y-6 flex flex-col items-center w-full">
               <span className="text-[10px] tracking-[0.5em] font-bold text-primary uppercase block mb-4">Onde a Luz se Torna Arte</span>
               
-              {/* Logo PNG Aumentada */}
-              <div className="relative w-full max-w-5xl aspect-[4/1] transition-all hover:scale-[1.03] duration-1000 ease-in-out">
+              {/* Logo PNG com correção de transparência visual */}
+              <div className="relative w-full max-w-4xl h-48 md:h-72 transition-all hover:scale-[1.05] duration-1000 ease-in-out mix-blend-lighten">
                 {heroTitleImg && (
                   <Image 
                     src={heroTitleImg} 
@@ -87,12 +79,12 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {featuredProducts.map((product) => (
-              <Link key={product.id} href={`/catalog`} className="group space-y-3 hover-lift">
+            {[1, 2, 3, 4, 1].map((id, index) => (
+              <Link key={index} href={`/catalog`} className="group space-y-3 hover-lift">
                 <div className="aspect-square relative overflow-hidden bg-card/50 border border-muted/30">
                   <Image 
-                    src={product.image || ""} 
-                    alt={product.name} 
+                    src={PlaceHolderImages.find(p => p.id === `bag-${id}`)?.imageUrl || ""} 
+                    alt="Bolsa Starbright" 
                     fill 
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -103,8 +95,8 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="text-center space-y-0.5">
-                  <h3 className="text-[13px] font-headline tracking-wide font-bold truncate px-2">{product.name}</h3>
-                  <p className="text-xs text-primary font-bold tracking-widest">{product.price}</p>
+                  <h3 className="text-[13px] font-headline tracking-wide font-bold truncate px-2">Peça de Luxo</h3>
+                  <p className="text-xs text-primary font-bold tracking-widest">€2.450</p>
                 </div>
               </Link>
             ))}
@@ -112,14 +104,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Product Highlight Section - Bolsa Pérola */}
+      {/* Product Highlight Section */}
       <section className="py-24 bg-primary/5">
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative aspect-[4/5] overflow-hidden border border-primary/20 shadow-2xl">
               <Image 
                 src={PlaceHolderImages.find(p => p.id === 'bag-1')?.imageUrl || ""} 
-                alt="Bolsa Pérola Luminosidade" 
+                alt="Destaque Starbright" 
                 fill 
                 className="object-cover"
               />
@@ -134,19 +126,6 @@ export default function Home() {
                 <p>
                   Eleve sua produção a um novo patamar de sofisticação. Esta bolsa, inteiramente confeccionada em miçangas com acabamento que remete à delicadeza das pérolas em tom creme, é a definição de elegância atemporal.
                 </p>
-                <p>
-                  Mais do que um acessório, esta é uma peça de design pensada para quem valoriza a beleza nos detalhes.
-                </p>
-              </div>
-              <div className="grid grid-cols-2 gap-6 pt-4 border-t">
-                <div>
-                  <h4 className="text-[10px] tracking-widest font-bold uppercase mb-2">Dimensões</h4>
-                  <p className="text-sm">32 cm x 20 cm</p>
-                </div>
-                <div>
-                  <h4 className="text-[10px] tracking-widest font-bold uppercase mb-2">Acabamento</h4>
-                  <p className="text-sm">Esferas Estilo Pérola</p>
-                </div>
               </div>
               <Link href="/catalog">
                 <Button className="rounded-none h-14 px-10 tracking-[0.2em] uppercase font-bold text-xs bg-primary hover:bg-primary/90">
@@ -174,26 +153,6 @@ export default function Home() {
               <h4 className="text-sm tracking-[0.3em] font-bold text-primary">VERSATILIDADE CHIC</h4>
               <p className="text-sm text-muted-foreground leading-relaxed">Da Marina de Cascais a eventos de gala em Lisboa, a protagonista silenciosa de qualquer silhueta.</p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* AI Stylist Promo */}
-      <section className="relative h-[400px] overflow-hidden flex items-center bg-muted/30">
-        <div className="container mx-auto px-4 md:px-8 relative z-10 text-center max-w-3xl">
-          <div className="space-y-8 animate-fadeUp">
-            <div className="inline-flex items-center justify-center p-3 rounded-full bg-primary/10 mb-2">
-              <Sparkles className="h-8 w-8 text-primary" />
-            </div>
-            <h2 className="text-4xl md:text-5xl font-headline font-bold tracking-tight">Consultoria de Luz</h2>
-            <p className="text-xl text-muted-foreground font-body leading-relaxed">
-              Encontre o brilho que melhor reflete sua presença. Nossa estilista baseada em IA ajuda você a escolher a obra-prima Starbright ideal.
-            </p>
-            <Link href="/ai-stylist">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-12 h-14 tracking-[0.2em] uppercase text-xs font-bold">
-                Experimentar Estilista IA
-              </Button>
-            </Link>
           </div>
         </div>
       </section>
