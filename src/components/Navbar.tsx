@@ -120,15 +120,15 @@ export function Navbar() {
             </nav>
           </div>
 
-          {/* CENTRO: Logo Absoluto com Imagem */}
+          {/* CENTRO: Logo Absoluto com Imagem (Reduzido e sem fundo) */}
           <div className="flex justify-center items-center">
             <Link href="/" className="group flex flex-col items-center">
-              <div className="relative h-12 w-12 md:h-16 md:w-16 mix-blend-multiply">
+              <div className="relative h-10 w-10 md:h-12 md:w-12 mix-blend-multiply">
                 {logoImg && <Image src={logoImg} alt="Ateliê Starbright" fill className="object-contain" />}
               </div>
               <h1 className={cn(
                 "font-headline font-bold tracking-[0.4em] uppercase group-hover:text-primary transition-colors whitespace-nowrap",
-                isScrolled ? "text-xs mt-1" : "text-sm mt-2"
+                isScrolled ? "text-[10px] mt-1" : "text-xs mt-2"
               )}>
                 Starbright
               </h1>
