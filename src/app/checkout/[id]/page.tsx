@@ -1,6 +1,7 @@
+
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -8,18 +9,27 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ShoppingBag, MapPin, Loader2, CheckCircle2 } from 'lucide-react';
-import { collection, serverTimestamp } from 'firebase/firestore';
-import { useFirestore } from '@/firebase';
+import { ShoppingBag, MapPin, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { collection, serverTimestamp, doc } from 'firebase/firestore';
+import { useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import Link from 'next/link';
 
 export default function CheckoutPage() {
   const { id } = useParams();
   const router = useRouter();
   const firestore = useFirestore();
+  
   const [fetchingCep, setFetchingCep] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  
+  // Buscar produto real do Firestore
+  const productDocRef = useMemoFirebase(() => {
+    if (!firestore || !id) return null;
+    return doc(firestore, 'products', id as string);
+  }, [firestore, id]);
+
+  const { data: product, loading: productLoading } = useDoc(productDocRef);
   
   // Form State
   const [formData, setFormData] = useState({
@@ -35,30 +45,24 @@ export default function CheckoutPage() {
     residenceType: 'Casa'
   });
 
-  // Mock product lookup (In a real app, this would be from Firestore)
-  const product = {
-    id: id,
-    name: id === '1' ? "Celestial Tote" : id === '2' ? "Midnight Clutch" : id === '3' ? "Aura Crossbody" : id === '4' ? "Solar Satchel" : "Bolsa Starbright",
-    price: id === '1' ? "€2.450" : id === '2' ? "€1.890" : id === '3' ? "€1.200" : "€3.100",
-    image: PlaceHolderImages.find(p => p.id === `bag-${id}`)?.imageUrl || PlaceHolderImages[1].imageUrl
-  };
-
   const handleCepBlur = async () => {
     const cep = formData.cep.replace(/\D/g, '');
-    if (cep.length !== 8) return;
+    if (cep.length < 5) return;
 
     setFetchingCep(true);
     try {
+      // Nota: ViaCEP funciona apenas para CEPs brasileiros. 
+      // Para Portugal, seria necessário outra API, mas manteremos o suporte genérico.
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const data = await response.json();
       
       if (!data.erro) {
         setFormData(prev => ({
           ...prev,
-          address: data.logradouro,
-          neighborhood: data.bairro,
-          city: data.localidade,
-          state: data.uf
+          address: data.logradouro || prev.address,
+          neighborhood: data.bairro || prev.neighborhood,
+          city: data.localidade || prev.city,
+          state: data.uf || prev.state
         }));
       }
     } catch (error) {
@@ -70,7 +74,9 @@ export default function CheckoutPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!firestore) return;
+    if (!firestore || !product) return;
+
+    const finalPrice = product.isOnPromotion ? product.promotionPrice : product.price;
 
     const ordersCol = collection(firestore, 'orders');
     addDocumentNonBlocking(ordersCol, {
@@ -86,13 +92,37 @@ export default function CheckoutPage() {
       residenceType: formData.residenceType,
       productId: product.id,
       productName: product.name,
-      productPrice: product.price,
+      productPrice: `€${finalPrice.toLocaleString('pt-PT', { minimumFractionDigits: 2 })}`,
       status: 'pending',
       createdAt: serverTimestamp()
     });
     
     setSubmitted(true);
   };
+
+  if (productLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!product && !productLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center text-center p-4">
+        <AlertCircle className="h-12 w-12 text-destructive mb-4" />
+        <h1 className="text-2xl font-headline font-bold">Peça Não Encontrada</h1>
+        <p className="text-muted-foreground mb-8">Não foi possível carregar os detalhes desta obra-prima.</p>
+        <Link href="/catalog">
+          <Button variant="outline" className="rounded-none">Voltar ao Catálogo</Button>
+        </Link>
+      </div>
+    );
+  }
+
+  const displayPrice = product?.isOnPromotion ? product.promotionPrice : product?.price;
+  const formattedPrice = displayPrice?.toLocaleString('pt-PT', { minimumFractionDigits: 2 });
 
   if (submitted) {
     return (
@@ -225,20 +255,22 @@ export default function CheckoutPage() {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="flex gap-4">
-                    <div className="relative h-24 w-24 border">
-                      <Image src={product.image} alt={product.name} fill className="object-cover" />
+                    <div className="relative h-24 w-24 border overflow-hidden">
+                      {product?.imageUrl && (
+                        <Image src={product.imageUrl} alt={product.name} fill className="object-cover" />
+                      )}
                     </div>
                     <div className="flex-1 space-y-1">
-                      <h4 className="font-bold text-sm tracking-tight">{product.name}</h4>
+                      <h4 className="font-bold text-sm tracking-tight">{product?.name}</h4>
                       <p className="text-xs text-muted-foreground uppercase tracking-widest">Edição Estelar</p>
-                      <p className="font-bold text-primary pt-2">{product.price}</p>
+                      <p className="font-bold text-primary pt-2">€{formattedPrice}</p>
                     </div>
                   </div>
                   
                   <div className="border-t pt-4 space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Subtotal</span>
-                      <span>{product.price}</span>
+                      <span>€{formattedPrice}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Envio</span>
@@ -246,7 +278,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="flex justify-between border-t pt-4 font-bold text-lg">
                       <span>Total</span>
-                      <span>{product.price}</span>
+                      <span>€{formattedPrice}</span>
                     </div>
                   </div>
                 </CardContent>
