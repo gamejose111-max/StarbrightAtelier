@@ -26,10 +26,10 @@ export default function SobrePage() {
                 </p>
               </section>
 
-              <div className="relative aspect-video overflow-hidden">
+              <div className="relative aspect-video overflow-hidden border border-primary/10 shadow-lg">
                  <Image 
-                   src={PlaceHolderImages.find(p => p.id === 'stylist-bg')?.imageUrl || ""} 
-                   alt="Artesanato StarBright" 
+                   src={PlaceHolderImages.find(p => p.id === 'company-image')?.imageUrl || ""} 
+                   alt="Bolsa de Pérolas StarBright" 
                    fill 
                    className="object-cover"
                  />
