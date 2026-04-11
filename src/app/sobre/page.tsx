@@ -26,15 +26,6 @@ export default function SobrePage() {
                 </p>
               </section>
 
-              <div className="relative aspect-video overflow-hidden border border-primary/10 shadow-lg">
-                 <Image 
-                   src={PlaceHolderImages.find(p => p.id === 'company-image')?.imageUrl || ""} 
-                   alt="Bolsa de Pérolas StarBright" 
-                   fill 
-                   className="object-cover"
-                 />
-              </div>
-
               <section className="space-y-6">
                 <p>
                   Nossas artesãs entrelaçam, fio a fio, milhares de pequenas esferas de vidro, criando texturas que evocam a sofisticação das joias vintage com a modernidade do design contemporâneo. 
@@ -93,10 +84,10 @@ export default function SobrePage() {
                 </div>
               </div>
               
-              <div className="aspect-[3/4] relative">
+              <div className="aspect-[3/4] relative border border-primary/10 overflow-hidden shadow-2xl">
                 <Image 
-                  src={PlaceHolderImages.find(p => p.id === 'bag-4')?.imageUrl || ""} 
-                  alt="Peça StarBright" 
+                  src={PlaceHolderImages.find(p => p.id === 'hero-bag')?.imageUrl || ""} 
+                  alt="Peça Exclusiva StarBright" 
                   fill 
                   className="object-cover"
                 />
