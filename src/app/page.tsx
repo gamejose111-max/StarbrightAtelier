@@ -43,7 +43,7 @@ export default function Home() {
               <span className="text-[10px] tracking-[0.3em] md:tracking-[0.5em] font-bold text-primary uppercase block mb-2 drop-shadow-sm">Onde a Luz se Torna Arte</span>
               
               <h1 className="text-4xl md:text-7xl font-headline font-bold text-foreground leading-tight tracking-tight drop-shadow-md">
-                Ateliê <span className="text-primary italic">Starbright</span>
+                Ateliê <span className="text-primary italic drop-shadow-[0_0_25px_rgba(232,186,48,0.5)] brightness-110">Starbright</span>
               </h1>
             </div>
             
