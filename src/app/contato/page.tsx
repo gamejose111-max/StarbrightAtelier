@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 export default function ContatoPage() {
   const instagramUrl = "https://www.instagram.com/ateliestarbright?igsh=MWU4c2ZhNW44bDhidQ==";
   const whatsappUrl = "https://wa.me/351966446258";
+  const companyEmail = "NicolyeJhessy@ateliestarbright.com";
 
   return (
     <div className="min-h-screen pt-32 pb-32 bg-background">
@@ -52,8 +53,8 @@ export default function ContatoPage() {
                   <div className="space-y-2">
                     <h3 className="font-headline text-lg font-bold tracking-widest uppercase">E-mail</h3>
                     <p className="text-muted-foreground text-sm mb-4">Para propostas comerciais e parcerias.</p>
-                    <a href="mailto:contato@starbright.pt" className="text-lg font-bold hover:text-primary transition-colors">
-                      contato@starbright.pt
+                    <a href={`mailto:${companyEmail}`} className="text-lg font-bold hover:text-primary transition-colors break-all">
+                      {companyEmail}
                     </a>
                   </div>
                 </CardContent>
