@@ -7,6 +7,7 @@ import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { collection, query, orderBy, limit } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Star, Loader2, Sparkles } from 'lucide-react';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function Home() {
   const firestore = useFirestore();
@@ -26,8 +27,16 @@ export default function Home() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="relative h-[90vh] md:h-[95vh] flex items-center justify-center overflow-hidden bg-background">
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-primary/5 via-background to-background">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,186,48,0.03)_0%,transparent_70%)]"></div>
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src={PlaceHolderImages.find(p => p.id === 'hero-bag')?.imageUrl || ""} 
+            alt="Ateliê Starbright Hero" 
+            fill 
+            className="object-cover opacity-40 md:opacity-50"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/60 to-background"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,186,48,0.05)_0%,transparent_80%)]"></div>
         </div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
@@ -36,7 +45,7 @@ export default function Home() {
               <span className="text-[10px] tracking-[0.3em] md:tracking-[0.5em] font-bold text-primary uppercase block mb-2 drop-shadow-sm">Onde a Luz se Torna Arte</span>
               
               <h1 className="text-4xl md:text-7xl font-headline font-bold text-foreground leading-tight tracking-tight drop-shadow-md">
-                Ateliê <span className="text-primary italic drop-shadow-[0_0_25px_rgba(232,186,48,0.5)] brightness-110 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Starbright</span>
+                Ateliê <span className="text-primary italic drop-shadow-[0_2px_15px_rgba(0,0,0,0.4)] brightness-110 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Starbright</span>
               </h1>
             </div>
             
@@ -53,7 +62,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <p className="text-lg md:text-2xl text-foreground/90 font-headline italic tracking-wide max-w-2xl mx-auto pt-4 drop-shadow-sm">
+            <p className="text-lg md:text-2xl text-foreground/90 font-headline italic tracking-wide max-w-2xl mx-auto pt-4 drop-shadow-md">
               "Peças exclusivas esculpidas para brilhar eternamente."
             </p>
           </div>
