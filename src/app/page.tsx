@@ -28,15 +28,24 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-[90vh] md:h-[95vh] flex items-center justify-center overflow-hidden bg-background">
         <div className="absolute inset-0 z-0">
+          <Image 
+            src={PlaceHolderImages.find(p => p.id === 'hero-bag')?.imageUrl || ""} 
+            alt="Ateliê Starbright Background" 
+            fill 
+            className="object-cover opacity-60" 
+            priority
+            data-ai-hint="luxury background"
+          />
+          <div className="absolute inset-0 bg-black/30"></div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,186,48,0.1)_0%,transparent_80%)]"></div>
         </div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
           <div className="max-w-5xl animate-fadeUp text-center space-y-6 md:space-y-8 flex flex-col items-center">
             <div className="space-y-4 md:space-y-6 flex flex-col items-center w-full">
-              <span className="text-[10px] tracking-[0.3em] md:tracking-[0.5em] font-bold text-primary uppercase block mb-2">Onde a Luz se Torna Arte</span>
+              <span className="text-[10px] tracking-[0.3em] md:tracking-[0.5em] font-bold text-primary uppercase block mb-2 drop-shadow-md">Onde a Luz se Torna Arte</span>
               
-              <h1 className="text-4xl md:text-7xl font-headline font-bold text-foreground leading-tight tracking-tight">
+              <h1 className="text-4xl md:text-7xl font-headline font-bold text-white leading-tight tracking-tight">
                 Ateliê <span className="text-primary italic drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] brightness-110">Starbright</span>
               </h1>
             </div>
@@ -48,13 +57,13 @@ export default function Home() {
                 </Button>
               </Link>
               <Link href="/sobre" className="w-full sm:w-auto">
-                <Button variant="outline" className="w-full rounded-none h-14 md:h-16 px-10 md:px-12 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-primary/10 hover:text-primary backdrop-blur-sm">
+                <Button variant="outline" className="w-full rounded-none h-14 md:h-16 px-10 md:px-12 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-primary/10 hover:text-primary backdrop-blur-sm bg-black/20">
                   Nosso Manifesto
                 </Button>
               </Link>
             </div>
 
-            <p className="text-lg md:text-2xl text-foreground/90 font-headline italic tracking-wide max-w-2xl mx-auto pt-4">
+            <p className="text-lg md:text-2xl text-white font-headline italic tracking-wide max-w-2xl mx-auto pt-4 drop-shadow-md">
               "Peças exclusivas esculpidas para brilhar eternamente."
             </p>
           </div>
