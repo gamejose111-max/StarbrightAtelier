@@ -26,15 +26,8 @@ export default function Home() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="relative h-[90vh] md:h-[95vh] flex items-center justify-center overflow-hidden bg-background">
-        <div className="absolute inset-0 z-0">
-          <Image 
-            src="https://fv5-5.files.fm/thumb_show.php?i=wsq5e49whv&view&v=1"
-            alt="Ateliê Starbright Background"
-            fill
-            className="object-cover opacity-80 md:opacity-85"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/60"></div>
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-primary/5 via-background to-background">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,186,48,0.03)_0%,transparent_70%)]"></div>
         </div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
