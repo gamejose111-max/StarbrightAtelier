@@ -37,12 +37,8 @@ export function Footer() {
             <h4 className="font-headline text-sm tracking-[0.2em] font-bold">CONTATO & ATENDIMENTO</h4>
             <div className="space-y-4 text-[10px] tracking-[0.15em] uppercase font-bold">
               <div className="space-y-1">
-                <p className="text-primary">Jhessy Monteiro</p>
-                <a href="tel:+351920321175" className="text-muted-foreground hover:text-primary transition-colors">+351 920 321 175</a>
-              </div>
-              <div className="space-y-1">
-                <p className="text-primary">Nicoly Maria</p>
-                <a href="tel:+351967938524" className="text-muted-foreground hover:text-primary transition-colors">+351 967 938 524</a>
+                <p className="text-primary">Atendimento</p>
+                <a href="tel:+351966446258" className="text-muted-foreground hover:text-primary transition-colors">+351 966 446 258</a>
               </div>
               <ul className="pt-4 space-y-3 border-t border-muted">
                 <li><Link href="/contato" className="hover:text-primary transition-colors">Página de Contato</Link></li>

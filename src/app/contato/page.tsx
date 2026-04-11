@@ -31,15 +31,9 @@ export default function ContatoPage() {
                     <h3 className="font-headline text-lg font-bold tracking-widest uppercase">Atendimento Telefônico</h3>
                     <div className="space-y-4">
                       <div>
-                        <p className="text-xs tracking-widest text-primary font-bold uppercase mb-1">Jhessy Monteiro</p>
-                        <a href="tel:+351920321175" className="text-xl font-bold hover:text-primary transition-colors tracking-tighter">
-                          +351 920 321 175
-                        </a>
-                      </div>
-                      <div>
-                        <p className="text-xs tracking-widest text-primary font-bold uppercase mb-1">Nicoly Maria</p>
-                        <a href="tel:+351967938524" className="text-xl font-bold hover:text-primary transition-colors tracking-tighter">
-                          +351 967 938 524
+                        <p className="text-xs tracking-widest text-primary font-bold uppercase mb-1">Contacto Geral</p>
+                        <a href="tel:+351966446258" className="text-xl font-bold hover:text-primary transition-colors tracking-tighter">
+                          +351 966 446 258
                         </a>
                       </div>
                     </div>
