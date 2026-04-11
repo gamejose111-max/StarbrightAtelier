@@ -7,6 +7,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 export function Footer() {
+  const instagramUrl = "https://www.instagram.com/ateliestarbright?igsh=MWU4c2ZhNW44bDhidQ==";
+
   return (
     <footer className="bg-background border-t border-border py-16">
       <div className="container mx-auto px-4 md:px-8">
@@ -17,9 +19,11 @@ export function Footer() {
               Bolsas de luxo requintadas criadas para o indivíduo moderno. Elegância em cada ponto, brilho em cada detalhe.
             </p>
             <div className="flex space-x-4">
-              <Instagram className="h-5 w-5 text-muted-foreground hover:text-primary cursor-pointer" />
-              <Facebook className="h-5 w-5 text-muted-foreground hover:text-primary cursor-pointer" />
-              <Twitter className="h-5 w-5 text-muted-foreground hover:text-primary cursor-pointer" />
+              <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+                <Instagram className="h-5 w-5 text-muted-foreground hover:text-primary cursor-pointer transition-colors" />
+              </a>
+              <Facebook className="h-5 w-5 text-muted-foreground hover:text-primary cursor-pointer transition-colors" />
+              <Twitter className="h-5 w-5 text-muted-foreground hover:text-primary cursor-pointer transition-colors" />
             </div>
           </div>
 

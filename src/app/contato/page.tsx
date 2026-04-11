@@ -6,6 +6,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 export default function ContatoPage() {
+  const instagramUrl = "https://www.instagram.com/ateliestarbright?igsh=MWU4c2ZhNW44bDhidQ==";
+  const whatsappUrl = "https://wa.me/351966446258";
+
   return (
     <div className="min-h-screen pt-32 pb-32 bg-background">
       <div className="container mx-auto px-4 md:px-8">
@@ -68,12 +71,16 @@ export default function ContatoPage() {
                    </div>
                    
                    <div className="grid grid-cols-2 gap-4">
-                      <Button variant="outline" className="rounded-none border-muted h-12 uppercase text-[10px] tracking-widest font-bold gap-2">
-                        <Instagram className="h-4 w-4" /> Instagram
-                      </Button>
-                      <Button variant="outline" className="rounded-none border-muted h-12 uppercase text-[10px] tracking-widest font-bold gap-2">
-                        <MessageSquare className="h-4 w-4" /> WhatsApp
-                      </Button>
+                      <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+                        <Button variant="outline" className="rounded-none border-muted h-12 uppercase text-[10px] tracking-widest font-bold gap-2 w-full">
+                          <Instagram className="h-4 w-4" /> Instagram
+                        </Button>
+                      </a>
+                      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                        <Button variant="outline" className="rounded-none border-muted h-12 uppercase text-[10px] tracking-widest font-bold gap-2 w-full">
+                          <MessageSquare className="h-4 w-4" /> WhatsApp
+                        </Button>
+                      </a>
                    </div>
 
                    <div className="pt-8 border-t space-y-4">
