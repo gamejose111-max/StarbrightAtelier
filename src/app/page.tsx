@@ -45,10 +45,6 @@ export default function Home() {
               <h1 className="text-4xl md:text-7xl font-headline font-bold text-foreground leading-tight tracking-tight drop-shadow-md">
                 Ateliê <span className="text-primary italic">Starbright</span>
               </h1>
-
-              <p className="text-lg md:text-2xl text-foreground/90 font-headline italic tracking-wide max-w-2xl mx-auto pt-2 drop-shadow-sm">
-                "Peças exclusivas esculpidas para brilhar eternamente."
-              </p>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center pt-4 md:pt-8 w-full sm:w-auto">
@@ -63,6 +59,10 @@ export default function Home() {
                 </Button>
               </Link>
             </div>
+
+            <p className="text-lg md:text-2xl text-foreground/90 font-headline italic tracking-wide max-w-2xl mx-auto pt-4 drop-shadow-sm">
+              "Peças exclusivas esculpidas para brilhar eternamente."
+            </p>
           </div>
         </div>
       </section>
@@ -116,7 +116,7 @@ export default function Home() {
             </div>
           ) : (
             <div className="h-64 flex flex-col items-center justify-center text-center space-y-4 bg-muted/10 border border-dashed">
-              <Sparkles className="h-8 w-8 text-muted" />
+              <span className="h-8 w-8 text-muted"><Sparkles /></span>
               <p className="text-muted-foreground font-body italic">O Ateliê está a preparar a próxima curadoria...</p>
               <Link href="/admin/products">
                 <Button variant="outline" size="sm" className="text-[10px] uppercase font-bold tracking-widest">Adicionar Peças</Button>
