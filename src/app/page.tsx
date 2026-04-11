@@ -31,7 +31,7 @@ export default function Home() {
             src="https://fv5-5.files.fm/thumb_show.php?i=wsq5e49whv&view&v=1"
             alt="Ateliê Starbright Background"
             fill
-            className="object-cover opacity-60 md:opacity-70"
+            className="object-cover opacity-80 md:opacity-85"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/60"></div>
@@ -43,7 +43,7 @@ export default function Home() {
               <span className="text-[10px] tracking-[0.3em] md:tracking-[0.5em] font-bold text-primary uppercase block mb-2 drop-shadow-sm">Onde a Luz se Torna Arte</span>
               
               <h1 className="text-4xl md:text-7xl font-headline font-bold text-foreground leading-tight tracking-tight drop-shadow-md">
-                Ateliê <span className="text-primary italic drop-shadow-[0_0_25px_rgba(232,186,48,0.5)] brightness-110">Starbright</span>
+                Ateliê <span className="text-primary italic drop-shadow-[0_0_25px_rgba(232,186,48,0.5)] brightness-110 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Starbright</span>
               </h1>
             </div>
             
