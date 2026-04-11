@@ -6,9 +6,10 @@ export function SplashLoader() {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
+    // Reduzido de 2800ms para 1600ms para uma entrada mais rápida e dinâmica
     const timer = setTimeout(() => {
       setShow(false);
-    }, 2800); // Duração total ajustada para uma transição mais fluida
+    }, 1600);
 
     return () => clearTimeout(timer);
   }, []);
@@ -26,11 +27,11 @@ export function SplashLoader() {
         </div>
         
         {/* Linha Divisora Animada */}
-        <div className="h-[1px] bg-primary/40 animate-logo-reveal [animation-delay:0.4s] opacity-0 w-0 transition-all duration-1000 ease-out" style={{ animationFillMode: 'forwards', width: '60%' }}></div>
+        <div className="h-[1px] bg-primary/40 animate-logo-reveal [animation-delay:0.2s] opacity-0 w-0 transition-all duration-700 ease-out" style={{ animationFillMode: 'forwards', width: '60%' }}></div>
         
         {/* Subtítulo Complementar */}
         <div className="mt-6 overflow-hidden">
-          <p className="font-headline tracking-[0.5em] text-[10px] md:text-xs uppercase font-bold text-primary animate-logo-reveal [animation-delay:0.7s] opacity-0 italic">
+          <p className="font-headline tracking-[0.5em] text-[10px] md:text-xs uppercase font-bold text-primary animate-logo-reveal [animation-delay:0.4s] opacity-0 italic">
             Ateliê de Luxo
           </p>
         </div>

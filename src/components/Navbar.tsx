@@ -1,11 +1,9 @@
-
 "use client"
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { ShoppingBag, User, Sparkles, Menu, Package, ClipboardList, Moon, Sun, LogOut, LogIn } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { cn } from '@/lib/utils';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet';
@@ -20,7 +18,10 @@ export function Navbar() {
   
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      // Usar requestAnimationFrame para garantir que o scroll não bloqueie a UI
+      window.requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 10);
+      });
     };
 
     const savedTheme = localStorage.getItem('theme');
@@ -29,11 +30,11 @@ export function Navbar() {
       document.documentElement.classList.add('dark');
     }
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleDarkMode = () => {
+  const toggleDarkMode = useCallback(() => {
     if (isDarkMode) {
       document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
@@ -43,7 +44,7 @@ export function Navbar() {
       localStorage.setItem('theme', 'dark');
       setIsDarkMode(true);
     }
-  };
+  }, [isDarkMode]);
 
   const handleLogout = async () => {
     if (auth) await signOut(auth);
@@ -57,8 +58,8 @@ export function Navbar() {
 
   return (
     <header className={cn(
-      "fixed top-0 z-50 w-full transition-all duration-500 border-b",
-      isScrolled ? "bg-background/95 backdrop-blur-md py-2 shadow-sm" : "bg-background py-4 md:py-6"
+      "fixed top-0 z-50 w-full transition-all duration-300 border-b",
+      isScrolled ? "bg-background/95 backdrop-blur-md py-2 shadow-sm" : "bg-background py-4 md:py-5"
     )}>
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid grid-cols-3 items-center">
@@ -71,7 +72,7 @@ export function Navbar() {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-[300px] bg-background border-r-primary/20 p-0 rounded-none">
+              <SheetContent side="left" className="w-[300px] bg-background border-r-primary/20 p-0 rounded-none transition-transform duration-300">
                 <SheetHeader className="p-8 border-b border-muted text-left">
                   <SheetTitle className="font-headline tracking-widest font-bold uppercase">Menu</SheetTitle>
                 </SheetHeader>
@@ -121,8 +122,8 @@ export function Navbar() {
           <div className="flex justify-center items-center">
             <Link href="/" className="group flex flex-col items-center">
               <h1 className={cn(
-                "font-headline font-bold tracking-[0.4em] uppercase group-hover:text-primary transition-colors whitespace-nowrap",
-                isScrolled ? "text-xs" : "text-sm md:text-base"
+                "font-headline font-bold tracking-[0.4em] uppercase group-hover:text-primary transition-all duration-300 whitespace-nowrap",
+                isScrolled ? "text-[11px]" : "text-sm md:text-base"
               )}>
                 Starbright
               </h1>
@@ -138,10 +139,10 @@ export function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="w-9 h-9" title={user ? "Minha Conta" : "Login"}>
-                  <User className={cn("h-5 w-5", user && "text-primary")} />
+                  <User className={cn("h-5 w-5 transition-colors", user && "text-primary")} />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="rounded-none w-56 border-primary/20 bg-background p-2 mt-4">
+              <DropdownMenuContent align="end" className="rounded-none w-56 border-primary/20 bg-background p-2 mt-4 animate-in fade-in zoom-in-95 duration-200">
                 {user ? (
                   <>
                     <div className="px-2 py-3 border-b mb-2">
