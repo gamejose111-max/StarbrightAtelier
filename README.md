@@ -1,44 +1,56 @@
 
 # Ateliê Starbright - Guia de Lançamento (Domínio .pt)
 
-Este projeto foi desenvolvido com Next.js e está otimizado para o **Firebase App Hosting**. Esta é a forma mais moderna e simples de colocar seu site no ar, sem precisar gerenciar servidores manualmente.
+Este projeto foi desenvolvido com Next.js e está otimizado para o **Firebase App Hosting**. Sempre que você faz mudanças na conversa com a IA, os arquivos são atualizados automaticamente aqui no editor.
 
-## 1. Como Atualizar o Site (Terminal)
-Sempre que fizermos mudanças aqui na conversa, elas são salvas nos seus arquivos. Para enviá-las para a internet (GitHub/Firebase), execute estes comandos no terminal:
+## 🚀 Como Atualizar o Site Oficial
+
+Se você vir a mensagem "nothing to commit, working tree clean", significa que as mudanças já foram salvas localmente. Agora você só precisa **enviá-las** para o servidor.
+
+### 1. O Passo a Passo Padrão
+Execute estes comandos em ordem no terminal:
 
 ```bash
-# 1. Adiciona as mudanças
+# 1. Prepara as mudanças (se houver novas)
 git add .
 
-# 2. Cria um ponto de salvamento (mude a mensagem se quiser)
-git commit -m "Novas atualizações do Ateliê"
+# 2. Salva as mudanças (Se der erro aqui, pule para o passo 3)
+git commit -m "Atualizações do Ateliê"
 
-# 3. Envia para o GitHub (O Firebase App Hosting atualizará o site sozinho)
+# 3. Envia para a internet (Este é o passo que faz o site atualizar)
 git push origin main
 ```
 
-## 2. Resolvendo Erros do Git
-Se você vir o erro "remote origin already exists" ou se o `push` falhar:
+---
 
+## 🛠️ Resolução de Problemas Comuns
+
+### Erro: "nothing to commit"
+Isso é bom! Significa que o commit já foi feito. Basta rodar:
+`git push origin main`
+
+### Erro: "Everything up-to-date" mas o site não mudou
+Isso acontece se o Git não percebeu as mudanças. Tente forçar um novo commit:
+1. Faça uma pequena alteração em qualquer arquivo (ex: mude um texto).
+2. Tente os comandos do "Passo a Passo Padrão" novamente.
+
+### Erro de Permissão / Autenticação (GitHub)
+Se o terminal pedir senha ou der erro de "Permission denied":
+1. Vá ao seu GitHub.
+2. Verifique se o repositório `StarbrightAtelier` está criado.
+3. Se precisar reconectar o servidor, use:
 ```bash
-# Remove a conexão antiga e refaz
 git remote remove origin
 git remote add origin https://github.com/gamejose111-max/StarbrightAtelier.git
 git push -u origin main
 ```
 
-## 3. Publicando no Firebase App Hosting
-O App Hosting cuida de toda a infraestrutura para você:
+---
 
-1.  **Repositório**: Certifique-se de que seu código está no GitHub seguindo os passos acima.
-2.  **Console do Firebase**: Vá em [Console do Firebase](https://console.firebase.google.com/) -> **Build** -> **App Hosting**.
-3.  **Conexão**: Selecione o repositório `StarbrightAtelier`.
-4.  **Configuração**: O Firebase detectará automaticamente que é um projeto Next.js. Basta clicar em "Finish and Deploy".
+## 🌍 Configurando seu domínio .pt
+Após o `git push` funcionar, o Firebase levará alguns minutos para atualizar.
 
-## 4. Configurando seu domínio .pt
-Após o deploy no Firebase:
-
-1.  No painel do **App Hosting**, vá em **Settings** -> **Custom Domains**.
-2.  Adicione `ateliestarbright.pt`.
-3.  Copie os registros DNS (A, AAAA e TXT) e cole na gestão de DNS do seu site (`site.pt`).
-4.  **Atenção**: A propagação pode levar até 24 horas.
+1. No [Console do Firebase](https://console.firebase.google.com/), vá em **App Hosting**.
+2. Clique no seu backend e vá em **Settings** -> **Custom Domains**.
+3. Adicione `ateliestarbright.pt`.
+4. Configure os DNS no seu provedor de domínio.
