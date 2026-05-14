@@ -3,41 +3,42 @@
 
 Este projeto foi desenvolvido com Next.js e está otimizado para o **Firebase App Hosting**. Esta é a forma mais moderna e simples de colocar seu site no ar, sem precisar gerenciar servidores manualmente.
 
-## 1. Resolvendo Erros do Git
-Se você vir o erro "remote origin already exists" ao tentar conectar seu GitHub, execute os seguintes comandos no terminal:
+## 1. Como Atualizar o Site (Terminal)
+Sempre que fizermos mudanças aqui na conversa, elas são salvas nos seus arquivos. Para enviá-las para a internet (GitHub/Firebase), execute estes comandos no terminal:
 
 ```bash
-# Remove a conexão antiga
-git remote remove origin
-
-# Adiciona a nova conexão
-git remote add origin https://github.com/gamejose111-max/StarbrightAtelier.git
-
-# Envia seu código para o GitHub
+# 1. Adiciona as mudanças
 git add .
-git commit -m "Iniciando projeto Ateliê Starbright"
-git branch -M main
+
+# 2. Cria um ponto de salvamento (mude a mensagem se quiser)
+git commit -m "Novas atualizações do Ateliê"
+
+# 3. Envia para o GitHub (O Firebase App Hosting atualizará o site sozinho)
+git push origin main
+```
+
+## 2. Resolvendo Erros do Git
+Se você vir o erro "remote origin already exists" ou se o `push` falhar:
+
+```bash
+# Remove a conexão antiga e refaz
+git remote remove origin
+git remote add origin https://github.com/gamejose111-max/StarbrightAtelier.git
 git push -u origin main
 ```
 
-## 2. Publicando no Firebase App Hosting
+## 3. Publicando no Firebase App Hosting
 O App Hosting cuida de toda a infraestrutura para você:
 
-1.  **Repositório**: Certifique-se de que seu código está no GitHub após seguir os passos acima.
+1.  **Repositório**: Certifique-se de que seu código está no GitHub seguindo os passos acima.
 2.  **Console do Firebase**: Vá em [Console do Firebase](https://console.firebase.google.com/) -> **Build** -> **App Hosting**.
-3.  **Conexão**: Clique em "Get Started", conecte sua conta do GitHub e selecione o repositório `StarbrightAtelier`.
+3.  **Conexão**: Selecione o repositório `StarbrightAtelier`.
 4.  **Configuração**: O Firebase detectará automaticamente que é um projeto Next.js. Basta clicar em "Finish and Deploy".
 
-## 3. Configurando seu domínio .pt (Comprado no site.pt)
-Após o primeiro deploy ser concluído:
+## 4. Configurando seu domínio .pt
+Após o deploy no Firebase:
 
-1.  No painel do **App Hosting**, vá na aba **Settings** (Configurações).
-2.  Clique em **Custom Domains** e depois em **Add Domain**.
-3.  Digite seu domínio (ex: `ateliestarbright.pt`).
-4.  O Firebase gerará valores de **DNS** (registros `A`, `AAAA` e `TXT`).
-
-## 4. No painel do site.pt (Registrador)
-1.  Faça login no site onde comprou o domínio (`site.pt`).
-2.  Acesse a **Gestão de DNS** do seu domínio.
-3.  Insira os registros fornecidos pelo Firebase.
-4.  **Aguarde**: A propagação do domínio pode levar de 1 a 24 horas.
+1.  No painel do **App Hosting**, vá em **Settings** -> **Custom Domains**.
+2.  Adicione `ateliestarbright.pt`.
+3.  Copie os registros DNS (A, AAAA e TXT) e cole na gestão de DNS do seu site (`site.pt`).
+4.  **Atenção**: A propagação pode levar até 24 horas.
