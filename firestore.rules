@@ -1,3 +1,4 @@
+
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -16,6 +17,8 @@ service cloud.firestore {
       allow read: if true;
       // Admin pode criar, editar e excluir
       allow create, update, delete: if isSignedIn();
+      // Garantir que a regra de escrita genérica também funcione
+      allow write: if isSignedIn();
     }
 
     // --- GESTÃO DE PEDIDOS ---

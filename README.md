@@ -1,4 +1,5 @@
 
+
 # Ateliê Starbright - Guia de Lançamento (Domínio .pt)
 
 Este projeto foi desenvolvido com Next.js e está otimizado para o **Firebase App Hosting**. Sempre que você faz mudanças na conversa com a IA, os arquivos são atualizados automaticamente aqui no editor.

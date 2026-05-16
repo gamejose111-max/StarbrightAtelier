@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect, useRef } from 'react';
@@ -26,7 +27,7 @@ import {
   AlertDialogTitle, 
   AlertDialogTrigger 
 } from "@/components/ui/alert-dialog";
-import { Loader2, Plus, Edit, Trash2, Star, Tag, Upload, X, CheckCircle2 } from 'lucide-react';
+import { Loader2, Plus, Edit, Trash2, Star, Tag, Upload, X, CheckCircle2, AlertTriangle } from 'lucide-react';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 
@@ -87,11 +88,66 @@ export default function AdminProductsPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Se o arquivo for muito grande (ex: > 10MB), avisar antes mesmo de tentar processar
+    if (file.size > 10 * 1024 * 1024) {
+      toast({
+        variant: "destructive",
+        title: "Arquivo muito pesado",
+        description: "Tente uma foto com menos de 10MB.",
+      });
+      return;
+    }
+
     setIsUploading(true);
     const reader = new FileReader();
     reader.onloadend = () => {
-      setFormData({ ...formData, imageUrl: reader.result as string });
-      setIsUploading(false);
+      const img = new (window as any).Image();
+      img.src = reader.result;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 1200;
+        const MAX_HEIGHT = 1200;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, width, height);
+        
+        // Comprimir para JPEG com 70% de qualidade para garantir que fique abaixo de 1MB
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+        
+        // Verificar se mesmo comprimido ainda é grande demais (raro com 1200px)
+        if (dataUrl.length > 1000000) {
+           toast({
+            variant: "destructive",
+            title: "Imagem muito grande",
+            description: "Mesmo comprimida, a imagem excede o limite. Tente outra foto.",
+          });
+          setIsUploading(false);
+          return;
+        }
+
+        setFormData({ ...formData, imageUrl: dataUrl });
+        setIsUploading(false);
+        toast({
+          title: "Foto processada",
+          description: "Imagem otimizada para o catálogo.",
+        });
+      };
     };
     reader.readAsDataURL(file);
   };
@@ -112,6 +168,15 @@ export default function AdminProductsPage() {
       return;
     }
 
+    if (!formData.name) {
+      toast({
+        variant: "destructive",
+        title: "Nome faltante",
+        description: "A peça precisa de um nome.",
+      });
+      return;
+    }
+
     const data = {
       ...formData,
       price: Number(formData.price),
@@ -120,25 +185,34 @@ export default function AdminProductsPage() {
       updatedAt: serverTimestamp()
     };
 
-    if (editingProduct) {
-      const productRef = doc(firestore, 'products', editingProduct.id);
-      updateDocumentNonBlocking(productRef, data);
+    try {
+      if (editingProduct) {
+        const productRef = doc(firestore, 'products', editingProduct.id);
+        updateDocumentNonBlocking(productRef, data);
+        toast({
+          title: "Peça atualizada",
+          description: "As alterações foram salvas com sucesso.",
+        });
+      } else {
+        const productsCol = collection(firestore, 'products');
+        addDocumentNonBlocking(productsCol, {
+          ...data,
+          createdAt: serverTimestamp()
+        });
+        toast({
+          title: "Peça publicada",
+          description: "A nova obra-prima já está no catálogo.",
+        });
+      }
+      setIsDialogOpen(false);
+    } catch (err) {
+      console.error(err);
       toast({
-        title: "Peça atualizada",
-        description: "As alterações foram salvas com sucesso.",
-      });
-    } else {
-      const productsCol = collection(firestore, 'products');
-      addDocumentNonBlocking(productsCol, {
-        ...data,
-        createdAt: serverTimestamp()
-      });
-      toast({
-        title: "Peça publicada",
-        description: "A nova obra-prima já está no catálogo.",
+        variant: "destructive",
+        title: "Erro ao salvar",
+        description: "Verifique sua conexão ou se a imagem é muito grande.",
       });
     }
-    setIsDialogOpen(false);
   };
 
   const handleDelete = (id: string) => {
@@ -181,7 +255,6 @@ export default function AdminProductsPage() {
               </DialogHeader>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 py-4 md:py-6">
                 
-                {/* LADO ESQUERDO: Mídia e Upload */}
                 <div className="space-y-6">
                   <div className="space-y-4">
                     <Label className="text-[10px] md:text-xs uppercase tracking-widest font-bold text-primary">Imagem da Peça</Label>
@@ -192,18 +265,21 @@ export default function AdminProductsPage() {
                         className="border-2 border-dashed border-primary/20 bg-primary/5 aspect-square flex flex-col items-center justify-center cursor-pointer hover:bg-primary/10 transition-colors group"
                       >
                         {isUploading ? (
-                          <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                          <div className="flex flex-col items-center gap-4">
+                            <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                            <p className="text-[10px] uppercase font-bold tracking-widest text-primary">Otimizando Foto...</p>
+                          </div>
                         ) : (
                           <>
                             <Upload className="h-10 w-10 md:h-12 md:w-12 text-primary/40 group-hover:text-primary transition-colors mb-4" />
-                            <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground">Clique para selecionar</p>
-                            <p className="text-[9px] text-muted-foreground mt-1">PNG, JPG (Máx 1MB)</p>
+                            <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground text-center px-4">Toque para escolher foto do telemóvel</p>
+                            <p className="text-[9px] text-muted-foreground mt-1">A imagem será comprimida automaticamente</p>
                           </>
                         )}
                       </div>
                     ) : (
                       <div className="relative aspect-square border bg-white group">
-                        <Image src={formData.imageUrl} alt="Preview" fill className="object-cover" />
+                        <Image src={formData.imageUrl} alt="Preview" fill className="object-cover" unoptimized />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 md:gap-4">
                            <Button 
                             variant="destructive" 
@@ -266,7 +342,6 @@ export default function AdminProductsPage() {
                   </div>
                 </div>
 
-                {/* LADO DIREITO: Informações */}
                 <div className="space-y-6">
                   <div className="space-y-2">
                     <Label className="text-[10px] md:text-xs uppercase tracking-widest font-bold text-primary">Nome da Peça</Label>
@@ -306,7 +381,12 @@ export default function AdminProductsPage() {
               </div>
               <DialogFooter className="pt-6 border-t mt-4 flex flex-col sm:flex-row gap-4">
                 <Button onClick={() => setIsDialogOpen(false)} variant="outline" className="w-full sm:flex-1 rounded-none h-14 uppercase tracking-widest font-bold text-[10px]">Cancelar</Button>
-                <Button onClick={handleSave} className="w-full sm:flex-[2] rounded-none h-14 uppercase tracking-widest font-bold text-[10px] bg-primary text-primary-foreground hover:bg-primary/90">
+                <Button 
+                  onClick={handleSave} 
+                  disabled={isUploading}
+                  className="w-full sm:flex-[2] rounded-none h-14 uppercase tracking-widest font-bold text-[10px] bg-primary text-primary-foreground hover:bg-primary/90"
+                >
+                  {isUploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
                   {editingProduct ? 'Confirmar Atualização' : 'Publicar no Catálogo'}
                 </Button>
               </DialogFooter>
@@ -332,7 +412,7 @@ export default function AdminProductsPage() {
                   <TableRow key={product.id} className="hover:bg-primary/5 transition-colors border-muted/20">
                     <TableCell className="px-4 md:px-6 py-4">
                       <div className="relative h-12 w-12 md:h-16 md:w-16 border bg-muted/10 shadow-sm overflow-hidden">
-                        {product.imageUrl && <Image src={product.imageUrl} alt={product.name} fill className="object-cover" />}
+                        {product.imageUrl && <Image src={product.imageUrl} alt={product.name} fill className="object-cover" unoptimized />}
                       </div>
                     </TableCell>
                     <TableCell>
@@ -345,10 +425,10 @@ export default function AdminProductsPage() {
                     <TableCell>
                       <div className="flex flex-col">
                         <span className={product.isOnPromotion ? "text-[10px] md:text-xs line-through text-muted-foreground/60" : "font-bold text-primary text-xs md:text-sm"}>
-                          €{product.price.toLocaleString()}
+                          €{product.price?.toLocaleString()}
                         </span>
                         {product.isOnPromotion && (
-                          <span className="font-bold text-primary text-xs md:text-sm">€{product.promotionPrice.toLocaleString()}</span>
+                          <span className="font-bold text-primary text-xs md:text-sm">€{product.promotionPrice?.toLocaleString()}</span>
                         )}
                       </div>
                     </TableCell>
@@ -392,10 +472,17 @@ export default function AdminProductsPage() {
                     </TableCell>
                   </TableRow>
                 ))}
-                {!products?.length && (
+                {!products?.length && !dataLoading && (
                   <TableRow>
                     <TableCell colSpan={6} className="h-96 text-center text-muted-foreground italic font-headline text-lg">
                       O Ateliê aguarda sua primeira curadoria.
+                    </TableCell>
+                  </TableRow>
+                )}
+                {dataLoading && (
+                  <TableRow>
+                    <TableCell colSpan={6} className="h-96 text-center">
+                      <Loader2 className="animate-spin h-8 w-8 mx-auto text-primary" />
                     </TableCell>
                   </TableRow>
                 )}
