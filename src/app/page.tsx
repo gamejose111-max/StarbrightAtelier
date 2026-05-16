@@ -27,10 +27,10 @@ export default function Home() {
 
   return (
     <div className="flex flex-col bg-background">
-      {/* Hero Section - Imagem de Fundo Oficial */}
+      {/* Hero Section - Imagem de Fundo Oficial Sem Filtros */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-        {/* Imagem de Fundo - Pura e Sem Filtros */}
-        <div className="absolute inset-0 z-0 bg-muted">
+        {/* Imagem de Fundo - Pura e Sem Filtros conforme solicitado */}
+        <div className="absolute inset-0 z-0">
           <Image 
             src={HERO_IMAGE_URL} 
             alt="Ateliê Starbright Official Background" 
@@ -41,20 +41,26 @@ export default function Home() {
           />
         </div>
 
-        {/* Conteúdo posicionado para visibilidade */}
-        <div className="container mx-auto px-4 relative z-10 text-center mt-auto pb-24 animate-fadeUp">
-          <div className="p-8 md:p-12 inline-block bg-white/10 backdrop-blur-[2px] border border-white/20">
-            <h2 className="text-3xl md:text-5xl font-headline italic font-bold text-foreground mb-8 drop-shadow-lg uppercase tracking-widest">
-              "O Toque de Arte que seu Look Precisa"
-            </h2>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+        {/* Conteúdo posicionado com Nome da Empresa Profissional e Top */}
+        <div className="container mx-auto px-4 relative z-10 text-center mt-auto pb-32 animate-fadeUp">
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <h1 className="text-5xl md:text-7xl lg:text-9xl font-headline font-bold text-foreground drop-shadow-[0_10px_20px_rgba(0,0,0,0.4)] uppercase tracking-[0.25em] leading-tight">
+                Ateliê <br className="sm:hidden" /> Starbright
+              </h1>
+              <p className="text-[10px] md:text-sm font-bold tracking-[0.5em] text-primary uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+                Onde a Luz Encontra o Design
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8">
               <Link href="/catalog">
                 <Button className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-2xl border-none">
                   Explorar Coleção
                 </Button>
               </Link>
               <Link href="/sobre">
-                <Button variant="outline" className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-primary/10 bg-white/60 backdrop-blur-md">
+                <Button variant="outline" className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-primary/10 bg-white/40 backdrop-blur-md">
                   Nosso Manifesto
                 </Button>
               </Link>
