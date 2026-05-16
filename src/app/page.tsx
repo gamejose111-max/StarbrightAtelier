@@ -45,10 +45,10 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10 text-center mt-auto pb-32 animate-fadeUp">
           <div className="space-y-8">
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-headline font-bold text-foreground drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] uppercase tracking-[0.25em] leading-tight">
-                Ateliê <br className="sm:hidden" /> <span className="text-primary drop-shadow-[0_0_15px_rgba(232,186,48,0.4)]">Starbright</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-headline font-bold text-foreground drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] uppercase tracking-[0.25em] leading-tight">
+                Ateliê <br className="sm:hidden" /> <span className="text-primary drop-shadow-[0_4px_20px_rgba(0,0,0,1)]">Starbright</span>
               </h1>
-              <p className="text-[10px] md:text-xs font-bold tracking-[0.5em] text-primary uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+              <p className="text-[10px] md:text-xs font-bold tracking-[0.5em] text-primary uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,1)]">
                 Onde a Luz Encontra o Design
               </p>
             </div>
