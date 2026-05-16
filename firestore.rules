@@ -3,7 +3,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * ATELIÊ STARBRIGHT - REGRAS DE SEGURANÇA
+     * ATELIÊ STARBRIGHT - REGRAS DE SEGURANÇA REFORÇADAS
      */
 
     function isSignedIn() {
@@ -14,21 +14,20 @@ service cloud.firestore {
     match /products/{productId} {
       // Público pode ver os produtos
       allow read: if true;
-      // Apenas admin logado pode criar, editar ou excluir
-      allow write: if isSignedIn();
+      // Admin pode criar, editar e excluir
+      allow create, update, delete: if isSignedIn();
     }
 
     // --- GESTÃO DE PEDIDOS ---
     match /orders/{orderId} {
       // Público pode criar pedidos (checkout)
       allow create: if true;
-      // Apenas admin logado pode listar, ver detalhes e atualizar status
+      // Apenas admin logado pode gerir pedidos
       allow read, update, delete: if isSignedIn();
     }
 
-    // --- DADOS DO CLIENTE (BACKEND.JSON) ---
+    // --- DADOS DO CLIENTE ---
     match /customers/{customerId} {
-      // O usuário só acessa seus próprios dados
       allow read, write: if isSignedIn() && request.auth.uid == customerId;
 
       match /{allSubcollections=**} {

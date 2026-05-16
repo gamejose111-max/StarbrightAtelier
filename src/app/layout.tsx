@@ -1,10 +1,10 @@
-
 import type {Metadata} from 'next';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { FirebaseClientProvider } from '@/firebase';
 import { SplashLoader } from '@/components/SplashLoader';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'Ateliê StarBright | A Arte de Brilhar em Cada Detalhe',
@@ -31,6 +31,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <Toaster />
         </FirebaseClientProvider>
       </body>
     </html>

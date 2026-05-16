@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useEffect, useRef } from 'react';
@@ -16,9 +15,20 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { 
+  AlertDialog, 
+  AlertDialogAction, 
+  AlertDialogCancel, 
+  AlertDialogContent, 
+  AlertDialogDescription, 
+  AlertDialogFooter, 
+  AlertDialogHeader, 
+  AlertDialogTitle, 
+  AlertDialogTrigger 
+} from "@/components/ui/alert-dialog";
 import { Loader2, Plus, Edit, Trash2, Star, Tag, Upload, X, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
 
 const CATEGORIES = ["Bolsa de Mão", "Carteira de Mão", "Acessórios"];
 
@@ -26,6 +36,7 @@ export default function AdminProductsPage() {
   const { user, loading: authLoading } = useUser();
   const router = useRouter();
   const firestore = useFirestore();
+  const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -93,7 +104,11 @@ export default function AdminProductsPage() {
   const handleSave = () => {
     if (!firestore) return;
     if (!formData.imageUrl) {
-      alert('Por favor, adicione uma imagem para a peça.');
+      toast({
+        variant: "destructive",
+        title: "Imagem faltante",
+        description: "Por favor, adicione uma imagem para a peça.",
+      });
       return;
     }
 
@@ -108,20 +123,32 @@ export default function AdminProductsPage() {
     if (editingProduct) {
       const productRef = doc(firestore, 'products', editingProduct.id);
       updateDocumentNonBlocking(productRef, data);
+      toast({
+        title: "Peça atualizada",
+        description: "As alterações foram salvas com sucesso.",
+      });
     } else {
       const productsCol = collection(firestore, 'products');
       addDocumentNonBlocking(productsCol, {
         ...data,
         createdAt: serverTimestamp()
       });
+      toast({
+        title: "Peça publicada",
+        description: "A nova obra-prima já está no catálogo.",
+      });
     }
     setIsDialogOpen(false);
   };
 
   const handleDelete = (id: string) => {
-    if (!firestore || !confirm('Tem certeza que deseja excluir esta peça?')) return;
+    if (!firestore) return;
     const productRef = doc(firestore, 'products', id);
     deleteDocumentNonBlocking(productRef);
+    toast({
+      title: "Peça removida",
+      description: "A peça foi excluída da coleção.",
+    });
   };
 
   if (authLoading || dataLoading) {
@@ -336,9 +363,31 @@ export default function AdminProductsPage() {
                         <Button size="icon" variant="ghost" className="h-8 w-8 md:h-9 md:w-9 hover:bg-primary/10 hover:text-primary transition-colors" onClick={() => handleOpenDialog(product)}>
                           <Edit className="h-3.5 w-3.5 md:h-4 md:w-4" />
                         </Button>
-                        <Button size="icon" variant="ghost" className="h-8 w-8 md:h-9 md:w-9 text-destructive hover:bg-destructive/10 transition-colors" onClick={() => handleDelete(product.id)}>
-                          <Trash2 className="h-3.5 w-3.5 md:h-4 md:w-4" />
-                        </Button>
+                        
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button size="icon" variant="ghost" className="h-8 w-8 md:h-9 md:w-9 text-destructive hover:bg-destructive/10 transition-colors">
+                              <Trash2 className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent className="rounded-none border-primary/20">
+                            <AlertDialogHeader>
+                              <AlertDialogTitle className="font-headline uppercase tracking-widest">Confirmar Exclusão</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Tem certeza que deseja remover esta obra-prima da coleção? Esta ação não pode ser desfeita.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel className="rounded-none uppercase tracking-widest text-[10px] font-bold">Cancelar</AlertDialogCancel>
+                              <AlertDialogAction 
+                                onClick={() => handleDelete(product.id)}
+                                className="rounded-none bg-destructive text-destructive-foreground hover:bg-destructive/90 uppercase tracking-widest text-[10px] font-bold"
+                              >
+                                Confirmar Exclusão
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
                       </div>
                     </TableCell>
                   </TableRow>
