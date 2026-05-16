@@ -1,3 +1,4 @@
+
 "use client"
 
 import Image from 'next/image';
@@ -37,13 +38,10 @@ export default function Home() {
           />
         </div>
 
-        {/* Conteúdo com Nome da Empresa Ultra HD */}
+        {/* Conteúdo com Botões de Ação */}
         <div className="container mx-auto px-4 relative z-10 text-center mt-auto pb-32 animate-fadeUp">
           <div className="space-y-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-headline font-bold text-white uppercase tracking-[0.25em] leading-tight text-shadow-4k">
-              Ateliê <span className="text-primary">Starbright</span>
-            </h1>
-
+            {/* O título foi removido a pedido do usuário para destacar a imagem */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8">
               <Link href="/catalog">
                 <Button className="rounded-none h-14 px-10 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-2xl border-none">
