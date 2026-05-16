@@ -45,12 +45,9 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10 text-center mt-auto pb-32 animate-fadeUp">
           <div className="space-y-8">
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-headline font-bold text-foreground drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] uppercase tracking-[0.25em] leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-headline font-bold text-foreground drop-shadow-[0_4px_12px_rgba(0,0,0,1)] uppercase tracking-[0.25em] leading-tight">
                 Ateliê <br className="sm:hidden" /> <span className="text-primary drop-shadow-[0_4px_20px_rgba(0,0,0,1)]">Starbright</span>
               </h1>
-              <p className="text-[10px] md:text-xs font-bold tracking-[0.5em] text-primary uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,1)]">
-                Onde a Luz Encontra o Design
-              </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8">
@@ -60,7 +57,7 @@ export default function Home() {
                 </Button>
               </Link>
               <Link href="/sobre">
-                <Button variant="outline" className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-primary/10 bg-white/40 backdrop-blur-md">
+                <Button variant="outline" className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-primary/10 bg-white/20 backdrop-blur-md">
                   Nosso Manifesto
                 </Button>
               </Link>
@@ -146,7 +143,6 @@ export default function Home() {
                   <span className="text-[10px] md:text-xs tracking-[0.4em] font-bold text-primary uppercase">Obra em Destaque</span>
                   <h2 className="text-3xl md:text-4xl font-headline font-bold leading-tight">{highlightProduct.name}</h2>
                 </div>
-                <p className="text-base md:text-lg font-headline italic text-primary font-medium">"O Toque de Arte que seu Look Precisa"</p>
                 <div className="space-y-4 text-muted-foreground leading-relaxed text-sm md:text-base line-clamp-4">
                   <p>{highlightProduct.description}</p>
                 </div>
