@@ -22,9 +22,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section com Imagem Original */}
-      <section className="relative h-[90vh] md:h-[95vh] flex items-center justify-center overflow-hidden bg-background">
-        {/* Imagem de Fundo - Sem Filtros para respeitar o pedido original */}
+      {/* Hero Section com Imagem Oficial Total */}
+      <section className="relative h-[90vh] md:h-[95vh] flex items-center justify-center overflow-hidden">
+        {/* Imagem de Fundo - Sem Filtros e Sem Alterações */}
         <div className="absolute inset-0 z-0">
           <Image 
             src={PlaceHolderImages.find(p => p.id === 'hero-title-img')?.imageUrl || ""} 
@@ -36,11 +36,11 @@ export default function Home() {
           />
         </div>
 
-        {/* Conteúdo sobreposto */}
+        {/* Conteúdo sobreposto com foco na legibilidade sobre o fundo claro */}
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
           <div className="max-w-5xl animate-fadeUp text-center space-y-8 md:space-y-12 flex flex-col items-center">
             
-            {/* Espaçador para o logo central da imagem */}
+            {/* Espaçador para o logo central da imagem original ser visível */}
             <div className="h-40 md:h-64"></div>
 
             <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center w-full sm:w-auto">
@@ -50,13 +50,13 @@ export default function Home() {
                 </Button>
               </Link>
               <Link href="/sobre" className="w-full sm:w-auto">
-                <Button variant="outline" className="w-full rounded-none h-14 md:h-16 px-10 md:px-12 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-white/50 backdrop-blur-sm">
+                <Button variant="outline" className="w-full rounded-none h-14 md:h-16 px-10 md:px-12 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-white/20 backdrop-blur-sm">
                   Nosso Manifesto
                 </Button>
               </Link>
             </div>
 
-            <p className="text-xl md:text-3xl text-foreground font-headline italic tracking-wide max-w-2xl mx-auto drop-shadow-md font-bold bg-white/20 backdrop-blur-[2px] p-4 rounded-sm">
+            <p className="text-xl md:text-3xl text-foreground font-headline italic tracking-wide max-w-2xl mx-auto drop-shadow-sm font-bold bg-white/10 backdrop-blur-[1px] p-4 rounded-sm">
               "Peças exclusivas esculpidas para brilhar eternamente."
             </p>
           </div>
