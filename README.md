@@ -33,8 +33,8 @@ Se o terminal pedir sua senha e der erro ou dizer que a "autenticação por senh
 3. Dê um nome (ex: "Site Starbright"), marque a caixa **repo** (toda a primeira seção) e clique em **Generate token** no final da página.
 4. **COPIE O TOKEN.** Você só o verá uma vez.
 
-### 2. Usar o Token no Terminal
-Quando você rodar `git push origin main` e ele pedir o **Password**, não cole sua senha do site. **Cole o Token que você copiou.**
+### 2. Usar o Toen no Terminal
+Quando você rodar  `git push origin main` e ele pediro **Password**, não cole sua senha do site. **Cole o Token que você copiou.**
 *(Nota: No terminal, quando você cola a senha, ela fica invisível. Apenas cole e dê ENTER).*
 
 ---

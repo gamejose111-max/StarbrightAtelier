@@ -1,4 +1,3 @@
-
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
@@ -12,27 +11,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'placehold.co',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.fbcdn.net',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.files.fm',
-      },
-      {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
+        hostname: '**',
       },
     ],
   },
