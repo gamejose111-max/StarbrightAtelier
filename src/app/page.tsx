@@ -9,8 +9,10 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Star, Loader2, Sparkles } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-// Imagem oficial do Ateliê atualizada com o novo link
-const HERO_IMAGE_URL = PlaceHolderImages.find(p => p.id === 'company-image')?.imageUrl || "https://fv5-5.files.fm/thumb_show.php?i=8tzhwcustm&view&v=1&PHPSESSID=af5af501aef333578a573eacd4eebbb26881e73f";
+// Imagem oficial do Ateliê com fallbacks de segurança
+const HERO_IMAGE_URL = PlaceHolderImages.find(p => p.id === 'company-image')?.imageUrl || 
+                       PlaceHolderImages.find(p => p.id === 'hero-bag')?.imageUrl ||
+                       "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070";
 
 export default function Home() {
   const firestore = useFirestore();
@@ -25,10 +27,10 @@ export default function Home() {
 
   return (
     <div className="flex flex-col bg-background">
-      {/* Hero Section - Imagem de Fundo Oficial Sem Alterações */}
+      {/* Hero Section - Imagem de Fundo Oficial */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
         {/* Imagem de Fundo - Pura e Sem Filtros */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 bg-muted">
           <Image 
             src={HERO_IMAGE_URL} 
             alt="Ateliê Starbright Official Background" 
@@ -39,10 +41,10 @@ export default function Home() {
           />
         </div>
 
-        {/* Conteúdo posicionado para não obstruir o centro da imagem */}
+        {/* Conteúdo posicionado para visibilidade */}
         <div className="container mx-auto px-4 relative z-10 text-center mt-auto pb-24 animate-fadeUp">
-          <div className="p-8 md:p-12 inline-block">
-            <h2 className="text-3xl md:text-5xl font-headline italic font-bold text-foreground mb-8 drop-shadow-md uppercase tracking-widest">
+          <div className="p-8 md:p-12 inline-block bg-white/10 backdrop-blur-[2px] border border-white/20">
+            <h2 className="text-3xl md:text-5xl font-headline italic font-bold text-foreground mb-8 drop-shadow-lg uppercase tracking-widest">
               "O Toque de Arte que seu Look Precisa"
             </h2>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -52,7 +54,7 @@ export default function Home() {
                 </Button>
               </Link>
               <Link href="/sobre">
-                <Button variant="outline" className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-primary/10 bg-white/50 backdrop-blur-sm">
+                <Button variant="outline" className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-primary/10 bg-white/60 backdrop-blur-md">
                   Nosso Manifesto
                 </Button>
               </Link>
