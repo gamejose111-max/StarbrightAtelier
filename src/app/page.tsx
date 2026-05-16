@@ -37,10 +37,10 @@ export default function Home() {
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
           <div className="max-w-5xl animate-fadeUp text-center space-y-6 md:space-y-8 flex flex-col items-center">
             <div className="space-y-4 md:space-y-6 flex flex-col items-center w-full">
-              <span className="text-[10px] tracking-[0.3em] md:tracking-[0.5em] font-bold text-primary uppercase block mb-2 drop-shadow-md">Onde a Luz se Torna Arte</span>
+              <span className="text-[10px] tracking-[0.3em] md:tracking-[0.5em] font-bold text-primary uppercase block mb-2">Onde a Luz se Torna Arte</span>
               
-              <h1 className="text-4xl md:text-7xl font-headline font-bold text-white leading-tight tracking-tight">
-                Ateliê <span className="text-primary italic drop-shadow-[0_0_20px_rgba(0,0,0,0.8)] brightness-110 [text-shadow:2px_2px_10px_rgba(0,0,0,0.8)]">Starbright</span>
+              <h1 className="text-4xl md:text-7xl font-headline font-bold text-foreground leading-tight tracking-tight">
+                Ateliê <span className="text-primary italic">Starbright</span>
               </h1>
             </div>
             
@@ -51,13 +51,13 @@ export default function Home() {
                 </Button>
               </Link>
               <Link href="/sobre" className="w-full sm:w-auto">
-                <Button variant="outline" className="w-full rounded-none h-14 md:h-16 px-10 md:px-12 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-primary/10 hover:text-primary backdrop-blur-sm bg-black/20">
+                <Button variant="outline" className="w-full rounded-none h-14 md:h-16 px-10 md:px-12 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-primary/10 hover:text-primary backdrop-blur-sm">
                   Nosso Manifesto
                 </Button>
               </Link>
             </div>
 
-            <p className="text-lg md:text-2xl text-white font-headline italic tracking-wide max-w-2xl mx-auto pt-4 drop-shadow-md [text-shadow:1px_1px_5px_rgba(0,0,0,0.5)]">
+            <p className="text-lg md:text-2xl text-foreground font-headline italic tracking-wide max-w-2xl mx-auto pt-4">
               "Peças exclusivas esculpidas para brilhar eternamente."
             </p>
           </div>
