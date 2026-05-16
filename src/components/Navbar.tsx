@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from 'next/link';
@@ -18,16 +19,19 @@ export function Navbar() {
   
   useEffect(() => {
     const handleScroll = () => {
-      // Usar requestAnimationFrame para garantir que o scroll não bloqueie a UI
       window.requestAnimationFrame(() => {
         setIsScrolled(window.scrollY > 10);
       });
     };
 
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
+    try {
+      const savedTheme = typeof window !== 'undefined' ? localStorage.getItem('theme') : null;
+      if (savedTheme === 'dark') {
+        setIsDarkMode(true);
+        document.documentElement.classList.add('dark');
+      }
+    } catch (e) {
+      // Ignorar erros de localStorage em navegação anónima
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -35,14 +39,18 @@ export function Navbar() {
   }, []);
 
   const toggleDarkMode = useCallback(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-      setIsDarkMode(false);
-    } else {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-      setIsDarkMode(true);
+    try {
+      if (isDarkMode) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        setIsDarkMode(false);
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        setIsDarkMode(true);
+      }
+    } catch (e) {
+      setIsDarkMode(!isDarkMode);
     }
   }, [isDarkMode]);
 
@@ -64,7 +72,6 @@ export function Navbar() {
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid grid-cols-3 items-center">
           
-          {/* LADO ESQUERDO: Menu e Links */}
           <div className="flex items-center justify-start gap-4">
             <Sheet>
               <SheetTrigger asChild>
@@ -118,7 +125,6 @@ export function Navbar() {
             </nav>
           </div>
 
-          {/* CENTRO: Nome da Marca */}
           <div className="flex justify-center items-center">
             <Link href="/" className="group flex flex-col items-center">
               <h1 className={cn(
@@ -130,7 +136,6 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* DIREITA: Ações de Luxo */}
           <div className="flex items-center justify-end gap-1 md:gap-3">
             <Link href="/ai-stylist" className="hidden sm:flex items-center gap-1.5 hover:text-primary transition-colors text-primary italic text-[9px] font-bold uppercase tracking-widest mr-2">
               <Sparkles className="h-3 w-3" /> Estilista IA
