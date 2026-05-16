@@ -22,11 +22,13 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
-      <section className="relative h-[90vh] md:h-[95vh] flex items-center justify-center overflow-hidden bg-background">
+      {/* Hero Section com Imagem Original */}
+      <section className="relative h-[90vh] md:h-[95vh] flex items-center justify-center overflow-hidden">
+        {/* Imagem de Fundo - Sem Filtros */}
         <div className="absolute inset-0 z-0">
           <Image 
             src={PlaceHolderImages.find(p => p.id === 'hero-title-img')?.imageUrl || ""} 
-            alt="Ateliê Starbright Logo Fundo" 
+            alt="Ateliê Starbright Fundo Original" 
             fill 
             className="object-cover" 
             priority
@@ -34,37 +36,35 @@ export default function Home() {
           />
         </div>
 
+        {/* Conteúdo sobreposto - Ajustado para legibilidade sobre fundo claro */}
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
-          <div className="max-w-5xl animate-fadeUp text-center space-y-6 md:space-y-8 flex flex-col items-center">
-            <div className="space-y-4 md:space-y-6 flex flex-col items-center w-full">
-              <span className="text-[10px] tracking-[0.3em] md:tracking-[0.5em] font-bold text-primary uppercase block mb-2">Onde a Luz se Torna Arte</span>
-              
-              <h1 className="text-4xl md:text-7xl font-headline font-bold text-foreground leading-tight tracking-tight">
-                Ateliê <span className="text-primary italic">Starbright</span>
-              </h1>
-            </div>
+          <div className="max-w-5xl animate-fadeUp text-center space-y-8 md:space-y-12 flex flex-col items-center">
             
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center pt-4 md:pt-8 w-full sm:w-auto">
+            {/* Espaçador para não cobrir o logo central da imagem */}
+            <div className="h-32 md:h-48"></div>
+
+            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center w-full sm:w-auto">
               <Link href="/catalog" className="w-full sm:w-auto">
-                <Button className="w-full rounded-none h-14 md:h-16 px-10 md:px-12 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-xl">
+                <Button className="w-full rounded-none h-14 md:h-16 px-10 md:px-12 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-2xl border-none">
                   Explorar Coleção
                 </Button>
               </Link>
               <Link href="/sobre" className="w-full sm:w-auto">
-                <Button variant="outline" className="w-full rounded-none h-14 md:h-16 px-10 md:px-12 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-primary/10 hover:text-primary backdrop-blur-sm">
+                <Button variant="outline" className="w-full rounded-none h-14 md:h-16 px-10 md:px-12 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-white/50 backdrop-blur-sm">
                   Nosso Manifesto
                 </Button>
               </Link>
             </div>
 
-            <p className="text-lg md:text-2xl text-foreground font-headline italic tracking-wide max-w-2xl mx-auto pt-4">
+            <p className="text-xl md:text-3xl text-foreground font-headline italic tracking-wide max-w-2xl mx-auto drop-shadow-sm font-medium">
               "Peças exclusivas esculpidas para brilhar eternamente."
             </p>
           </div>
         </div>
       </section>
 
-      <section className="py-16 md:py-24">
+      {/* Seção de Curadoria */}
+      <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 md:mb-16 space-y-6 md:space-y-0 text-center md:text-left">
             <div className="space-y-4">
@@ -122,6 +122,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Produto em Destaque */}
       {highlightProduct && (
         <section className="py-16 md:py-24 bg-primary/5">
           <div className="container mx-auto px-4 md:px-8">
@@ -154,7 +155,8 @@ export default function Home() {
         </section>
       )}
 
-      <section className="py-16 md:py-24 border-t">
+      {/* Valores da Marca */}
+      <section className="py-16 md:py-24 border-t bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 text-center">
             <div className="space-y-3 md:space-y-4">
