@@ -5,45 +5,34 @@ Este projeto foi desenvolvido com Next.js e está otimizado para o **Firebase Ap
 
 ## 🚀 Como Atualizar o Site Oficial
 
-Se você vir a mensagem "nothing to commit, working tree clean", significa que as mudanças já foram salvas localmente. Agora você só precisa **enviá-las** para o servidor.
+Se você não vê as mudanças no seu site oficial, é porque precisa "empurrar" as atualizações do terminal para a internet.
 
-### 1. O Passo a Passo Padrão
+### 1. O Passo a Passo Definitivo
 Execute estes comandos em ordem no terminal:
 
 ```bash
-# 1. Prepara as mudanças (se houver novas)
+# 1. Prepara as mudanças feitas pela IA
 git add .
 
-# 2. Salva as mudanças (Se der erro aqui, pule para o passo 3)
-git commit -m "Atualizações do Ateliê"
+# 2. Salva as mudanças localmente
+# Se aparecer "nothing to commit", pule para o passo 3
+git commit -m "Atualização de imagem e layout"
 
-# 3. Envia para a internet (Este é o passo que faz o site atualizar)
+# 3. Envia para o site (O MAIS IMPORTANTE)
 git push origin main
 ```
 
 ---
 
-## 🛠️ Resolução de Problemas Comuns
+## 🛠️ Resolução de Problemas
+
+### Por que o fundo continua branco?
+1. **Cache do Navegador:** Tente abrir o site em uma aba anónima ou pressione `CTRL + F5`.
+2. **Git Push:** Verifique se o comando `git push origin main` terminou com sucesso. Se der erro, verifique se o site oficial está ligado a este repositório.
 
 ### Erro: "nothing to commit"
-Isso é bom! Significa que o commit já foi feito. Basta rodar:
-`git push origin main`
-
-### Erro: "Everything up-to-date" mas o site não mudou
-Isso acontece se o Git não percebeu as mudanças. Tente forçar um novo commit:
-1. Faça uma pequena alteração em qualquer arquivo (ex: mude um texto).
-2. Tente os comandos do "Passo a Passo Padrão" novamente.
-
-### Erro de Permissão / Autenticação (GitHub)
-Se o terminal pedir senha ou der erro de "Permission denied":
-1. Vá ao seu GitHub.
-2. Verifique se o repositório `StarbrightAtelier` está criado.
-3. Se precisar reconectar o servidor, use:
-```bash
-git remote remove origin
-git remote add origin https://github.com/gamejose111-max/StarbrightAtelier.git
-git push -u origin main
-```
+Isto é normal se a IA já salvou os arquivos. Basta rodar:
+`git push origin main` para garantir que o servidor receba as novidades.
 
 ---
 
@@ -53,4 +42,3 @@ Após o `git push` funcionar, o Firebase levará alguns minutos para atualizar.
 1. No [Console do Firebase](https://console.firebase.google.com/), vá em **App Hosting**.
 2. Clique no seu backend e vá em **Settings** -> **Custom Domains**.
 3. Adicione `ateliestarbright.pt`.
-4. Configure os DNS no seu provedor de domínio.

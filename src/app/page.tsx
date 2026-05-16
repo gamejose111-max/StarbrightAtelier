@@ -22,14 +22,14 @@ export default function Home() {
   const highlightProduct = featuredProducts && featuredProducts.length > 0 ? featuredProducts[0] : null;
 
   return (
-    <div className="flex flex-col">
-      {/* Hero Section - Imagem Original no Fundo */}
-      <section className="relative h-screen flex flex-col items-center justify-end pb-32 overflow-hidden">
-        {/* Imagem de Fundo Totalmente Original */}
+    <div className="flex flex-col bg-background">
+      {/* Hero Section - Imagem de Fundo Total */}
+      <section className="relative h-screen flex flex-col items-center justify-end pb-24 md:pb-32 overflow-hidden bg-background">
+        {/* Imagem de Fundo Oficial */}
         <div className="absolute inset-0 z-0">
           <Image 
             src={HERO_IMAGE_URL} 
-            alt="Ateliê Starbright" 
+            alt="Ateliê Starbright Background" 
             fill 
             className="object-cover" 
             priority
@@ -37,15 +37,15 @@ export default function Home() {
           />
         </div>
 
-        {/* Conteúdo posicionado para não tapar o centro da imagem */}
+        {/* Conteúdo sobreposto */}
         <div className="container mx-auto px-4 relative z-10 text-center space-y-8 animate-fadeUp">
-          <div className="bg-white/60 backdrop-blur-md p-8 md:p-12 inline-block rounded-none border border-primary/20 shadow-2xl">
+          <div className="bg-white/40 backdrop-blur-md p-8 md:p-12 inline-block border border-primary/20 shadow-2xl">
             <h2 className="text-2xl md:text-4xl font-headline italic font-bold text-foreground mb-6">
               "O Toque de Arte que seu Look Precisa"
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/catalog">
-                <Button className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg">
+                <Button className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg border-none">
                   Explorar Coleção
                 </Button>
               </Link>
@@ -60,7 +60,7 @@ export default function Home() {
       </section>
 
       {/* Seção de Curadoria */}
-      <section className="py-16 md:py-24 bg-background">
+      <section className="py-16 md:py-24 bg-background border-t">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 md:mb-16 space-y-6 md:space-y-0 text-center md:text-left">
             <div className="space-y-4">
