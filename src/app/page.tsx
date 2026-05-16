@@ -12,20 +12,16 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 export default function Home() {
   const firestore = useFirestore();
 
-  // Buscar os 5 produtos mais recentes para a vitrine
   const featuredQuery = useMemoFirebase(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'products'), orderBy('createdAt', 'desc'), limit(5));
   }, [firestore]);
 
   const { data: featuredProducts, isLoading } = useCollection(featuredQuery);
-
-  // O produto em destaque será o mais recente da lista
   const highlightProduct = featuredProducts && featuredProducts.length > 0 ? featuredProducts[0] : null;
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
       <section className="relative h-[90vh] md:h-[95vh] flex items-center justify-center overflow-hidden bg-background">
         <div className="absolute inset-0 z-0">
           <Image 
@@ -46,7 +42,7 @@ export default function Home() {
               <span className="text-[10px] tracking-[0.3em] md:tracking-[0.5em] font-bold text-primary uppercase block mb-2 drop-shadow-md">Onde a Luz se Torna Arte</span>
               
               <h1 className="text-4xl md:text-7xl font-headline font-bold text-white leading-tight tracking-tight">
-                Ateliê <span className="text-primary italic drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] brightness-110">Starbright</span>
+                Ateliê <span className="text-primary italic drop-shadow-[0_0_25px_rgba(232,186,48,0.5)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] brightness-110">Starbright</span>
               </h1>
             </div>
             
@@ -70,7 +66,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Products Section */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 md:mb-16 space-y-6 md:space-y-0 text-center md:text-left">
@@ -129,7 +124,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Dynamic Product Highlight Section */}
       {highlightProduct && (
         <section className="py-16 md:py-24 bg-primary/5">
           <div className="container mx-auto px-4 md:px-8">
@@ -162,7 +156,6 @@ export default function Home() {
         </section>
       )}
 
-      {/* Brand Values */}
       <section className="py-16 md:py-24 border-t">
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 text-center">
