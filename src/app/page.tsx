@@ -28,12 +28,12 @@ export default function Home() {
             src={PlaceHolderImages.find(p => p.id === 'hero-bag')?.imageUrl || ""} 
             alt="Ateliê Starbright Background" 
             fill 
-            className="object-cover opacity-80" 
+            className="object-cover opacity-60" 
             priority
-            data-ai-hint="luxury diamonds"
+            data-ai-hint="luxury sparkles"
           />
-          <div className="absolute inset-0 bg-black/40"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,186,48,0.15)_0%,transparent_70%)]"></div>
+          <div className="absolute inset-0 bg-black/50"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,186,48,0.2)_0%,transparent_70%)]"></div>
         </div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
@@ -42,7 +42,7 @@ export default function Home() {
               <span className="text-[10px] tracking-[0.3em] md:tracking-[0.5em] font-bold text-primary uppercase block mb-2 drop-shadow-md">Onde a Luz se Torna Arte</span>
               
               <h1 className="text-4xl md:text-7xl font-headline font-bold text-white leading-tight tracking-tight">
-                Ateliê <span className="text-primary italic drop-shadow-[0_0_25px_rgba(232,186,48,0.5)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] brightness-110">Starbright</span>
+                Ateliê <span className="text-primary italic drop-shadow-[0_0_20px_rgba(0,0,0,0.8)] brightness-110 [text-shadow:2px_2px_10px_rgba(0,0,0,0.8)]">Starbright</span>
               </h1>
             </div>
             
@@ -59,7 +59,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <p className="text-lg md:text-2xl text-white font-headline italic tracking-wide max-w-2xl mx-auto pt-4 drop-shadow-md">
+            <p className="text-lg md:text-2xl text-white font-headline italic tracking-wide max-w-2xl mx-auto pt-4 drop-shadow-md [text-shadow:1px_1px_5px_rgba(0,0,0,0.5)]">
               "Peças exclusivas esculpidas para brilhar eternamente."
             </p>
           </div>
