@@ -45,8 +45,8 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10 text-center mt-auto pb-32 animate-fadeUp">
           <div className="space-y-8">
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl lg:text-7xl font-headline font-bold text-foreground drop-shadow-[0_4px_12px_rgba(0,0,0,1)] uppercase tracking-[0.25em] leading-tight">
-                Ateliê <br className="sm:hidden" /> <span className="text-primary drop-shadow-[0_4px_20px_rgba(0,0,0,1)]">Starbright</span>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-headline font-bold text-white drop-shadow-[0_10px_20px_rgba(0,0,0,1)] drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] uppercase tracking-[0.3em] leading-tight">
+                Ateliê <br className="sm:hidden" /> <span className="text-primary drop-shadow-[0_10px_25px_rgba(0,0,0,1)] drop-shadow-[0_0_40px_rgba(232,186,48,0.4)]">Starbright</span>
               </h1>
             </div>
 
