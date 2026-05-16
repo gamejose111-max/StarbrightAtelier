@@ -7,9 +7,10 @@ import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { collection, query, orderBy, limit } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Star, Loader2, Sparkles } from 'lucide-react';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-// Imagem de luxo em alta resolução (Sparkles & Gold)
-const HERO_IMAGE_URL = "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=2000";
+// Imagem oficial do Ateliê (Mesa com rosas e selo)
+const HERO_IMAGE_URL = PlaceHolderImages.find(p => p.id === 'company-image')?.imageUrl || "https://fv5-5.files.fm/thumb_show.php?i=8tzhwcustm&view&v=1&PHPSESSID=af5af501aef333578a573eacd4eebbb26881e73f";
 
 export default function Home() {
   const firestore = useFirestore();
@@ -24,33 +25,33 @@ export default function Home() {
 
   return (
     <div className="flex flex-col bg-background">
-      {/* Hero Section - Imagem de Fundo Total e Pura */}
+      {/* Hero Section - Imagem de Fundo Oficial Sem Alterações */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-        {/* Imagem de Fundo - Sem filtros ou escurecimento */}
+        {/* Imagem de Fundo - Pura e Sem Filtros */}
         <div className="absolute inset-0 z-0">
           <Image 
             src={HERO_IMAGE_URL} 
-            alt="Ateliê Starbright Luxury Background" 
+            alt="Ateliê Starbright Official Background" 
             fill 
             className="object-cover" 
             priority
           />
         </div>
 
-        {/* Conteúdo sobreposto com contraste para leitura */}
-        <div className="container mx-auto px-4 relative z-10 text-center space-y-8 animate-fadeUp">
-          <div className="bg-black/20 backdrop-blur-sm p-8 md:p-12 inline-block border border-white/10 shadow-2xl">
-            <h2 className="text-3xl md:text-5xl font-headline italic font-bold text-white mb-6 drop-shadow-lg">
+        {/* Conteúdo posicionado para não obstruir o centro da imagem */}
+        <div className="container mx-auto px-4 relative z-10 text-center mt-auto pb-24 animate-fadeUp">
+          <div className="p-8 md:p-12 inline-block">
+            <h2 className="text-3xl md:text-5xl font-headline italic font-bold text-foreground mb-8 drop-shadow-sm uppercase tracking-widest">
               "O Toque de Arte que seu Look Precisa"
             </h2>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link href="/catalog">
-                <Button className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-xl border-none">
+                <Button className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-2xl border-none">
                   Explorar Coleção
                 </Button>
               </Link>
               <Link href="/sobre">
-                <Button variant="outline" className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs border-white text-white hover:bg-white/20">
+                <Button variant="outline" className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-primary/10 bg-white/50 backdrop-blur-sm">
                   Nosso Manifesto
                 </Button>
               </Link>
