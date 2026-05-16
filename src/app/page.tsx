@@ -7,7 +7,8 @@ import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { collection, query, orderBy, limit } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Star, Loader2, Sparkles } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+
+const HERO_IMAGE_URL = "https://firebasestorage.googleapis.com/v0/b/studio-6330463347-ad38a.firebasestorage.app/o/projects%2Fstudio-6330463347-ad38a%2Fimages%2Fl_0_u_m_i_n_a_r_i_a_s_o_f_t_w_a_r_e_l_o_g_o_w_i_t_h_a_s_t_a_r_a_n_d_f_l_o_w_e_r_s_r_o_u_n_d_v_e_c_t_o_r_s_t_y_l_e_l_u_x_u_r_y_w_h_i_t_e_f_i_g_u_r_e_s_v_i_n_t_a_g_e_v_i_c_t_o_r_i_a_n_w_i_t_h_w_h_i_t_e_r_o_s_e_s_o_n_t_h_e_c_o_r_n_e_r_s_p_l_a_y_f_a_i_r_d_i_s_p_l_a_y_f_o_n_t_s_a_n_s_l_u_x_u_r_y_c_l_e_a_n_g_o_l_d_e_n_v_e_r_y_l_u_x_u_r_y_1740049444158.png?alt=media&token=42b66723-5355-4654-8c85-618be29d675b";
 
 export default function Home() {
   const firestore = useFirestore();
@@ -22,13 +23,13 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section com Imagem Oficial Total */}
-      <section className="relative h-[90vh] md:h-[95vh] flex items-center justify-center overflow-hidden">
-        {/* Imagem de Fundo - Sem Filtros e Sem Alterações */}
+      {/* Hero Section - Imagem Original no Fundo */}
+      <section className="relative h-screen flex flex-col items-center justify-end pb-32 overflow-hidden">
+        {/* Imagem de Fundo Totalmente Original */}
         <div className="absolute inset-0 z-0">
           <Image 
-            src={PlaceHolderImages.find(p => p.id === 'hero-title-img')?.imageUrl || ""} 
-            alt="Ateliê Starbright Fundo Oficial" 
+            src={HERO_IMAGE_URL} 
+            alt="Ateliê Starbright" 
             fill 
             className="object-cover" 
             priority
@@ -36,29 +37,24 @@ export default function Home() {
           />
         </div>
 
-        {/* Conteúdo sobreposto com foco na legibilidade sobre o fundo claro */}
-        <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
-          <div className="max-w-5xl animate-fadeUp text-center space-y-8 md:space-y-12 flex flex-col items-center">
-            
-            {/* Espaçador para o logo central da imagem original ser visível */}
-            <div className="h-40 md:h-64"></div>
-
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center w-full sm:w-auto">
-              <Link href="/catalog" className="w-full sm:w-auto">
-                <Button className="w-full rounded-none h-14 md:h-16 px-10 md:px-12 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-2xl border-none">
+        {/* Conteúdo posicionado para não tapar o centro da imagem */}
+        <div className="container mx-auto px-4 relative z-10 text-center space-y-8 animate-fadeUp">
+          <div className="bg-white/60 backdrop-blur-md p-8 md:p-12 inline-block rounded-none border border-primary/20 shadow-2xl">
+            <h2 className="text-2xl md:text-4xl font-headline italic font-bold text-foreground mb-6">
+              "O Toque de Arte que seu Look Precisa"
+            </h2>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/catalog">
+                <Button className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg">
                   Explorar Coleção
                 </Button>
               </Link>
-              <Link href="/sobre" className="w-full sm:w-auto">
-                <Button variant="outline" className="w-full rounded-none h-14 md:h-16 px-10 md:px-12 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-white/20 backdrop-blur-sm">
+              <Link href="/sobre">
+                <Button variant="outline" className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-white/40">
                   Nosso Manifesto
                 </Button>
               </Link>
             </div>
-
-            <p className="text-xl md:text-3xl text-foreground font-headline italic tracking-wide max-w-2xl mx-auto drop-shadow-sm font-bold bg-white/10 backdrop-blur-[1px] p-4 rounded-sm">
-              "Peças exclusivas esculpidas para brilhar eternamente."
-            </p>
           </div>
         </div>
       </section>
@@ -103,7 +99,7 @@ export default function Home() {
                   </div>
                   <div className="text-center space-y-0.5 px-2">
                     <h3 className="text-[11px] md:text-[13px] font-headline tracking-wide font-bold truncate uppercase">{product.name}</h3>
-                    <p className="text-[10px] md:text-xs text-primary font-bold tracking-widest">
+                    <p className="text-transform md:text-xs text-primary font-bold tracking-widest">
                       €{product.isOnPromotion ? product.promotionPrice.toLocaleString() : product.price.toLocaleString()}
                     </p>
                   </div>
