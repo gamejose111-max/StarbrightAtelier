@@ -28,12 +28,10 @@ export default function Home() {
             src={PlaceHolderImages.find(p => p.id === 'hero-title-img')?.imageUrl || ""} 
             alt="Ateliê Starbright Logo Fundo" 
             fill 
-            className="object-cover opacity-40" 
+            className="object-cover" 
             priority
-            data-ai-hint="luxury logo"
+            unoptimized
           />
-          <div className="absolute inset-0 bg-black/40"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,186,48,0.15)_0%,transparent_70%)]"></div>
         </div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 flex justify-center">
