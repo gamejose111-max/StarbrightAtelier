@@ -15,7 +15,6 @@ Execute estes comandos em ordem no terminal:
 git add .
 
 # 2. Salva as mudanças localmente
-# Se aparecer "nothing to commit", pule para o passo 3
 git commit -m "Atualização de imagem e layout"
 
 # 3. Envia para o site (O MAIS IMPORTANTE)
@@ -24,7 +23,23 @@ git push origin main
 
 ---
 
-## 🛠️ Resolução de Problemas
+## 🔑 Resolvendo Erro de Senha no Terminal (Erro 403)
+
+Se o terminal pedir sua senha e der erro ou dizer que a "autenticação por senha foi removida", siga estes passos:
+
+### 1. Criar um Token no GitHub (Substitui a Senha)
+1. Vá ao seu GitHub em: **Settings** (Configurações) -> **Developer Settings** -> **Personal Access Tokens** -> **Tokens (classic)**.
+2. Clique em **Generate new token (classic)**.
+3. Dê um nome (ex: "Site Starbright"), marque a caixa **repo** (toda a primeira seção) e clique em **Generate token** no final da página.
+4. **COPIE O TOKEN.** Você só o verá uma vez.
+
+### 2. Usar o Token no Terminal
+Quando você rodar `git push origin main` e ele pedir o **Password**, não cole sua senha do site. **Cole o Token que você copiou.**
+*(Nota: No terminal, quando você cola a senha, ela fica invisível. Apenas cole e dê ENTER).*
+
+---
+
+## 🛠️ Resolução de Outros Problemas
 
 ### Por que o fundo continua branco?
 1. **Cache do Navegador:** Tente abrir o site em uma aba anónima ou pressione `CTRL + F5`.
