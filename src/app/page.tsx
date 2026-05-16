@@ -8,7 +8,8 @@ import { collection, query, orderBy, limit } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Star, Loader2, Sparkles } from 'lucide-react';
 
-const HERO_IMAGE_URL = "https://firebasestorage.googleapis.com/v0/b/studio-6330463347-ad38a.firebasestorage.app/o/projects%2Fstudio-6330463347-ad38a%2Fimages%2Fl_0_u_m_i_n_a_r_i_a_s_o_f_t_w_a_r_e_l_o_g_o_w_i_t_h_a_s_t_a_r_a_n_d_f_l_o_w_e_r_s_r_o_u_n_d_v_e_c_t_o_r_s_t_y_l_e_l_u_x_u_r_y_w_h_i_t_e_f_i_g_u_r_e_s_v_i_n_t_a_g_e_v_i_c_t_o_r_i_a_n_w_i_t_h_w_h_i_t_e_r_o_s_e_s_o_n_t_h_e_c_o_r_n_e_r_s_p_l_a_y_f_a_i_r_d_i_s_p_l_a_y_f_o_n_t_s_a_n_s_l_u_x_u_r_y_c_l_e_a_n_g_o_l_d_e_n_v_e_r_y_l_u_x_u_r_y_1740049444158.png?alt=media&token=42b66723-5355-4654-8c85-618be29d675b";
+// Imagem de luxo em alta resolução (Sparkles & Gold)
+const HERO_IMAGE_URL = "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=2000";
 
 export default function Home() {
   const firestore = useFirestore();
@@ -23,34 +24,33 @@ export default function Home() {
 
   return (
     <div className="flex flex-col bg-background">
-      {/* Hero Section - Imagem de Fundo Total */}
-      <section className="relative h-screen flex flex-col items-center justify-end pb-24 md:pb-32 overflow-hidden bg-background">
-        {/* Imagem de Fundo Oficial */}
+      {/* Hero Section - Imagem de Fundo Total e Pura */}
+      <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+        {/* Imagem de Fundo - Sem filtros ou escurecimento */}
         <div className="absolute inset-0 z-0">
           <Image 
             src={HERO_IMAGE_URL} 
-            alt="Ateliê Starbright Background" 
+            alt="Ateliê Starbright Luxury Background" 
             fill 
             className="object-cover" 
             priority
-            unoptimized
           />
         </div>
 
-        {/* Conteúdo sobreposto */}
+        {/* Conteúdo sobreposto com contraste para leitura */}
         <div className="container mx-auto px-4 relative z-10 text-center space-y-8 animate-fadeUp">
-          <div className="bg-white/40 backdrop-blur-md p-8 md:p-12 inline-block border border-primary/20 shadow-2xl">
-            <h2 className="text-2xl md:text-4xl font-headline italic font-bold text-foreground mb-6">
+          <div className="bg-black/20 backdrop-blur-sm p-8 md:p-12 inline-block border border-white/10 shadow-2xl">
+            <h2 className="text-3xl md:text-5xl font-headline italic font-bold text-white mb-6 drop-shadow-lg">
               "O Toque de Arte que seu Look Precisa"
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/catalog">
-                <Button className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg border-none">
+                <Button className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-xl border-none">
                   Explorar Coleção
                 </Button>
               </Link>
               <Link href="/sobre">
-                <Button variant="outline" className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs border-primary text-primary hover:bg-white/40">
+                <Button variant="outline" className="rounded-none h-14 md:h-16 px-10 md:px-14 tracking-[0.2em] uppercase font-bold text-xs border-white text-white hover:bg-white/20">
                   Nosso Manifesto
                 </Button>
               </Link>
@@ -150,26 +150,6 @@ export default function Home() {
           </div>
         </section>
       )}
-
-      {/* Valores da Marca */}
-      <section className="py-16 md:py-24 border-t bg-background">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 text-center">
-            <div className="space-y-3 md:space-y-4">
-              <h4 className="text-xs md:text-sm tracking-[0.3em] font-bold text-primary">ATEMPORALIDADE</h4>
-              <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">Enquanto a moda é passageira, o brilho do cristal é eterno. Nossas peças definem eras.</p>
-            </div>
-            <div className="space-y-3 md:space-y-4">
-              <h4 className="text-xs md:text-sm tracking-[0.3em] font-bold text-primary">EXCLUSIVIDADE</h4>
-              <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">Cada bolsa StarBright é numerada e feita sob encomenda, garantindo que sua peça seja única.</p>
-            </div>
-            <div className="space-y-3 md:space-y-4">
-              <h4 className="text-xs md:text-sm tracking-[0.3em] font-bold text-primary">VERSATILIDADE CHIC</h4>
-              <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">Da Marina de Cascais a eventos de gala em Lisboa, a protagonista silenciosa de qualquer silhueta.</p>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
