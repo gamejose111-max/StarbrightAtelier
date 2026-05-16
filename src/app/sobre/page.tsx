@@ -1,4 +1,6 @@
 
+'use client';
+
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Gem, Sparkles, Star } from 'lucide-react';
@@ -29,9 +31,6 @@ export default function SobrePage() {
               <section className="space-y-6">
                 <p>
                   Nossas artesãs entrelaçam, fio a fio, milhares de pequenas esferas de vidro, criando texturas que evocam a sofisticação das joias vintage com a modernidade do design contemporâneo. 
-                </p>
-                <p className="italic text-primary-foreground bg-primary/10 p-6 border-l-4 border-primary">
-                  "O resultado? Uma textura fluida, quase líquida, que desliza sobre o corpo com a elegância de uma segunda pele."
                 </p>
               </section>
 
