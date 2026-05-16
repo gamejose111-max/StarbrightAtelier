@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Star, Loader2, Sparkles } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-// Imagem oficial do Ateliê (Mesa com rosas e selo)
+// Imagem oficial do Ateliê atualizada com o novo link
 const HERO_IMAGE_URL = PlaceHolderImages.find(p => p.id === 'company-image')?.imageUrl || "https://fv5-5.files.fm/thumb_show.php?i=8tzhwcustm&view&v=1&PHPSESSID=af5af501aef333578a573eacd4eebbb26881e73f";
 
 export default function Home() {
@@ -35,13 +35,14 @@ export default function Home() {
             fill 
             className="object-cover" 
             priority
+            unoptimized={true}
           />
         </div>
 
         {/* Conteúdo posicionado para não obstruir o centro da imagem */}
         <div className="container mx-auto px-4 relative z-10 text-center mt-auto pb-24 animate-fadeUp">
           <div className="p-8 md:p-12 inline-block">
-            <h2 className="text-3xl md:text-5xl font-headline italic font-bold text-foreground mb-8 drop-shadow-sm uppercase tracking-widest">
+            <h2 className="text-3xl md:text-5xl font-headline italic font-bold text-foreground mb-8 drop-shadow-md uppercase tracking-widest">
               "O Toque de Arte que seu Look Precisa"
             </h2>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
