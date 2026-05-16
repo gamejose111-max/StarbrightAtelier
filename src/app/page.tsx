@@ -10,9 +10,7 @@ import { ArrowRight, Star, Loader2, Sparkles } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 // Imagem oficial do Ateliê com fallbacks de segurança
-const HERO_IMAGE_URL = PlaceHolderImages.find(p => p.id === 'company-image')?.imageUrl || 
-                       PlaceHolderImages.find(p => p.id === 'hero-bag')?.imageUrl ||
-                       "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070";
+const HERO_IMAGE_URL = "https://instagram.fopo3-1.fna.fbcdn.net/v/t51.82787-15/698705765_18087407699183921_4944892723646332832_n.webp?_nc_cat=110&ig_cache_key=Mzg5ODIyMjcyNTU0OTE1ODYyNA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQueHBpZHMuMTQ0MC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=AGpuJodQKKwQ7kNvwHhXUNE&_nc_oc=Ado6ExKs8RhfqRwVFSbXs-w-Md8uhHrJf1XqdHD8_Fli9Pbb0v4wpZ2ZNvLHrQkQM74&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fopo3-1.fna&_nc_gid=9vQ1_tc7QGKpSUYz8uFIPA&_nc_ss=7a22e&oh=00_Af4lSY-_Gwx_zt5O5bp2BFFPq2qW3r6_NSXXAwYuYGZqeQ&oe=6A0E20A1";
 
 export default function Home() {
   const firestore = useFirestore();
@@ -41,11 +39,11 @@ export default function Home() {
           />
         </div>
 
-        {/* Conteúdo posicionado com Nome da Empresa Profissional e Top */}
+        {/* Conteúdo posicionado com Nome da Empresa Profissional Ultra HD */}
         <div className="container mx-auto px-4 relative z-10 text-center mt-auto pb-32 animate-fadeUp">
           <div className="space-y-8">
             <div className="space-y-4">
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-headline font-bold text-white drop-shadow-[0_10px_20px_rgba(0,0,0,1)] drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] uppercase tracking-[0.3em] leading-tight">
+              <h1 className="text-5xl md:text-7xl font-headline font-bold text-white drop-shadow-[0_10px_20px_rgba(0,0,0,1)] drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] uppercase tracking-[0.3em] leading-tight">
                 Ateliê <br className="sm:hidden" /> <span className="text-primary drop-shadow-[0_10px_25px_rgba(0,0,0,1)] drop-shadow-[0_0_40px_rgba(232,186,48,0.4)]">Starbright</span>
               </h1>
             </div>
